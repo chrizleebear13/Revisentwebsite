@@ -1,0 +1,12 @@
+# Robots.txt for Revisent
+# https://revisent.com
+
+User-agent: *
+Allow: /
+
+# Sitemap location
+Sitemap: https://revisent.com/sitemap.xml
+
+# Crawl-delay (optional, be polite to crawlers)
+Crawl-delay: 1
+
