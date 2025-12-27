@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Contact Us | Book a Demo - Revisent</title>
+  <meta name="description" content="Get in touch with Revisent. Schedule a demo and see Revi in action. Experience real-time detection, contamination reduction, and waste intelligence.">
+  <meta name="author" content="Revisent">
+  <link rel="canonical" href="https://revisent.com/contact">
+  
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://revisent.com/contact">
+  <meta property="og:title" content="Contact Revisent | Book a Demo">
+  <meta property="og:image" content="https://revisent.com/assets/Revisentlogo.png">
+  
+  <link rel="icon" type="image/png" href="./assets/Revisentfav.png">
+  <link rel="apple-touch-icon" href="./assets/Revisentfav.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="./styles.css">
+</head>
+<body>
+  <!-- Header -->
+  <header class="header" id="header">
+    <nav class="container nav">
+      <a href="/" class="nav-logo"><img src="./assets/Revisentlogo.png" alt="Revisent Logo"></a>
+      <div class="nav-links">
+        <a href="/" class="nav-link">Home</a>
+        <a href="./revi.html" class="nav-link">Revi Device</a>
+        <a href="./dashboard.html" class="nav-link">Dashboard</a>
+        <div class="nav-dropdown">
+          <button class="nav-link">Solutions ▾</button>
+          <div class="nav-dropdown-menu">
+            <a href="./solutions/mrfs.html" class="nav-dropdown-item">MRFs</a>
+            <a href="./solutions/waste-auditors.html" class="nav-dropdown-item">Waste Auditors</a>
+            <a href="./solutions/campuses.html" class="nav-dropdown-item">Campuses & Offices</a>
+          </div>
+        </div>
+        <a href="./case-studies.html" class="nav-link">Case Studies</a>
+        <a href="./about.html" class="nav-link">About</a>
+        <a href="./partners.html" class="nav-link">Partners</a>
+      </div>
+      <div class="nav-actions">
+        <a href="./contact.html" class="btn btn-ghost btn-sm">Contact</a>
+        <a href="./demo.html" class="btn btn-primary btn-sm">Book a Pilot</a>
+      </div>
+      <button class="nav-toggle" id="nav-toggle" aria-label="Toggle menu">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line>
+        </svg>
+      </button>
+    </nav>
+    <div class="mobile-menu" id="mobile-menu">
+      <div class="container">
+        <a href="/" class="mobile-menu-link">Home</a>
+        <a href="./revi.html" class="mobile-menu-link">Revi Device</a>
+        <a href="./dashboard.html" class="mobile-menu-link">Dashboard</a>
+        <a href="./solutions/mrfs.html" class="mobile-menu-link">MRFs</a>
+        <a href="./solutions/waste-auditors.html" class="mobile-menu-link">Waste Auditors</a>
+        <a href="./solutions/campuses.html" class="mobile-menu-link">Campuses & Offices</a>
+        <a href="./case-studies.html" class="mobile-menu-link">Case Studies</a>
+        <a href="./about.html" class="mobile-menu-link">About</a>
+        <a href="./partners.html" class="mobile-menu-link">Partners</a>
+        <a href="./demo.html" class="btn btn-primary" style="margin-top: 1rem; width: 100%;">Book a Pilot</a>
+      </div>
+    </div>
+  </header>
+
+  <!-- Page Header -->
+  <section class="page-header bg-white">
+    <div class="container text-center">
+      <h1 class="page-title">See Revi in Action</h1>
+      <p class="page-subtitle">Experience real-time detection, contamination reduction, and waste intelligence.</p>
+    </div>
+  </section>
+
+  <!-- Contact Section -->
+  <section class="section-padding bg-muted">
+    <div class="container">
+      <div class="grid gap-16 lg:grid-cols-1" style="max-width: 720px; margin: 0 auto;">
+        <!-- Form -->
+        <div class="feature-card">
+          <h2 style="font-size: 1.5rem; font-weight: 700; margin-bottom: 2rem;">Schedule a Demo</h2>
+          <form action="mailto:nayan@revisent.com,chris@revisent.com" method="POST" enctype="text/plain">
+            <div class="grid gap-6 md:grid-cols-2">
+              <div class="form-group">
+                <label class="form-label">First Name</label>
+                <input type="text" name="first_name" class="form-input" required>
+              </div>
+              <div class="form-group">
+                <label class="form-label">Last Name</label>
+                <input type="text" name="last_name" class="form-input" required>
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="form-label">Work Email</label>
+              <input type="email" name="email" class="form-input" required>
+            </div>
+            <div class="form-group">
+              <label class="form-label">Company</label>
+              <input type="text" name="company" class="form-input" required>
+            </div>
+            <div class="form-group">
+              <label class="form-label">I'm interested in...</label>
+              <select class="form-select" name="interest">
+                <option value="mrf">MRF Solutions</option>
+                <option value="waste-auditing">Waste Auditing</option>
+                <option value="campus-office">Campus/Office Deployment</option>
+                <option value="partnership">Partnership</option>
+                <option value="other">Other</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label class="form-label">Message</label>
+              <textarea class="form-textarea" name="message" rows="4"></textarea>
+            </div>
+            <button type="submit" class="btn btn-primary btn-lg" style="width: 100%;">
+              Request Demo
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+            </button>
+            <p style="margin-top: 1rem; font-size: 0.95rem; color: var(--muted-foreground); text-align: center;">
+              Prefer to book directly? <a href="https://calendly.com/revisent/demo" style="color: var(--primary); font-weight: 600;">Pick a time</a>.
+            </p>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <a href="/" class="footer-logo"><img src="./assets/Revisentlogo.png" alt="Revisent Logo"></a>
+          <p class="footer-tagline">AI-powered waste intelligence for contamination reduction and operational efficiency.</p>
+        </div>
+        <div>
+          <h4 class="footer-heading">Navigation</h4>
+          <div class="footer-links">
+            <a href="/" class="footer-link">Home</a>
+            <a href="./revi.html" class="footer-link">Revi Device</a>
+            <a href="./dashboard.html" class="footer-link">Dashboard</a>
+            <a href="./about.html" class="footer-link">About</a>
+          </div>
+        </div>
+        <div>
+          <h4 class="footer-heading">Solutions</h4>
+          <div class="footer-links">
+            <a href="./solutions/mrfs.html" class="footer-link">MRFs</a>
+            <a href="./solutions/waste-auditors.html" class="footer-link">Waste Auditors</a>
+            <a href="./solutions/campuses.html" class="footer-link">Campuses & Offices</a>
+          </div>
+        </div>
+        <div>
+          <h4 class="footer-heading">Company</h4>
+          <div class="footer-links">
+            <a href="./investors.html" class="footer-link">Investors</a>
+            <a href="./partners.html" class="footer-link">Partners</a>
+            <a href="./press.html" class="footer-link">Press</a>
+            <a href="./careers.html" class="footer-link">Careers</a>
+            <a href="./esg.html" class="footer-link">ESG & Reporting</a>
+          </div>
+        </div>
+        <div>
+          <h4 class="footer-heading">Legal</h4>
+          <div class="footer-links">
+            <a href="./privacy.html" class="footer-link">Privacy Policy</a>
+            <a href="./terms.html" class="footer-link">Terms of Service</a>
+          </div>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p class="footer-copyright">© 2025 Revisent. All rights reserved.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    const header = document.getElementById('header');
+    window.addEventListener('scroll', () => header.classList.toggle('scrolled', window.scrollY > 20));
+    document.getElementById('nav-toggle').addEventListener('click', () => document.getElementById('mobile-menu').classList.toggle('open'));
+  </script>
+</body>
+</html>

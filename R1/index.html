@@ -1,0 +1,455 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Revisent | AI Waste Sorting & Contamination Reduction for MRFs</title>
+  <meta name="description" content="Revisent delivers AI-powered waste sorting, automated waste auditing, and contamination reduction for Material Recovery Facilities. Improve recycling accuracy, optimize routes, and increase MRF efficiency.">
+  <meta name="keywords" content="AI waste sorting, AI waste auditing, MRF contamination reduction, recycling contamination monitoring, waste intelligence platform, smart waste detector, waste route optimization, recycling AI technology">
+  <meta name="author" content="Revisent">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://revisent.com">
+  
+  <!-- Open Graph -->
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://revisent.com">
+  <meta property="og:title" content="Revisent | AI Waste Sorting & Contamination Reduction Platform">
+  <meta property="og:description" content="AI-powered waste intelligence for MRFs, waste auditors, and facilities. Reduce contamination, improve sorting accuracy, and optimize operations.">
+  <meta property="og:image" content="https://revisent.com/assets/Revisentlogo.png">
+  <meta property="og:site_name" content="Revisent">
+  
+  <!-- Twitter -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:url" content="https://revisent.com">
+  <meta name="twitter:title" content="Revisent | AI Waste Sorting & Contamination Reduction">
+  <meta name="twitter:description" content="AI-powered waste intelligence for MRFs and recycling facilities. Reduce contamination and improve operational efficiency.">
+  <meta name="twitter:image" content="https://revisent.com/assets/Revisentlogo.png">
+  
+  <!-- Structured Data -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    "name": "Revisent",
+    "description": "AI-powered waste intelligence platform for contamination reduction and MRF optimization",
+    "url": "https://revisent.com",
+    "logo": "https://revisent.com/assets/Revisentlogo.png",
+    "contactPoint": {
+      "@type": "ContactPoint",
+      "contactType": "sales",
+      "email": "contact@revisent.com"
+    }
+  }
+  </script>
+  
+  <!-- Favicon -->
+  <link rel="icon" type="image/png" href="./assets/Revisentfav.png">
+  <link rel="apple-touch-icon" href="./assets/Revisentfav.png">
+  
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;900&display=swap" rel="stylesheet">
+  
+  <!-- Styles -->
+  <link rel="stylesheet" href="./styles.css">
+</head>
+<body>
+  <!-- Header -->
+  <header class="header" id="header">
+    <nav class="container nav">
+      <a href="/" class="nav-logo" aria-label="Revisent - AI Waste Intelligence Platform">
+        <img src="./assets/Revisentlogo.png" alt="Revisent Logo">
+      </a>
+      
+      <div class="nav-links">
+        <a href="/" class="nav-link active">Home</a>
+        
+        <a href="./dashboard.html" class="nav-link">Dashboard</a>
+        <div class="nav-dropdown">
+          <button class="nav-link">Solutions ▾</button>
+          <div class="nav-dropdown-menu">
+            <a href="./solutions/mrfs.html" class="nav-dropdown-item">MRFs</a>
+            <a href="./solutions/waste-auditors.html" class="nav-dropdown-item">Waste Auditors</a>
+            <a href="./solutions/campuses.html" class="nav-dropdown-item">Campuses & Offices</a>
+          </div>
+        </div>
+        <a href="./case-studies.html" class="nav-link">Case Studies</a>
+        <a href="./about.html" class="nav-link">About</a>
+        
+      </div>
+      
+      <div class="nav-actions">
+        <a href="./contact.html" class="btn btn-ghost btn-sm">Contact</a>
+        <a href="./demo.html" class="btn btn-primary btn-sm">Book a Pilot</a>
+      </div>
+      
+      <button class="nav-toggle" id="nav-toggle" aria-label="Toggle mobile menu">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <line x1="3" y1="12" x2="21" y2="12"></line>
+          <line x1="3" y1="6" x2="21" y2="6"></line>
+          <line x1="3" y1="18" x2="21" y2="18"></line>
+        </svg>
+      </button>
+    </nav>
+    
+    <!-- Mobile Menu -->
+    <div class="mobile-menu" id="mobile-menu">
+      <div class="container">
+        <a href="/" class="mobile-menu-link">Home</a>
+        
+        <a href="./dashboard.html" class="mobile-menu-link">Dashboard</a>
+        <a href="./solutions/mrfs.html" class="mobile-menu-link">MRFs</a>
+        <a href="./solutions/waste-auditors.html" class="mobile-menu-link">Waste Auditors</a>
+        <a href="./solutions/campuses.html" class="mobile-menu-link">Campuses & Offices</a>
+        <a href="./case-studies.html" class="mobile-menu-link">Case Studies</a>
+        <a href="./about.html" class="mobile-menu-link">About</a>
+        
+        <a href="./contact.html" class="mobile-menu-link">Contact</a>
+        <a href="./demo.html" class="btn btn-primary" style="margin-top: 1rem; width: 100%;">Book a Pilot</a>
+      </div>
+    </div>
+  </header>
+
+  <!-- Hero Section -->
+  <section class="hero">
+    <div class="container hero-content">
+      <h1 class="hero-title animate-slide-up">
+        Turn everyday waste into<br>
+        <span class="text-primary">real-time insights.</span>
+      </h1>
+      <p class="hero-subtitle animate-slide-up animation-delay-100">
+        Real-time AI waste detection that eliminates confusion, reduces contamination fees, and gives MRFs, auditors, and campuses the verifiable data they need for ESG and operations.
+      </p>
+      <div class="hero-actions animate-slide-up animation-delay-200">
+        <a href="./demo.html" class="btn btn-primary btn-xl">
+          Book a Pilot
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+        </a>
+        <a href="#deployment" class="btn btn-outline btn-xl">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+          See Deployment Steps
+        </a>
+      </div>
+      <div class="animate-scale-in animation-delay-300">
+        <img src="./assets/R1.png" alt="Revi smart waste detector" class="hero-image">
+      </div>
+    </div>
+  </section>
+
+  <!-- Stats Bar -->
+  <section class="bg-primary stats-section">
+    <div class="container stats-bar">
+      <div class="stat-item">
+        <div class="stat-value">45%</div>
+        <div class="stat-label">Contamination Reduction</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-value">6,000</div>
+        <div class="stat-label">Monthly Interactions Per Unit</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-value">$180k+</div>
+        <div class="stat-label">In Prevented Annual Penalties</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Partners Image -->
+  <section class="partners-banner">
+    <div class="container">
+      <h2 class="section-title partners-heading" style="text-align:center; padding-top:2rem;">Our partners</h2>
+      <img src="./assets/partners.jpg" alt="Revisent partners and pilot sites" class="partners-image">
+    </div>
+  </section>
+
+  <!-- How It Works Section -->
+  <section class="section-padding bg-white" id="dashboard">
+    <div class="container section-surface">
+      <div class="section-header">
+        <h2 class="section-title">How Revi Works</h2>
+        <p class="section-subtitle">Simple. Accurate. Automatic.</p>
+      </div>
+      
+      <div class="grid gap-8 md:grid-cols-3">
+        <div class="feature-card text-center">
+          <div class="feature-icon center">
+            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M3 7V5a2 2 0 0 1 2-2h2"/>
+              <path d="M17 3h2a2 2 0 0 1 2 2v2"/>
+              <path d="M21 17v2a2 2 0 0 1-2 2h-2"/>
+              <path d="M7 21H5a2 2 0 0 1-2-2v-2"/>
+            </svg>
+          </div>
+          <h3 class="feature-title">Instant AI Detection</h3>
+          <p class="feature-description">Real-time waste identification using advanced computer vision.</p>
+        </div>
+        
+        <div class="feature-card text-center">
+          <div class="feature-icon center">
+            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M15 14c.2-1 .7-1.7 1.5-2.5 1-.9 1.5-2.2 1.5-3.5A6 6 0 0 0 6 8c0 1 .2 2.2 1.5 3.5.7.7 1.3 1.5 1.5 2.5"/>
+              <path d="M9 18h6"/>
+              <path d="M10 22h4"/>
+            </svg>
+          </div>
+          <h3 class="feature-title">LED Sorting Guidance</h3>
+          <p class="feature-description">Color-coded visual feedback tells users exactly where items belong.</p>
+        </div>
+        
+        <div class="feature-card text-center">
+          <div class="feature-icon center">
+            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <rect width="8" height="4" x="8" y="2" rx="1" ry="1"/>
+              <path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/>
+              <path d="m9 14 2 2 4-4"/>
+            </svg>
+          </div>
+          <h3 class="feature-title">Automated Waste Auditing</h3>
+          <p class="feature-description">Continuous monitoring replaces manual sampling processes.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Benefits Section -->
+  <section class="section-padding bg-muted">
+    <div class="container section-surface section-surface-alt">
+      <div class="section-header">
+        <h2 class="section-title">
+          The Smartest Way to Sort Waste —<br>
+          <span class="text-primary">Before It Becomes a Problem.</span>
+        </h2>
+      </div>
+      
+      <div class="grid gap-8 md:grid-cols-2 lg:grid-cols-4">
+        <div class="text-center">
+          <div class="feature-icon center" style="width: 3.5rem; height: 3.5rem;">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/>
+            </svg>
+          </div>
+          <h3 class="feature-title" style="font-size: 1.125rem;">Reduce Contamination</h3>
+          <p class="feature-description" style="font-size: 0.875rem;">AI-powered detection prevents sorting errors at the source.</p>
+        </div>
+        
+        <div class="text-center">
+          <div class="feature-icon center" style="width: 3.5rem; height: 3.5rem;">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/>
+              <polyline points="22 4 12 14.01 9 11.01"/>
+            </svg>
+          </div>
+          <h3 class="feature-title" style="font-size: 1.125rem;">Improve Accuracy</h3>
+          <p class="feature-description" style="font-size: 0.875rem;">Real-time feedback ensures correct disposal every time.</p>
+        </div>
+        
+        <div class="text-center">
+          <div class="feature-icon center" style="width: 3.5rem; height: 3.5rem;">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <line x1="12" y1="1" x2="12" y2="23"/>
+              <path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/>
+            </svg>
+          </div>
+          <h3 class="feature-title" style="font-size: 1.125rem;">Lower Operational Costs</h3>
+          <p class="feature-description" style="font-size: 0.875rem;">Automated auditing eliminates manual labor expenses.</p>
+        </div>
+        
+        <div class="text-center">
+          <div class="feature-icon center" style="width: 3.5rem; height: 3.5rem;">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M3 3v16a2 2 0 0 0 2 2h16"/>
+              <path d="M18 17V9"/>
+              <path d="M13 17V5"/>
+              <path d="M8 17v-3"/>
+            </svg>
+          </div>
+          <h3 class="feature-title" style="font-size: 1.125rem;">Capture Real-Time Data</h3>
+          <p class="feature-description" style="font-size: 0.875rem;">Continuous waste composition analytics for better decisions.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <a href="/" class="footer-logo">
+            <img src="./assets/Revisentlogo.png" alt="Revisent Logo">
+          </a>
+          <p class="footer-tagline">AI-powered waste intelligence for contamination reduction and operational efficiency.</p>
+          <div class="footer-social">
+            <a href="https://www.linkedin.com" class="footer-social-link" aria-label="LinkedIn" target="_blank" rel="noreferrer">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/>
+                <rect width="4" height="12" x="2" y="9"/><circle cx="4" cy="4" r="2"/>
+              </svg>
+            </a>
+            <a href="https://twitter.com" class="footer-social-link" aria-label="Twitter" target="_blank" rel="noreferrer">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M22 4s-.7 2.1-2 3.4c1.6 10-9.4 17.3-18 11.6 2.2.1 4.4-.6 6-2C3 15.5.5 9.6 3 5c2.2 2.6 5.6 4.1 9 4-.9-4.2 4-6.6 7-3.8 1.1 0 3-1.2 3-1.2z"/>
+              </svg>
+            </a>
+          </div>
+        </div>
+        
+        <div>
+          <h4 class="footer-heading">Navigation</h4>
+          <div class="footer-links">
+            <a href="/" class="footer-link">Home</a>
+            
+            <a href="./dashboard.html" class="footer-link">Dashboard</a>
+            <a href="./case-studies.html" class="footer-link">Case Studies</a>
+            <a href="./about.html" class="footer-link">About</a>
+            <a href="./contact.html" class="footer-link">Contact</a>
+          </div>
+        </div>
+        
+        <div>
+          <h4 class="footer-heading">Solutions</h4>
+          <div class="footer-links">
+            <a href="./solutions/mrfs.html" class="footer-link">MRFs</a>
+            <a href="./solutions/waste-auditors.html" class="footer-link">Waste Auditors</a>
+            <a href="./solutions/campuses.html" class="footer-link">Campuses & Offices</a>
+          </div>
+        </div>
+        
+        <div>
+          <h4 class="footer-heading">Company</h4>
+          <div class="footer-links">
+            <a href="./investors.html" class="footer-link">Investors</a>
+            
+            <a href="./press.html" class="footer-link">Press</a>
+            <a href="./careers.html" class="footer-link">Careers</a>
+            <a href="./esg.html" class="footer-link">ESG & Reporting</a>
+          </div>
+        </div>
+        
+        <div>
+          <h4 class="footer-heading">Legal</h4>
+          <div class="footer-links">
+            <a href="./privacy.html" class="footer-link">Privacy Policy</a>
+            <a href="./terms.html" class="footer-link">Terms of Service</a>
+          </div>
+        </div>
+      </div>
+      
+      <div class="footer-bottom">
+        <p class="footer-copyright">© 2025 Revisent. All rights reserved.</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+  <script>
+    // Header scroll effect
+    const header = document.getElementById('header');
+    window.addEventListener('scroll', () => {
+      if (window.scrollY > 20) {
+        header.classList.add('scrolled');
+      } else {
+        header.classList.remove('scrolled');
+      }
+    });
+
+    // Mobile menu toggle
+    const navToggle = document.getElementById('nav-toggle');
+    const mobileMenu = document.getElementById('mobile-menu');
+    navToggle.addEventListener('click', () => {
+      mobileMenu.classList.toggle('open');
+    });
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <a href="/" class="footer-logo">
+            <img src="./assets/Revisentlogo.png" alt="Revisent Logo">
+          </a>
+          <p class="footer-tagline">AI-powered waste intelligence for contamination reduction and operational efficiency.</p>
+          <div class="footer-social">
+            <a href="https://www.linkedin.com" class="footer-social-link" aria-label="LinkedIn" target="_blank" rel="noreferrer">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/>
+                <rect width="4" height="12" x="2" y="9"/><circle cx="4" cy="4" r="2"/>
+              </svg>
+            </a>
+            <a href="https://twitter.com" class="footer-social-link" aria-label="Twitter" target="_blank" rel="noreferrer">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M22 4s-.7 2.1-2 3.4c1.6 10-9.4 17.3-18 11.6 2.2.1 4.4-.6 6-2C3 15.5.5 9.6 3 5c2.2 2.6 5.6 4.1 9 4-.9-4.2 4-6.6 7-3.8 1.1 0 3-1.2 3-1.2z"/>
+              </svg>
+            </a>
+          </div>
+        </div>
+        
+        <div>
+          <h4 class="footer-heading">Navigation</h4>
+          <div class="footer-links">
+            <a href="/" class="footer-link">Home</a>
+            <a href="" class="footer-link">Revi Device</a>
+            <a href="./dashboard.html" class="footer-link">Dashboard</a>
+            <a href="./case-studies.html" class="footer-link">Case Studies</a>
+            <a href="./about.html" class="footer-link">About</a>
+            <a href="./contact.html" class="footer-link">Contact</a>
+          </div>
+        </div>
+        
+        <div>
+          <h4 class="footer-heading">Solutions</h4>
+          <div class="footer-links">
+            <a href="./solutions/mrfs.html" class="footer-link">MRFs</a>
+            <a href="./solutions/waste-auditors.html" class="footer-link">Waste Auditors</a>
+            <a href="./solutions/campuses.html" class="footer-link">Campuses & Offices</a>
+          </div>
+        </div>
+        
+        <div>
+          <h4 class="footer-heading">Company</h4>
+          <div class="footer-links">
+            <a href="./investors.html" class="footer-link">Investors</a>
+            <a href="./press.html" class="footer-link">Press</a>
+            <a href="./careers.html" class="footer-link">Careers</a>
+            <a href="./esg.html" class="footer-link">ESG & Reporting</a>
+          </div>
+        </div>
+        
+        <div>
+          <h4 class="footer-heading">Legal</h4>
+          <div class="footer-links">
+            <a href="./privacy.html" class="footer-link">Privacy Policy</a>
+            <a href="./terms.html" class="footer-link">Terms of Service</a>
+          </div>
+        </div>
+      </div>
+      
+      <div class="footer-bottom">
+        <p class="footer-copyright">© 2025 Revisent. All rights reserved.</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+  <script>
+    // Header scroll effect
+    const header = document.getElementById('header');
+    window.addEventListener('scroll', () => {
+      if (window.scrollY > 20) {
+        header.classList.add('scrolled');
+      } else {
+        header.classList.remove('scrolled');
+      }
+    });
+
+    // Mobile menu toggle
+    const navToggle = document.getElementById('nav-toggle');
+    const mobileMenu = document.getElementById('mobile-menu');
+    navToggle.addEventListener('click', () => {
+      mobileMenu.classList.toggle('open');
+    });
+
+  </script>
+</body>
+</html>
