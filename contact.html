@@ -42,7 +42,7 @@
       </div>
       <div class="nav-actions">
         <a href="./contact.html" class="btn btn-ghost btn-sm">Contact</a>
-        <a href="./demo.html" class="btn btn-primary btn-sm">Book a Demo</a>
+        <a href="./demo.html" class="btn btn-primary btn-sm">Book a Pilot</a>
       </div>
       <button class="nav-toggle" id="nav-toggle" aria-label="Toggle menu">
         <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -60,7 +60,7 @@
         <a href="./solutions/campuses.html" class="mobile-menu-link">Campuses & Offices</a>
         <a href="./case-studies.html" class="mobile-menu-link">Case Studies</a>
         <a href="./about.html" class="mobile-menu-link">About</a>
-        <a href="./demo.html" class="btn btn-primary" style="margin-top: 1rem; width: 100%;">Book a Demo</a>
+        <a href="./demo.html" class="btn btn-primary mobile-menu-cta">Book a Pilot</a>
       </div>
     </div>
   </header>
@@ -76,110 +76,51 @@
   <!-- Contact Section -->
   <section class="section-padding bg-muted">
     <div class="container">
-      <div class="grid gap-16 lg:grid-cols-2">
+      <div class="grid gap-16 lg:grid-cols-1" style="max-width: 720px; margin: 0 auto;">
         <!-- Form -->
         <div class="feature-card">
           <h2 style="font-size: 1.5rem; font-weight: 700; margin-bottom: 2rem;">Schedule a Demo</h2>
-          <form>
+          <form action="mailto:nayan@revisent.com,chris@revisent.com" method="POST" enctype="text/plain">
             <div class="grid gap-6 md:grid-cols-2">
               <div class="form-group">
                 <label class="form-label">First Name</label>
-                <input type="text" class="form-input" required>
+                <input type="text" name="first_name" class="form-input" required>
               </div>
               <div class="form-group">
                 <label class="form-label">Last Name</label>
-                <input type="text" class="form-input" required>
+                <input type="text" name="last_name" class="form-input" required>
               </div>
             </div>
             <div class="form-group">
               <label class="form-label">Work Email</label>
-              <input type="email" class="form-input" required>
+              <input type="email" name="email" class="form-input" required>
             </div>
             <div class="form-group">
               <label class="form-label">Company</label>
-              <input type="text" class="form-input" required>
+              <input type="text" name="company" class="form-input" required>
             </div>
             <div class="form-group">
               <label class="form-label">I'm interested in...</label>
-              <select class="form-select">
-                <option>MRF Solutions</option>
-                <option>Waste Auditing</option>
-                <option>Campus/Office Deployment</option>
-                <option>Partnership</option>
-                <option>Other</option>
+              <select class="form-select" name="interest">
+                <option value="mrf">MRF Solutions</option>
+                <option value="waste-auditing">Waste Auditing</option>
+                <option value="campus-office">Campus/Office Deployment</option>
+                <option value="partnership">Partnership</option>
+                <option value="other">Other</option>
               </select>
             </div>
             <div class="form-group">
               <label class="form-label">Message</label>
-              <textarea class="form-textarea" rows="4"></textarea>
+              <textarea class="form-textarea" name="message" rows="4"></textarea>
             </div>
             <button type="submit" class="btn btn-primary btn-lg" style="width: 100%;">
               Request Demo
               <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
             </button>
+            <p style="margin-top: 1rem; font-size: 0.95rem; color: var(--muted-foreground); text-align: center;">
+              Prefer to book directly? <a href="https://calendly.com/revisent/demo" style="color: var(--primary); font-weight: 600;">Pick a time</a>.
+            </p>
           </form>
-        </div>
-        
-        <!-- Contact Info -->
-        <div>
-          <h2 style="font-size: 1.5rem; font-weight: 700; margin-bottom: 2rem;">Get in Touch</h2>
-          <div style="display: flex; flex-direction: column; gap: 1.5rem;">
-            <div style="display: flex; align-items: flex-start; gap: 1rem;">
-              <div class="feature-icon" style="width: 3rem; height: 3rem; flex-shrink: 0;">
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                  <rect width="20" height="16" x="2" y="4" rx="2"/>
-                  <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/>
-                </svg>
-              </div>
-              <div>
-                <h3 style="font-weight: 700; margin-bottom: 0.25rem;">Email</h3>
-                <a href="mailto:hello@revisent.com" style="color: var(--primary);">hello@revisent.com</a>
-              </div>
-            </div>
-            
-            <div style="display: flex; align-items: flex-start; gap: 1rem;">
-              <div class="feature-icon" style="width: 3rem; height: 3rem; flex-shrink: 0;">
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                  <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/>
-                </svg>
-              </div>
-              <div>
-                <h3 style="font-weight: 700; margin-bottom: 0.25rem;">Phone</h3>
-                <a href="tel:+1-555-REVISENT" style="color: var(--primary);">+1 (555) REVISENT</a>
-              </div>
-            </div>
-            
-            <div style="display: flex; align-items: flex-start; gap: 1rem;">
-              <div class="feature-icon" style="width: 3rem; height: 3rem; flex-shrink: 0;">
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                  <path d="M20 10c0 4.993-5.539 10.193-7.399 11.799a1 1 0 0 1-1.202 0C9.539 20.193 4 14.993 4 10a8 8 0 0 1 16 0"/>
-                  <circle cx="12" cy="10" r="3"/>
-                </svg>
-              </div>
-              <div>
-                <h3 style="font-weight: 700; margin-bottom: 0.25rem;">Location</h3>
-                <p style="color: var(--muted-foreground);">Los Angeles, California</p>
-              </div>
-            </div>
-          </div>
-          
-          <div style="margin-top: 3rem; padding: 2rem; background-color: var(--background); border-radius: var(--radius); border: 1px solid var(--border);">
-            <h3 style="font-weight: 700; margin-bottom: 1.5rem;">What to Expect</h3>
-            <div class="grid" style="grid-template-columns: repeat(3, 1fr); gap: 1rem; text-align: center;">
-              <div>
-                <div style="font-size: 1.5rem; font-weight: 900; color: var(--primary);">&lt;30 min</div>
-                <div style="font-size: 0.875rem; color: var(--muted-foreground);">Demo</div>
-              </div>
-              <div>
-                <div style="font-size: 1.5rem; font-weight: 900; color: var(--primary);">Free</div>
-                <div style="font-size: 0.875rem; color: var(--muted-foreground);">ROI Analysis</div>
-              </div>
-              <div>
-                <div style="font-size: 1.5rem; font-weight: 900; color: var(--primary);">24hr</div>
-                <div style="font-size: 0.875rem; color: var(--muted-foreground);">Response</div>
-              </div>
-            </div>
-          </div>
         </div>
       </div>
     </div>
@@ -214,7 +155,10 @@
           <h4 class="footer-heading">Company</h4>
           <div class="footer-links">
             <a href="./investors.html" class="footer-link">Investors</a>
+            <a href="./partners.html" class="footer-link">Partners</a>
+            <a href="./press.html" class="footer-link">Press</a>
             <a href="./careers.html" class="footer-link">Careers</a>
+            <a href="./esg.html" class="footer-link">ESG & Reporting</a>
           </div>
         </div>
         <div>
@@ -238,5 +182,3 @@
   </script>
 </body>
 </html>
-
-
