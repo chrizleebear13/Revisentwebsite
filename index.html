@@ -49,6 +49,9 @@
   <!-- Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="preconnect" href="https://assets.calendly.com">
+  <link rel="prefetch" href="https://assets.calendly.com/assets/external/widget.js">
+  <link rel="prefetch" href="https://assets.calendly.com/assets/external/widget.css">
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;900&display=swap" rel="stylesheet">
   
   <!-- Styles -->
@@ -65,11 +68,10 @@
       <div class="nav-links">
         <a href="/" class="nav-link active">Home</a>
         <a href="./revi.html" class="nav-link">Revi Device</a>
-        <a href="./dashboard.html" class="nav-link">Dashboard</a>
         <div class="nav-dropdown">
           <button class="nav-link">Solutions ▾</button>
           <div class="nav-dropdown-menu">
-            <a href="./solutions/mrfs.html" class="nav-dropdown-item">MRFs</a>
+            <a href="./solutions/mrfs.html" class="nav-dropdown-item">MRFs & Haulers</a>
             <a href="./solutions/waste-auditors.html" class="nav-dropdown-item">Waste Auditors</a>
             <a href="./solutions/campuses.html" class="nav-dropdown-item">Campuses & Offices</a>
           </div>
@@ -80,7 +82,7 @@
       
       <div class="nav-actions">
         <a href="./contact.html" class="btn btn-ghost btn-sm">Contact</a>
-        <a href="./demo.html" class="btn btn-primary btn-sm">Book a Pilot</a>
+        <a href="#" onclick="openCalendly(); return false;" class="btn btn-primary btn-sm">Book a Call</a>
       </div>
       
       <button class="nav-toggle" id="nav-toggle" aria-label="Toggle mobile menu">
@@ -97,14 +99,13 @@
       <div class="container">
         <a href="/" class="mobile-menu-link">Home</a>
         <a href="./revi.html" class="mobile-menu-link">Revi Device</a>
-        <a href="./dashboard.html" class="mobile-menu-link">Dashboard</a>
-        <a href="./solutions/mrfs.html" class="mobile-menu-link">MRFs</a>
+        <a href="./solutions/mrfs.html" class="mobile-menu-link">MRFs & Haulers</a>
         <a href="./solutions/waste-auditors.html" class="mobile-menu-link">Waste Auditors</a>
         <a href="./solutions/campuses.html" class="mobile-menu-link">Campuses & Offices</a>
         <a href="./case-studies.html" class="mobile-menu-link">Case Studies</a>
         <a href="./about.html" class="mobile-menu-link">About</a>
         <a href="./contact.html" class="mobile-menu-link">Contact</a>
-        <a href="./demo.html" class="btn btn-primary mobile-menu-cta">Book a Pilot</a>
+        <a href="#" onclick="openCalendly(); return false;" class="btn btn-primary mobile-menu-cta">Book a Call</a>
       </div>
     </div>
   </header>
@@ -120,153 +121,270 @@
         Real-time AI waste detection that eliminates confusion, reduces contamination fees, and gives MRFs, auditors, and campuses the verifiable data they need for ESG and operations.
       </p>
       <div class="hero-actions animate-slide-up animation-delay-200">
-        <a href="./demo.html" class="btn btn-primary btn-xl">
-          Book a Pilot
+        <a href="#" onclick="openCalendly(); return false;" class="btn btn-primary btn-xl">
+          Book a Call
           <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
         </a>
-        <a href="#deployment" class="btn btn-outline btn-xl">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="5 3 19 12 5 21 5 3"/></svg>
-          See Deployment Steps
+        <a href="./case-studies.html" class="btn btn-outline btn-xl">
+          View Case Studies
         </a>
       </div>
+
     </div>
   </section>
 
-  <!-- Product & Stats Section -->
+  <!-- Meet Revi Section -->
   <section class="product-stats-section">
     <div class="container product-stats-grid">
-      <div class="product-image-wrapper">
+      <div class="product-image-wrapper fade-up">
         <img src="./assets/R1.jpg" alt="Revi smart waste detector" class="product-image">
       </div>
-      <div class="product-stats">
-        <div class="product-stat-item">
-          <div class="product-stat-value">45%</div>
-          <div class="product-stat-label">Contamination Reduction</div>
-        </div>
-        <div class="product-stat-item">
-          <div class="product-stat-value">6,000</div>
-          <div class="product-stat-label">Monthly Interactions Per Unit</div>
-        </div>
-        <div class="product-stat-item">
-          <div class="product-stat-value">$180k+</div>
-          <div class="product-stat-label">In Prevented Annual Penalties</div>
+      <div class="meet-revi-content fade-up fade-up-delay-1">
+        <h2 class="meet-revi-title">Meet Revi</h2>
+        <br>
+        <p class="meet-revi-description">Revi is an AI-powered recycling device that takes the guesswork out of recycling. With real-time material recognition, it reduces contamination, maximizes efficiency, and makes recycling effortless—helping users build better habits and create measurable environmental impact.</p>
+        <br>
+        <p class="meet-revi-tagline">Designed for everyday use with minimal setup and maintenance.</p>
+        <div class="mt-6">
+          <a href="./revi.html" class="btn btn-primary">
+            Learn More
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+          </a>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- Partners Image -->
-  <section class="partners-banner">
-    <div class="container">
-      <h2 class="section-title partners-heading text-center pt-8">Our partners</h2>
-      <img src="./assets/partners.jpg" alt="Revisent partners and pilot sites" class="partners-image">
+  <!-- Backed By Industry Leaders Section -->
+  <section class="section-padding bg-white" style="padding-top: 2rem; padding-bottom: 2rem;">
+    <div class="container text-center">
+      <p class="backed-by-label">Backed by industry leaders</p>
+      <div class="logo-carousel">
+        <div class="logo-track">
+          <div class="logo-item">
+            <img src="./assets/nvidia.png" alt="NVIDIA Inception Program" class="partner-logo" style="height: 5rem;">
+          </div>
+          <div class="logo-item">
+            <img src="./assets/plugin.png" alt="Plug In Ventures" class="partner-logo">
+          </div>
+          <div class="logo-item">
+            <img src="./assets/quotient.png" alt="Quotient" class="partner-logo" style="height: 4.5rem;">
+          </div>
+          <div class="logo-item">
+            <img src="./assets/troylabs.png" alt="TroyLabs" class="partner-logo" style="height: 3.5rem;">
+          </div>
+          <div class="logo-item">
+            <img src="./assets/terreform.png" alt="Terreform" class="partner-logo">
+          </div>
+          <!-- Duplicate logos for seamless loop -->
+          <div class="logo-item">
+            <img src="./assets/nvidia.png" alt="NVIDIA Inception Program" class="partner-logo" style="height: 5rem;">
+          </div>
+          <div class="logo-item">
+            <img src="./assets/plugin.png" alt="Plug In Ventures" class="partner-logo">
+          </div>
+          <div class="logo-item">
+            <img src="./assets/quotient.png" alt="Quotient" class="partner-logo" style="height: 4.5rem;">
+          </div>
+          <div class="logo-item">
+            <img src="./assets/troylabs.png" alt="TroyLabs" class="partner-logo" style="height: 3.5rem;">
+          </div>
+          <div class="logo-item">
+            <img src="./assets/terreform.png" alt="Terreform" class="partner-logo">
+          </div>
+        </div>
+      </div>
     </div>
   </section>
 
   <!-- How It Works Section -->
-  <section class="section-padding bg-white" id="dashboard">
-    <div class="container section-surface">
+  <section class="section-padding" style="background: #f8faf9;">
+    <div class="container">
       <div class="section-header">
         <h2 class="section-title">How Revi Works</h2>
         <p class="section-subtitle">Simple. Accurate. Automatic.</p>
       </div>
-      
-      <div class="grid gap-8 md:grid-cols-3">
-        <div class="feature-card text-center">
-          <div class="feature-icon center">
-            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-              <path d="M3 7V5a2 2 0 0 1 2-2h2"/>
-              <path d="M17 3h2a2 2 0 0 1 2 2v2"/>
-              <path d="M21 17v2a2 2 0 0 1-2 2h-2"/>
-              <path d="M7 21H5a2 2 0 0 1-2-2v-2"/>
+
+      <div class="how-it-works-grid">
+        <div class="how-it-works-step fade-up">
+          <div class="step-number">1</div>
+          <div class="step-icon">
+            <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+              <path d="M14.5 4h-5L7 7H4a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2h-3l-2.5-3z"/>
+              <circle cx="12" cy="13" r="3"/>
             </svg>
           </div>
-          <h3 class="feature-title">Instant AI Detection</h3>
-          <p class="feature-description">Real-time waste identification using advanced computer vision.</p>
+          <h3 class="step-title">Show Revi an Item</h3>
+          <p class="step-description">Hold up your item and Revi's computer vision instantly identifies what material it is.</p>
         </div>
-        
-        <div class="feature-card text-center">
-          <div class="feature-icon center">
-            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+
+        <div class="step-connector fade-up fade-up-delay-1">
+          <svg width="40" height="24" viewBox="0 0 40 24" fill="none">
+            <path d="M0 12h32M32 12l-6-6M32 12l-6 6" stroke="var(--primary)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </div>
+
+        <div class="how-it-works-step fade-up fade-up-delay-1">
+          <div class="step-number">2</div>
+          <div class="step-icon">
+            <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
               <path d="M15 14c.2-1 .7-1.7 1.5-2.5 1-.9 1.5-2.2 1.5-3.5A6 6 0 0 0 6 8c0 1 .2 2.2 1.5 3.5.7.7 1.3 1.5 1.5 2.5"/>
               <path d="M9 18h6"/>
               <path d="M10 22h4"/>
             </svg>
           </div>
-          <h3 class="feature-title">LED Sorting Guidance</h3>
-          <p class="feature-description">Color-coded visual feedback tells users exactly where items belong.</p>
+          <h3 class="step-title">Get Guided</h3>
+          <p class="step-description">LED lights illuminate the correct bin while audio cues tell you exactly where to dispose.</p>
         </div>
-        
-        <div class="feature-card text-center">
-          <div class="feature-icon center">
-            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-              <rect width="8" height="4" x="8" y="2" rx="1" ry="1"/>
-              <path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/>
-              <path d="m9 14 2 2 4-4"/>
+
+        <div class="step-connector fade-up fade-up-delay-2">
+          <svg width="40" height="24" viewBox="0 0 40 24" fill="none">
+            <path d="M0 12h32M32 12l-6-6M32 12l-6 6" stroke="var(--primary)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </div>
+
+        <div class="how-it-works-step fade-up fade-up-delay-2">
+          <div class="step-number">3</div>
+          <div class="step-icon">
+            <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+              <path d="M3 3v16a2 2 0 0 0 2 2h16"/>
+              <path d="M18 17V9"/><path d="M13 17V5"/><path d="M8 17v-3"/>
             </svg>
           </div>
-          <h3 class="feature-title">Automated Waste Auditing</h3>
-          <p class="feature-description">Continuous monitoring replaces manual sampling processes.</p>
+          <h3 class="step-title">Track Your Impact</h3>
+          <p class="step-description">Every item is logged to the dashboard, showing diversion rates and environmental impact.</p>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- Benefits Section -->
-  <section class="section-padding bg-muted">
-    <div class="container section-surface section-surface-alt">
-      <div class="section-header">
-        <h2 class="section-title">
-          The Smartest Way to Sort Waste —<br>
-          <span class="text-primary">Before It Becomes a Problem.</span>
-        </h2>
+  <!-- Dashboard Demo Section -->
+  <section class="section-padding bg-white" style="padding-top: 2rem; padding-bottom: 2rem;">
+    <div class="container text-center" style="margin-bottom: 2rem;">
+      <h2 class="section-title">Waste Intelligence Dashboard</h2>
+      <p class="section-subtitle" style="max-width: 52rem;">Real-time analytics, contamination alerts, and operational insights—all in one place.</p>
+    </div>
+    <div style="max-width: 1200px; margin: 0 auto; padding: 0 1rem;">
+      <div id="home-demo-container" style="position: relative; background: #f5f7fa; border-radius: 1rem; overflow: hidden; box-shadow: 0 4px 24px rgba(0,0,0,0.1); height: 600px;">
+        <iframe id="home-demo-iframe" src="./demo-dashboard/index.html" style="width: 142.86%; height: 142.86%; border: none; display: block; transform: scale(0.7); transform-origin: top left;"></iframe>
+        <!-- Blur overlay with start button -->
+        <div id="home-demo-overlay" style="position: absolute; inset: 0; background: rgba(255,255,255,0.3); backdrop-filter: blur(8px); display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 1rem; cursor: pointer; transition: opacity 0.3s ease;" onclick="startHomeDemo()">
+          <div style="background: var(--primary, #10b981); color: white; padding: 1rem 2rem; border-radius: 0.75rem; font-weight: 600; font-size: 1.125rem; display: flex; align-items: center; gap: 0.5rem; box-shadow: 0 4px 16px rgba(16,185,129,0.3); transition: transform 0.2s ease, box-shadow 0.2s ease;" onmouseover="this.style.transform='scale(1.05)'; this.style.boxShadow='0 6px 20px rgba(16,185,129,0.4)';" onmouseout="this.style.transform='scale(1)'; this.style.boxShadow='0 4px 16px rgba(16,185,129,0.3)';">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>
+            Start Interactive Demo
+          </div>
+          <p style="color: #64748b; font-size: 0.875rem;">Click to explore the dashboard</p>
+        </div>
       </div>
-      
-      <div class="grid gap-8 md:grid-cols-2 lg:grid-cols-4">
-        <div class="text-center">
-          <div class="feature-icon feature-icon-sm center">
-            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-              <path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/>
-            </svg>
-          </div>
-          <h3 class="feature-title feature-title-sm">Reduce Contamination</h3>
-          <p class="feature-description feature-description-sm">AI-powered detection prevents sorting errors at the source.</p>
-        </div>
+      <p id="home-demo-caption" style="text-align: center; margin-top: 1rem; color: var(--muted-foreground); font-size: 0.875rem; opacity: 0; transition: opacity 0.3s ease;">Interactive demo — click and explore the dashboard above</p>
 
-        <div class="text-center">
-          <div class="feature-icon feature-icon-sm center">
-            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-              <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/>
-              <polyline points="22 4 12 14.01 9 11.01"/>
-            </svg>
+      <!-- Dashboard Feature Highlights -->
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem; margin-top: 2rem;">
+        <div class="feature-card" style="text-align: center; padding: 0.875rem;">
+          <div class="feature-icon" style="margin: 0 auto 0.5rem; width: 2.5rem; height: 2.5rem;">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>
           </div>
-          <h3 class="feature-title feature-title-sm">Improve Accuracy</h3>
-          <p class="feature-description feature-description-sm">Real-time feedback ensures correct disposal every time.</p>
+          <h3 class="feature-title" style="font-size: 0.9rem; margin-bottom: 0.25rem;">Live Tracking</h3>
+          <p class="feature-description" style="font-size: 0.8rem;">Real-time item counts and analytics</p>
         </div>
+        <div class="feature-card" style="text-align: center; padding: 0.875rem;">
+          <div class="feature-icon" style="margin: 0 auto 0.5rem; width: 2.5rem; height: 2.5rem;">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3Z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+          </div>
+          <h3 class="feature-title" style="font-size: 0.9rem; margin-bottom: 0.25rem;">Smart Alerts</h3>
+          <p class="feature-description" style="font-size: 0.8rem;">Contamination notifications</p>
+        </div>
+        <div class="feature-card" style="text-align: center; padding: 0.875rem;">
+          <div class="feature-icon" style="margin: 0 auto 0.5rem; width: 2.5rem; height: 2.5rem;">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+          </div>
+          <h3 class="feature-title" style="font-size: 0.9rem; margin-bottom: 0.25rem;">Station Map</h3>
+          <p class="feature-description" style="font-size: 0.8rem;">Monitor all Revi locations</p>
+        </div>
+        <div class="feature-card" style="text-align: center; padding: 0.875rem;">
+          <div class="feature-icon" style="margin: 0 auto 0.5rem; width: 2.5rem; height: 2.5rem;">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 3v18h18"/><path d="m19 9-5 5-4-4-3 3"/></svg>
+          </div>
+          <h3 class="feature-title" style="font-size: 0.9rem; margin-bottom: 0.25rem;">Diversion Metrics</h3>
+          <p class="feature-description" style="font-size: 0.8rem;">Track recycling rates</p>
+        </div>
+      </div>
+    </div>
+  </section>
 
-        <div class="text-center">
-          <div class="feature-icon feature-icon-sm center">
-            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-              <line x1="12" y1="1" x2="12" y2="23"/>
-              <path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/>
-            </svg>
-          </div>
-          <h3 class="feature-title feature-title-sm">Lower Operational Costs</h3>
-          <p class="feature-description feature-description-sm">Automated auditing eliminates manual labor expenses.</p>
-        </div>
+  <!-- Use Cases Section -->
+  <section class="section-padding bg-white">
+    <div class="container">
+      <div class="section-header">
+        <h2 class="section-title">Built for Your Industry</h2>
+        <p class="section-subtitle">Tailored solutions for every waste management challenge.</p>
+      </div>
 
-        <div class="text-center">
-          <div class="feature-icon feature-icon-sm center">
-            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-              <path d="M3 3v16a2 2 0 0 0 2 2h16"/>
-              <path d="M18 17V9"/>
-              <path d="M13 17V5"/>
-              <path d="M8 17v-3"/>
+      <div class="grid gap-6 md:grid-cols-3">
+        <a href="./solutions/mrfs.html" class="use-case-card fade-up">
+          <div class="use-case-icon">
+            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M2 20a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V8l-7 5V8l-7 5V4a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2Z"/>
             </svg>
           </div>
-          <h3 class="feature-title feature-title-sm">Capture Real-Time Data</h3>
-          <p class="feature-description feature-description-sm">Continuous waste composition analytics for better decisions.</p>
-        </div>
+          <h3 class="use-case-title">MRFs & Haulers</h3>
+          <p class="use-case-description">Cut residue costs, increase bale revenue, and keep lines moving with AI pre-sort data.</p>
+          <div class="use-case-stat">
+            <span class="use-case-stat-value">60%</span>
+            <span class="use-case-stat-label">Less downtime</span>
+          </div>
+          <span class="learn-more-link">Learn more <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></span>
+        </a>
+
+        <a href="./solutions/waste-auditors.html" class="use-case-card fade-up fade-up-delay-1">
+          <div class="use-case-icon">
+            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <rect width="8" height="4" x="8" y="2" rx="1" ry="1"/>
+              <path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/>
+              <path d="M12 11h4"/><path d="M12 16h4"/><path d="M8 11h.01"/><path d="M8 16h.01"/>
+            </svg>
+          </div>
+          <h3 class="use-case-title">Waste Auditors</h3>
+          <p class="use-case-description">Automate composition studies and give clients defensible, time-stamped evidence.</p>
+          <div class="use-case-stat">
+            <span class="use-case-stat-value">70%</span>
+            <span class="use-case-stat-label">Less time on-site</span>
+          </div>
+          <span class="learn-more-link">Learn more <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></span>
+        </a>
+
+        <a href="./solutions/campuses.html" class="use-case-card fade-up fade-up-delay-2">
+          <div class="use-case-icon">
+            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M21.42 10.922a1 1 0 0 0-.019-1.838L12.83 5.18a2 2 0 0 0-1.66 0L2.6 9.08a1 1 0 0 0 0 1.832l8.57 3.908a2 2 0 0 0 1.66 0z"/>
+              <path d="M22 10v6"/><path d="M6 12.5V16a6 3 0 0 0 12 0v-3.5"/>
+            </svg>
+          </div>
+          <h3 class="use-case-title">Campuses & Offices</h3>
+          <p class="use-case-description">Engage occupants, hit sustainability targets, and document ESG progress.</p>
+          <div class="use-case-stat">
+            <span class="use-case-stat-value">45%</span>
+            <span class="use-case-stat-label">Less contamination</span>
+          </div>
+          <span class="learn-more-link">Learn more <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA Section -->
+  <section class="cta-section bg-primary">
+    <div class="container">
+      <h2 class="cta-title text-white">Ready to Transform Your Waste Operations?</h2>
+      <p class="text-white mb-6" style="opacity: 0.9; max-width: 36rem; margin-left: auto; margin-right: auto;">Join leading MRFs, auditors, and campuses using Revi to cut costs and improve sorting accuracy.</p>
+      <div class="cta-actions">
+        <a href="#" onclick="openCalendly(); return false;" class="btn btn-white btn-xl">
+          Book a Call
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+        </a>
+        <a href="./contact.html" class="btn btn-white-outline btn-xl">
+          Contact Sales
+        </a>
       </div>
     </div>
   </section>
@@ -280,19 +398,6 @@
             <img src="./assets/Revisentlogo.png" alt="Revisent Logo">
           </a>
           <p class="footer-tagline">AI-powered waste intelligence for contamination reduction and operational efficiency.</p>
-          <div class="footer-social">
-            <a href="https://www.linkedin.com" class="footer-social-link" aria-label="LinkedIn" target="_blank" rel="noreferrer">
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/>
-                <rect width="4" height="12" x="2" y="9"/><circle cx="4" cy="4" r="2"/>
-              </svg>
-            </a>
-            <a href="https://twitter.com" class="footer-social-link" aria-label="Twitter" target="_blank" rel="noreferrer">
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <path d="M22 4s-.7 2.1-2 3.4c1.6 10-9.4 17.3-18 11.6 2.2.1 4.4-.6 6-2C3 15.5.5 9.6 3 5c2.2 2.6 5.6 4.1 9 4-.9-4.2 4-6.6 7-3.8 1.1 0 3-1.2 3-1.2z"/>
-              </svg>
-            </a>
-          </div>
         </div>
         
         <div>
@@ -300,7 +405,6 @@
           <div class="footer-links">
             <a href="/" class="footer-link">Home</a>
             <a href="./revi.html" class="footer-link">Revi Device</a>
-            <a href="./dashboard.html" class="footer-link">Dashboard</a>
             <a href="./case-studies.html" class="footer-link">Case Studies</a>
             <a href="./about.html" class="footer-link">About</a>
             <a href="./contact.html" class="footer-link">Contact</a>
@@ -310,7 +414,7 @@
         <div>
           <h4 class="footer-heading">Solutions</h4>
           <div class="footer-links">
-            <a href="./solutions/mrfs.html" class="footer-link">MRFs</a>
+            <a href="./solutions/mrfs.html" class="footer-link">MRFs & Haulers</a>
             <a href="./solutions/waste-auditors.html" class="footer-link">Waste Auditors</a>
             <a href="./solutions/campuses.html" class="footer-link">Campuses & Offices</a>
           </div>
@@ -321,9 +425,8 @@
           <div class="footer-links">
             <a href="./investors.html" class="footer-link">Investors</a>
             <a href="./partners.html" class="footer-link">Partners</a>
-            <a href="./press.html" class="footer-link">Press</a>
             <a href="./careers.html" class="footer-link">Careers</a>
-            <a href="./esg.html" class="footer-link">ESG & Reporting</a>
+            <a href="./esg.html" class="footer-link">Security</a>
           </div>
         </div>
         
@@ -342,10 +445,92 @@
     </div>
   </footer>
 
+  <!-- Calendly popup widget -->
+  <link href="https://assets.calendly.com/assets/external/widget.css" rel="stylesheet">
+  <script src="https://assets.calendly.com/assets/external/widget.js" type="text/javascript" async></script>
   <script>
+    function openCalendly() {
+      Calendly.initPopupWidget({url: 'https://calendly.com/chris-revisent/30min'});
+      return false;
+    }
     const header = document.getElementById('header');
     window.addEventListener('scroll', () => header.classList.toggle('scrolled', window.scrollY > 20));
     document.getElementById('nav-toggle').addEventListener('click', () => document.getElementById('mobile-menu').classList.toggle('open'));
+
+    // Start home demo function
+    function startHomeDemo() {
+      const overlay = document.getElementById('home-demo-overlay');
+      const caption = document.getElementById('home-demo-caption');
+      overlay.style.opacity = '0';
+      overlay.style.pointerEvents = 'none';
+      setTimeout(() => overlay.style.display = 'none', 300);
+      caption.style.opacity = '1';
+    }
+
+    // Fade-up animation on scroll
+    const fadeElements = document.querySelectorAll('.fade-up');
+    const fadeObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          fadeObserver.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.1 });
+    fadeElements.forEach(el => fadeObserver.observe(el));
+
+    // Count-up animation for numbers
+    function animateCount(el) {
+      const target = parseInt(el.dataset.count);
+      const prefix = el.dataset.prefix || '';
+      const suffix = el.dataset.suffix || '';
+      const format = el.dataset.format;
+      const duration = 2000;
+      const start = performance.now();
+
+      function update(now) {
+        const elapsed = now - start;
+        const progress = Math.min(elapsed / duration, 1);
+        const eased = 1 - Math.pow(1 - progress, 3);
+        const current = Math.floor(eased * target);
+
+        let display = current;
+        if (format === 'comma') {
+          display = current.toLocaleString();
+        }
+        el.textContent = prefix + display + suffix;
+
+        if (progress < 1) {
+          requestAnimationFrame(update);
+        }
+      }
+      requestAnimationFrame(update);
+    }
+
+    const countElements = document.querySelectorAll('[data-count]');
+    const countObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          animateCount(entry.target);
+          countObserver.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.5 });
+    countElements.forEach(el => countObserver.observe(el));
+
+    // Dashboard demo overlay
+    function startHomeDemo() {
+      const overlay = document.getElementById('home-demo-overlay');
+      const caption = document.getElementById('home-demo-caption');
+      if (overlay) {
+        overlay.style.opacity = '0';
+        overlay.style.pointerEvents = 'none';
+        setTimeout(() => overlay.style.display = 'none', 300);
+      }
+      if (caption) {
+        caption.style.opacity = '1';
+      }
+    }
   </script>
 </body>
 </html>

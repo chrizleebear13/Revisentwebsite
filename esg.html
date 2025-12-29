@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>ESG & Reporting | Revisent</title>
-  <meta name="description" content="See how Revisent delivers audit-ready waste data, ESG reporting exports, and API access for sustainability teams.">
+  <title>Security & Compliance | Revisent</title>
+  <meta name="description" content="Enterprise-grade security with ISO 27001 alignment, SOC 2 readiness, and comprehensive data protection for waste intelligence.">
   <meta name="author" content="Revisent">
   <link rel="canonical" href="https://revisent.com/esg">
   <link rel="icon" type="image/png" href="./assets/Revisentfav.png">
@@ -21,11 +21,10 @@
       <div class="nav-links">
         <a href="/" class="nav-link">Home</a>
         <a href="./revi.html" class="nav-link">Revi Device</a>
-        <a href="./dashboard.html" class="nav-link">Dashboard</a>
         <div class="nav-dropdown">
           <button class="nav-link">Solutions ▾</button>
           <div class="nav-dropdown-menu">
-            <a href="./solutions/mrfs.html" class="nav-dropdown-item">MRFs</a>
+            <a href="./solutions/mrfs.html" class="nav-dropdown-item">MRFs & Haulers</a>
             <a href="./solutions/waste-auditors.html" class="nav-dropdown-item">Waste Auditors</a>
             <a href="./solutions/campuses.html" class="nav-dropdown-item">Campuses & Offices</a>
           </div>
@@ -35,7 +34,7 @@
       </div>
       <div class="nav-actions">
         <a href="./contact.html" class="btn btn-ghost btn-sm">Contact</a>
-        <a href="./demo.html" class="btn btn-primary btn-sm">Book a Pilot</a>
+        <a href="#" onclick="openCalendly(); return false;" class="btn btn-primary btn-sm">Book a Call</a>
       </div>
       <button class="nav-toggle" id="nav-toggle" aria-label="Toggle menu">
         <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -47,63 +46,99 @@
       <div class="container">
         <a href="/" class="mobile-menu-link">Home</a>
         <a href="./revi.html" class="mobile-menu-link">Revi Device</a>
-        <a href="./dashboard.html" class="mobile-menu-link">Dashboard</a>
-        <a href="./solutions/mrfs.html" class="mobile-menu-link">MRFs</a>
+        <a href="./solutions/mrfs.html" class="mobile-menu-link">MRFs & Haulers</a>
         <a href="./solutions/waste-auditors.html" class="mobile-menu-link">Waste Auditors</a>
         <a href="./solutions/campuses.html" class="mobile-menu-link">Campuses & Offices</a>
         <a href="./case-studies.html" class="mobile-menu-link">Case Studies</a>
         <a href="./about.html" class="mobile-menu-link">About</a>
-        <a href="./demo.html" class="btn btn-primary mobile-menu-cta">Book a Pilot</a>
+        <a href="#" onclick="openCalendly(); return false;" class="btn btn-primary mobile-menu-cta">Book a Call</a>
       </div>
     </div>
   </header>
 
-  <section class="page-header bg-white">
+  <section class="page-header bg-white" style="padding-bottom: 3rem;">
     <div class="container text-center">
-      <h1 class="page-title">ESG & Reporting</h1>
-      <p class="page-subtitle">Audit-ready waste data, ESG exports, and APIs to prove impact.</p>
-      <div style="margin-top: 2rem;">
-        <a class="btn btn-primary btn-xl" href="./contact.html">Talk to the Team</a>
-      </div>
+      <h1 class="page-title">Security &<br><span class="text-primary">Compliance</span></h1>
+      <p class="page-subtitle">Enterprise-grade security built into every layer. We protect your data with industry-standard frameworks and rigorous security practices.</p>
     </div>
   </section>
 
-  <section class="section-padding bg-muted">
+  <!-- Standards Section -->
+  <section class="section-padding bg-white" style="padding-top: 0;">
     <div class="container">
       <div class="grid gap-8 md:grid-cols-3">
-        <div class="feature-card">
-          <h3 class="feature-title">Audit-Ready Exports</h3>
-          <p class="feature-description">CSV/PDF exports with time-stamped scan logs for auditors and ESG disclosures.</p>
+        <div class="text-center">
+          <div class="feature-icon center" style="width: 3.5rem; height: 3.5rem;">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10"/>
+              <path d="m9 12 2 2 4-4"/>
+            </svg>
+          </div>
+          <h3 class="feature-title" style="font-size: 1.125rem;">ISO 27001 Aligned</h3>
+          <p class="feature-description" style="font-size: 0.875rem;">Information security management practices aligned with ISO 27001 standards.</p>
         </div>
-        <div class="feature-card">
-          <h3 class="feature-title">Framework Mapping</h3>
-          <p class="feature-description">Track metrics aligned to zero-waste goals and common ESG frameworks.</p>
+        <div class="text-center">
+          <div class="feature-icon center" style="width: 3.5rem; height: 3.5rem;">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <rect width="18" height="11" x="3" y="11" rx="2" ry="2"/>
+              <path d="M7 11V7a5 5 0 0 1 10 0v4"/>
+            </svg>
+          </div>
+          <h3 class="feature-title" style="font-size: 1.125rem;">SOC 2 Ready</h3>
+          <p class="feature-description" style="font-size: 0.875rem;">Controls designed for SOC 2 Type II compliance across security, availability, and confidentiality.</p>
         </div>
-        <div class="feature-card">
-          <h3 class="feature-title">API Access</h3>
-          <p class="feature-description">Integrate with ESG platforms, data warehouses, or business intelligence tools.</p>
+        <div class="text-center">
+          <div class="feature-icon center" style="width: 3.5rem; height: 3.5rem;">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z"/>
+              <circle cx="12" cy="12" r="3"/>
+            </svg>
+          </div>
+          <h3 class="feature-title" style="font-size: 1.125rem;">Privacy by Design</h3>
+          <p class="feature-description" style="font-size: 0.875rem;">GDPR-aligned data handling with no PII collection from waste scanning operations.</p>
         </div>
       </div>
     </div>
   </section>
 
+  <!-- Security Practices -->
   <section class="section-padding bg-white">
     <div class="container">
       <div class="section-header">
-        <div class="section-badge">Data Integrity</div>
-        <h2 class="section-title">Confidence for Compliance Teams</h2>
-        <p class="section-subtitle">Privacy-safe capture, retention controls, and clear ownership of data.</p>
+        <div class="section-badge">Infrastructure</div>
+        <h2 class="section-title">Security Practices</h2>
+        <p class="section-subtitle">Defense in depth across our entire platform.</p>
       </div>
       <div class="grid gap-8 md:grid-cols-2">
         <div class="feature-card">
-          <h3 class="feature-title">Privacy & Governance</h3>
-          <p class="feature-description">Material-focused models avoid PII; retention and access controls are configurable.</p>
+          <h3 class="feature-title">Encryption</h3>
+          <p class="feature-description">TLS 1.3 in transit, AES-256 at rest. All data encrypted end-to-end between devices and cloud.</p>
         </div>
         <div class="feature-card">
-          <h3 class="feature-title">Reliability</h3>
-          <p class="feature-description">Device health monitoring with alerting; uptime commitments for pilots and rollouts.</p>
+          <h3 class="feature-title">Access Control</h3>
+          <p class="feature-description">Role-based access, SSO integration, and audit logging for all administrative actions.</p>
+        </div>
+        <div class="feature-card">
+          <h3 class="feature-title">Secure Development</h3>
+          <p class="feature-description">Code reviews, dependency scanning, and penetration testing as part of our SDLC.</p>
+        </div>
+        <div class="feature-card">
+          <h3 class="feature-title">Incident Response</h3>
+          <p class="feature-description">Documented IR procedures with defined SLAs for detection, containment, and notification.</p>
         </div>
       </div>
+    </div>
+  </section>
+
+  <!-- CTA Section -->
+  <section class="cta-section bg-primary">
+    <div class="container">
+      <h2 class="cta-title text-white">Questions About Security?</h2>
+      <p style="color: rgba(255,255,255,0.9); margin-bottom: 2rem; font-size: 1.125rem;">Request our security documentation or speak with our team about compliance requirements.</p>
+      <a href="./contact.html" class="btn btn-white btn-xl">
+        Get in Touch
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+      </a>
     </div>
   </section>
 
@@ -121,7 +156,6 @@
           <div class="footer-links">
             <a href="/" class="footer-link">Home</a>
             <a href="./revi.html" class="footer-link">Revi Device</a>
-            <a href="./dashboard.html" class="footer-link">Dashboard</a>
             <a href="./case-studies.html" class="footer-link">Case Studies</a>
             <a href="./about.html" class="footer-link">About</a>
             <a href="./contact.html" class="footer-link">Contact</a>
@@ -130,7 +164,7 @@
         <div>
           <h4 class="footer-heading">Solutions</h4>
           <div class="footer-links">
-            <a href="./solutions/mrfs.html" class="footer-link">MRFs</a>
+            <a href="./solutions/mrfs.html" class="footer-link">MRFs & Haulers</a>
             <a href="./solutions/waste-auditors.html" class="footer-link">Waste Auditors</a>
             <a href="./solutions/campuses.html" class="footer-link">Campuses & Offices</a>
           </div>
@@ -140,9 +174,8 @@
           <div class="footer-links">
             <a href="./investors.html" class="footer-link">Investors</a>
             <a href="./partners.html" class="footer-link">Partners</a>
-            <a href="./press.html" class="footer-link">Press</a>
             <a href="./careers.html" class="footer-link">Careers</a>
-            <a href="./esg.html" class="footer-link">ESG & Reporting</a>
+            <a href="./esg.html" class="footer-link">Security</a>
           </div>
         </div>
         <div>

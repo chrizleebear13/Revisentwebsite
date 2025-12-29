@@ -20,11 +20,10 @@
       <div class="nav-links">
         <a href="/" class="nav-link">Home</a>
         <a href="./revi.html" class="nav-link">Revi Device</a>
-        <a href="./dashboard.html" class="nav-link">Dashboard</a>
         <div class="nav-dropdown">
           <button class="nav-link">Solutions ▾</button>
           <div class="nav-dropdown-menu">
-            <a href="./solutions/mrfs.html" class="nav-dropdown-item">MRFs</a>
+            <a href="./solutions/mrfs.html" class="nav-dropdown-item">MRFs & Haulers</a>
             <a href="./solutions/waste-auditors.html" class="nav-dropdown-item">Waste Auditors</a>
             <a href="./solutions/campuses.html" class="nav-dropdown-item">Campuses & Offices</a>
           </div>
@@ -34,7 +33,7 @@
       </div>
       <div class="nav-actions">
         <a href="./contact.html" class="btn btn-ghost btn-sm">Contact</a>
-        <a href="./demo.html" class="btn btn-primary btn-sm">Book a Pilot</a>
+        <a href="#" onclick="openCalendly(); return false;" class="btn btn-primary btn-sm">Book a Call</a>
       </div>
       <button class="nav-toggle" id="nav-toggle" aria-label="Toggle menu">
         <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -46,13 +45,12 @@
       <div class="container">
         <a href="/" class="mobile-menu-link">Home</a>
         <a href="./revi.html" class="mobile-menu-link">Revi Device</a>
-        <a href="./dashboard.html" class="mobile-menu-link">Dashboard</a>
-        <a href="./solutions/mrfs.html" class="mobile-menu-link">MRFs</a>
+        <a href="./solutions/mrfs.html" class="mobile-menu-link">MRFs & Haulers</a>
         <a href="./solutions/waste-auditors.html" class="mobile-menu-link">Waste Auditors</a>
         <a href="./solutions/campuses.html" class="mobile-menu-link">Campuses & Offices</a>
         <a href="./case-studies.html" class="mobile-menu-link">Case Studies</a>
         <a href="./about.html" class="mobile-menu-link">About</a>
-        <a href="./demo.html" class="btn btn-primary mobile-menu-cta">Book a Pilot</a>
+        <a href="#" onclick="openCalendly(); return false;" class="btn btn-primary mobile-menu-cta">Book a Call</a>
       </div>
     </div>
   </header>
@@ -60,19 +58,58 @@
   <section class="page-header bg-white">
     <div class="container text-center">
       <h1 class="page-title">Privacy Policy</h1>
-      <p class="page-subtitle">How we collect, use, and protect information.</p>
+      <p class="page-subtitle">Last updated: December 2025</p>
     </div>
   </section>
 
-  <section class="section-padding bg-muted">
-    <div class="container">
-      <div class="feature-card">
-        <h3 class="feature-title">What we collect</h3>
-        <p class="feature-description">Product usage analytics, form submissions, and site traffic data used to improve performance and support customers.</p>
-        <h3 class="feature-title" style="margin-top: 1.5rem;">How we use data</h3>
-        <p class="feature-description">To operate our services, communicate with you, and improve product experiences. We do not sell personal data.</p>
-        <h3 class="feature-title" style="margin-top: 1.5rem;">Your choices</h3>
-        <p class="feature-description">You can request access, updates, or deletion of your data by emailing <a href="mailto:contact@revisent.com">contact@revisent.com</a>.</p>
+  <section class="section-padding bg-white" style="padding-top: 2rem;">
+    <div class="container" style="max-width: 800px;">
+      <div class="legal-content" style="line-height: 1.8; color: var(--muted-foreground);">
+
+        <h2 style="font-size: 1.25rem; font-weight: 700; color: var(--foreground); margin-bottom: 1rem;">1. Introduction</h2>
+        <p style="margin-bottom: 1.5rem;">Revisent, Inc. ("Revisent," "we," "us," or "our") is committed to protecting your privacy. This Privacy Policy explains how we collect, use, disclose, and safeguard your information when you use our Revi devices, dashboard, website, and related services (collectively, the "Services").</p>
+
+        <h2 style="font-size: 1.25rem; font-weight: 700; color: var(--foreground); margin-bottom: 1rem;">2. Information We Collect</h2>
+        <p style="margin-bottom: 0.75rem;"><strong style="color: var(--foreground);">Device Data:</strong> Revi devices capture images of waste items for material classification. These images are processed for sorting guidance and analytics. We do not intentionally collect personally identifiable information through device scanning.</p>
+        <p style="margin-bottom: 0.75rem;"><strong style="color: var(--foreground);">Usage Data:</strong> We collect anonymized interaction data including scan counts, contamination rates, and diversion metrics to provide analytics and improve our Services.</p>
+        <p style="margin-bottom: 0.75rem;"><strong style="color: var(--foreground);">Account Information:</strong> When you create an account or contact us, we collect information such as name, email address, company name, and phone number.</p>
+        <p style="margin-bottom: 1.5rem;"><strong style="color: var(--foreground);">Website Analytics:</strong> We use cookies and similar technologies to understand how visitors interact with our website.</p>
+
+        <h2 style="font-size: 1.25rem; font-weight: 700; color: var(--foreground); margin-bottom: 1rem;">3. How We Use Your Information</h2>
+        <p style="margin-bottom: 0.5rem;">We use collected information to:</p>
+        <ul style="margin-bottom: 1.5rem; padding-left: 1.5rem;">
+          <li style="margin-bottom: 0.5rem;">Provide, operate, and maintain our Services</li>
+          <li style="margin-bottom: 0.5rem;">Generate waste analytics and contamination reports</li>
+          <li style="margin-bottom: 0.5rem;">Improve and develop new features</li>
+          <li style="margin-bottom: 0.5rem;">Communicate with you about your account or our Services</li>
+          <li style="margin-bottom: 0.5rem;">Comply with legal obligations</li>
+        </ul>
+
+        <h2 style="font-size: 1.25rem; font-weight: 700; color: var(--foreground); margin-bottom: 1rem;">4. Data Sharing</h2>
+        <p style="margin-bottom: 1.5rem;">We do not sell your personal information. We may share data with service providers who assist in operating our Services, or when required by law. Aggregated, anonymized data may be shared for industry benchmarking.</p>
+
+        <h2 style="font-size: 1.25rem; font-weight: 700; color: var(--foreground); margin-bottom: 1rem;">5. Data Retention</h2>
+        <p style="margin-bottom: 1.5rem;">We retain data for as long as necessary to provide our Services and fulfill the purposes described in this policy. Device images are processed and may be retained for model training unless you opt out. Account data is retained until account deletion is requested.</p>
+
+        <h2 style="font-size: 1.25rem; font-weight: 700; color: var(--foreground); margin-bottom: 1rem;">6. Security</h2>
+        <p style="margin-bottom: 1.5rem;">We implement industry-standard security measures including encryption in transit (TLS 1.3) and at rest (AES-256), access controls, and regular security assessments. See our <a href="./esg.html" style="color: var(--primary);">Security page</a> for more details.</p>
+
+        <h2 style="font-size: 1.25rem; font-weight: 700; color: var(--foreground); margin-bottom: 1rem;">7. Your Rights</h2>
+        <p style="margin-bottom: 0.5rem;">Depending on your location, you may have the right to:</p>
+        <ul style="margin-bottom: 1.5rem; padding-left: 1.5rem;">
+          <li style="margin-bottom: 0.5rem;">Access the personal information we hold about you</li>
+          <li style="margin-bottom: 0.5rem;">Request correction of inaccurate data</li>
+          <li style="margin-bottom: 0.5rem;">Request deletion of your data</li>
+          <li style="margin-bottom: 0.5rem;">Object to or restrict certain processing</li>
+          <li style="margin-bottom: 0.5rem;">Data portability</li>
+        </ul>
+
+        <h2 style="font-size: 1.25rem; font-weight: 700; color: var(--foreground); margin-bottom: 1rem;">8. Contact Us</h2>
+        <p style="margin-bottom: 1.5rem;">For privacy-related questions or to exercise your rights, contact us at <a href="mailto:privacy@revisent.com" style="color: var(--primary);">privacy@revisent.com</a>.</p>
+
+        <h2 style="font-size: 1.25rem; font-weight: 700; color: var(--foreground); margin-bottom: 1rem;">9. Changes to This Policy</h2>
+        <p>We may update this Privacy Policy from time to time. We will notify you of material changes by posting the updated policy on our website with a new "Last updated" date.</p>
+
       </div>
     </div>
   </section>
@@ -91,7 +128,6 @@
           <div class="footer-links">
             <a href="/" class="footer-link">Home</a>
             <a href="./revi.html" class="footer-link">Revi Device</a>
-            <a href="./dashboard.html" class="footer-link">Dashboard</a>
             <a href="./case-studies.html" class="footer-link">Case Studies</a>
             <a href="./about.html" class="footer-link">About</a>
             <a href="./contact.html" class="footer-link">Contact</a>
@@ -100,7 +136,7 @@
         <div>
           <h4 class="footer-heading">Solutions</h4>
           <div class="footer-links">
-            <a href="./solutions/mrfs.html" class="footer-link">MRFs</a>
+            <a href="./solutions/mrfs.html" class="footer-link">MRFs & Haulers</a>
             <a href="./solutions/waste-auditors.html" class="footer-link">Waste Auditors</a>
             <a href="./solutions/campuses.html" class="footer-link">Campuses & Offices</a>
           </div>
@@ -110,9 +146,8 @@
           <div class="footer-links">
             <a href="./investors.html" class="footer-link">Investors</a>
             <a href="./partners.html" class="footer-link">Partners</a>
-            <a href="./press.html" class="footer-link">Press</a>
             <a href="./careers.html" class="footer-link">Careers</a>
-            <a href="./esg.html" class="footer-link">ESG & Reporting</a>
+            <a href="./esg.html" class="footer-link">Security</a>
           </div>
         </div>
         <div>

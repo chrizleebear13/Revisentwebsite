@@ -3,20 +3,25 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Contact Us | Book a Demo - Revisent</title>
-  <meta name="description" content="Get in touch with Revisent. Schedule a demo and see Revi in action. Experience real-time detection, contamination reduction, and waste intelligence.">
+  <title>Contact Us | Revisent - AI Waste Intelligence</title>
+  <meta name="description" content="Get in touch with Revisent. Book a pilot, request a demo, or ask questions about our AI-powered waste detection and contamination reduction solutions.">
+  <meta name="keywords" content="contact Revisent, book a pilot, waste detection demo, AI waste sorting inquiry">
   <meta name="author" content="Revisent">
   <link rel="canonical" href="https://revisent.com/contact">
-  
+
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://revisent.com/contact">
-  <meta property="og:title" content="Contact Revisent | Book a Demo">
+  <meta property="og:title" content="Contact Us | Revisent">
+  <meta property="og:description" content="Get in touch with Revisent for AI-powered waste detection solutions.">
   <meta property="og:image" content="https://revisent.com/assets/Revisentlogo.png">
-  
+
   <link rel="icon" type="image/png" href="./assets/Revisentfav.png">
   <link rel="apple-touch-icon" href="./assets/Revisentfav.png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="preconnect" href="https://assets.calendly.com">
+  <link rel="prefetch" href="https://assets.calendly.com/assets/external/widget.js">
+  <link rel="prefetch" href="https://assets.calendly.com/assets/external/widget.css">
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;900&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="./styles.css">
 </head>
@@ -28,11 +33,10 @@
       <div class="nav-links">
         <a href="/" class="nav-link">Home</a>
         <a href="./revi.html" class="nav-link">Revi Device</a>
-        <a href="./dashboard.html" class="nav-link">Dashboard</a>
         <div class="nav-dropdown">
           <button class="nav-link">Solutions ▾</button>
           <div class="nav-dropdown-menu">
-            <a href="./solutions/mrfs.html" class="nav-dropdown-item">MRFs</a>
+            <a href="./solutions/mrfs.html" class="nav-dropdown-item">MRFs & Haulers</a>
             <a href="./solutions/waste-auditors.html" class="nav-dropdown-item">Waste Auditors</a>
             <a href="./solutions/campuses.html" class="nav-dropdown-item">Campuses & Offices</a>
           </div>
@@ -42,7 +46,7 @@
       </div>
       <div class="nav-actions">
         <a href="./contact.html" class="btn btn-ghost btn-sm">Contact</a>
-        <a href="./demo.html" class="btn btn-primary btn-sm">Book a Pilot</a>
+        <a href="#" onclick="openCalendly(); return false;" class="btn btn-primary btn-sm">Book a Call</a>
       </div>
       <button class="nav-toggle" id="nav-toggle" aria-label="Toggle menu">
         <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -54,73 +58,111 @@
       <div class="container">
         <a href="/" class="mobile-menu-link">Home</a>
         <a href="./revi.html" class="mobile-menu-link">Revi Device</a>
-        <a href="./dashboard.html" class="mobile-menu-link">Dashboard</a>
-        <a href="./solutions/mrfs.html" class="mobile-menu-link">MRFs</a>
+        <a href="./solutions/mrfs.html" class="mobile-menu-link">MRFs & Haulers</a>
         <a href="./solutions/waste-auditors.html" class="mobile-menu-link">Waste Auditors</a>
         <a href="./solutions/campuses.html" class="mobile-menu-link">Campuses & Offices</a>
         <a href="./case-studies.html" class="mobile-menu-link">Case Studies</a>
         <a href="./about.html" class="mobile-menu-link">About</a>
-        <a href="./demo.html" class="btn btn-primary mobile-menu-cta">Book a Pilot</a>
+        <a href="./contact.html" class="mobile-menu-link">Contact</a>
+        <a href="#" onclick="openCalendly(); return false;" class="btn btn-primary mobile-menu-cta">Book a Call</a>
       </div>
     </div>
   </header>
 
   <!-- Page Header -->
-  <section class="page-header bg-white">
+  <section class="page-header bg-white" style="padding-bottom: 2rem;">
     <div class="container text-center">
-      <h1 class="page-title">See Revi in Action</h1>
-      <p class="page-subtitle">Experience real-time detection, contamination reduction, and waste intelligence.</p>
+      <span class="section-badge">Get in Touch</span>
+      <h1 class="page-title">Let's Talk About<br>Your Waste Challenges</h1>
+      <p class="page-subtitle">Book a pilot, request a demo, or ask us anything.</p>
     </div>
   </section>
 
-  <!-- Contact Section -->
-  <section class="section-padding bg-muted">
+  <!-- Contact Form Section -->
+  <section class="section-padding bg-white" style="padding-top: 2rem;">
     <div class="container">
-      <div class="grid gap-16 lg:grid-cols-1" style="max-width: 720px; margin: 0 auto;">
-        <!-- Form -->
-        <div class="feature-card">
-          <h2 style="font-size: 1.5rem; font-weight: 700; margin-bottom: 2rem;">Schedule a Demo</h2>
-          <form action="mailto:nayan@revisent.com,chris@revisent.com" method="POST" enctype="text/plain">
-            <div class="grid gap-6 md:grid-cols-2">
-              <div class="form-group">
-                <label class="form-label">First Name</label>
-                <input type="text" name="first_name" class="form-input" required>
-              </div>
-              <div class="form-group">
-                <label class="form-label">Last Name</label>
-                <input type="text" name="last_name" class="form-input" required>
-              </div>
+      <div class="section-surface max-w-lg">
+        <h2 class="section-title-md text-center">Send Us a Message</h2>
+        <p class="text-muted text-center mb-6">We typically respond within 24 hours.</p>
+        <form id="contact-form" class="contact-form">
+          <div class="grid gap-6 md:grid-cols-2">
+            <div class="form-group">
+              <label for="firstName" class="form-label">First Name *</label>
+              <input type="text" id="firstName" name="firstName" class="form-input" required>
             </div>
             <div class="form-group">
-              <label class="form-label">Work Email</label>
-              <input type="email" name="email" class="form-input" required>
+              <label for="lastName" class="form-label">Last Name *</label>
+              <input type="text" id="lastName" name="lastName" class="form-input" required>
+            </div>
+          </div>
+          <div class="grid gap-6 md:grid-cols-2">
+            <div class="form-group">
+              <label for="email" class="form-label">Email *</label>
+              <input type="email" id="email" name="email" class="form-input" required>
             </div>
             <div class="form-group">
-              <label class="form-label">Company</label>
-              <input type="text" name="company" class="form-input" required>
+              <label for="company" class="form-label">Company / Organization *</label>
+              <input type="text" id="company" name="company" class="form-input" required>
             </div>
+          </div>
+          <div class="grid gap-6 md:grid-cols-2">
             <div class="form-group">
-              <label class="form-label">I'm interested in...</label>
-              <select class="form-select" name="interest">
-                <option value="mrf">MRF Solutions</option>
-                <option value="waste-auditing">Waste Auditing</option>
-                <option value="campus-office">Campus/Office Deployment</option>
-                <option value="partnership">Partnership</option>
+              <label for="role" class="form-label">Your Role</label>
+              <select id="role" name="role" class="form-select">
+                <option value="">Select your role</option>
+                <option value="facilities">Facilities Manager</option>
+                <option value="sustainability">Sustainability Director</option>
+                <option value="operations">Operations Manager</option>
+                <option value="executive">Executive / C-Suite</option>
+                <option value="auditor">Waste Auditor / Consultant</option>
+                <option value="investor">Investor</option>
+                <option value="educational">Educational Faculty</option>
                 <option value="other">Other</option>
               </select>
             </div>
             <div class="form-group">
-              <label class="form-label">Message</label>
-              <textarea class="form-textarea" name="message" rows="4"></textarea>
+              <label for="interest" class="form-label">I'm Interested In *</label>
+              <select id="interest" name="interest" class="form-select" required>
+                <option value="">Select an option</option>
+                <option value="pilot">Booking a Pilot</option>
+                <option value="demo">Requesting a Demo</option>
+                <option value="pricing">Pricing Information</option>
+                <option value="partnership">Partnership Opportunities</option>
+                <option value="general">General Inquiry</option>
+              </select>
             </div>
-            <button type="submit" class="btn btn-primary btn-lg" style="width: 100%;">
-              Request Demo
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
-            </button>
-            <p style="margin-top: 1rem; font-size: 0.95rem; color: var(--muted-foreground); text-align: center;">
-              Prefer to book directly? <a href="https://calendly.com/revisent/demo" style="color: var(--primary); font-weight: 600;">Pick a time</a>.
-            </p>
-          </form>
+          </div>
+          <div class="form-group">
+            <label for="message" class="form-label">Message</label>
+            <textarea id="message" name="message" class="form-textarea" rows="4" style="font-family: 'Inter', sans-serif;"></textarea>
+          </div>
+          <button type="submit" class="btn btn-primary btn-xl" style="width: 100%;">
+            Send Message
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+          </button>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ Section -->
+  <section class="section-padding bg-white">
+    <div class="container">
+      <div class="section-header">
+        <h2 class="section-title">Frequently Asked Questions</h2>
+      </div>
+      <div class="grid gap-6 md:grid-cols-3 max-w-lg">
+        <div class="feature-card">
+          <h3 class="feature-title">How long is a typical pilot?</h3>
+          <p class="feature-description">Most pilots run 30-90 days depending on facility size and goals.</p>
+        </div>
+        <div class="feature-card">
+          <h3 class="feature-title">What's included in a pilot?</h3>
+          <p class="feature-description">Hardware, installation, dashboard access, and dedicated support.</p>
+        </div>
+        <div class="feature-card">
+          <h3 class="feature-title">Do you offer custom integrations?</h3>
+          <p class="feature-description">Yes, we can integrate with existing waste management systems.</p>
         </div>
       </div>
     </div>
@@ -139,14 +181,15 @@
           <div class="footer-links">
             <a href="/" class="footer-link">Home</a>
             <a href="./revi.html" class="footer-link">Revi Device</a>
-            <a href="./dashboard.html" class="footer-link">Dashboard</a>
+            <a href="./case-studies.html" class="footer-link">Case Studies</a>
             <a href="./about.html" class="footer-link">About</a>
+            <a href="./contact.html" class="footer-link">Contact</a>
           </div>
         </div>
         <div>
           <h4 class="footer-heading">Solutions</h4>
           <div class="footer-links">
-            <a href="./solutions/mrfs.html" class="footer-link">MRFs</a>
+            <a href="./solutions/mrfs.html" class="footer-link">MRFs & Haulers</a>
             <a href="./solutions/waste-auditors.html" class="footer-link">Waste Auditors</a>
             <a href="./solutions/campuses.html" class="footer-link">Campuses & Offices</a>
           </div>
@@ -156,9 +199,8 @@
           <div class="footer-links">
             <a href="./investors.html" class="footer-link">Investors</a>
             <a href="./partners.html" class="footer-link">Partners</a>
-            <a href="./press.html" class="footer-link">Press</a>
             <a href="./careers.html" class="footer-link">Careers</a>
-            <a href="./esg.html" class="footer-link">ESG & Reporting</a>
+            <a href="./esg.html" class="footer-link">Security</a>
           </div>
         </div>
         <div>
@@ -175,10 +217,67 @@
     </div>
   </footer>
 
+  <!-- Calendly popup widget -->
+  <link href="https://assets.calendly.com/assets/external/widget.css" rel="stylesheet">
+  <script src="https://assets.calendly.com/assets/external/widget.js" type="text/javascript" async></script>
   <script>
+    function openCalendly() {
+      Calendly.initPopupWidget({url: 'https://calendly.com/chris-revisent/30min'});
+      return false;
+    }
     const header = document.getElementById('header');
     window.addEventListener('scroll', () => header.classList.toggle('scrolled', window.scrollY > 20));
     document.getElementById('nav-toggle').addEventListener('click', () => document.getElementById('mobile-menu').classList.toggle('open'));
+
+    // Contact form submission
+    const contactForm = document.getElementById('contact-form');
+    contactForm.addEventListener('submit', async (e) => {
+      e.preventDefault();
+
+      const submitBtn = contactForm.querySelector('button[type="submit"]');
+      const originalText = submitBtn.innerHTML;
+      submitBtn.innerHTML = 'Sending...';
+      submitBtn.disabled = true;
+
+      const formData = {
+        firstName: document.getElementById('firstName').value,
+        lastName: document.getElementById('lastName').value,
+        email: document.getElementById('email').value,
+        company: document.getElementById('company').value,
+        role: document.getElementById('role').value,
+        interest: document.getElementById('interest').value,
+        message: document.getElementById('message').value
+      };
+
+      try {
+        const response = await fetch('/api/contact', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(formData)
+        });
+
+        if (response.ok) {
+          submitBtn.innerHTML = 'Message Sent!';
+          submitBtn.style.background = '#16a34a';
+          contactForm.reset();
+          setTimeout(() => {
+            submitBtn.innerHTML = originalText;
+            submitBtn.style.background = '';
+            submitBtn.disabled = false;
+          }, 3000);
+        } else {
+          throw new Error('Failed to send');
+        }
+      } catch (err) {
+        submitBtn.innerHTML = 'Failed to send. Try again.';
+        submitBtn.style.background = '#dc2626';
+        setTimeout(() => {
+          submitBtn.innerHTML = originalText;
+          submitBtn.style.background = '';
+          submitBtn.disabled = false;
+        }, 3000);
+      }
+    });
   </script>
 </body>
 </html>

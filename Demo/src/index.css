@@ -1,0 +1,369 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* EcoTrack Waste Analytics - Design System
+Beautiful eco-friendly palette with vibrant accents for modern waste analytics dashboard.
+All colors MUST be HSL.
+*/
+
+@layer base {
+  :root {
+    /* Core Background & Text */
+    --background: 210 20% 98%;
+    --foreground: 210 12% 16%;
+
+    /* Cards & Surfaces */
+    --card: 0 0% 100%;
+    --card-foreground: 210 12% 16%;
+
+    /* Popovers & Overlays */
+    --popover: 0 0% 100%;
+    --popover-foreground: 210 12% 16%;
+
+    /* Primary Brand - Eco Green */
+    --primary: 142 76% 36%;
+    --primary-foreground: 0 0% 100%;
+    --primary-glow: 142 86% 55%;
+
+    /* Secondary - Clean Blue */
+    --secondary: 210 30% 96%;
+    --secondary-foreground: 210 12% 16%;
+
+    /* Muted - Subtle Grays */
+    --muted: 210 20% 96%;
+    --muted-foreground: 210 8% 46%;
+
+    /* Accent - Vibrant Orange */
+    --accent: 25 95% 53%;
+    --accent-foreground: 0 0% 100%;
+    --accent-glow: 25 100% 65%;
+
+    /* Alerts & Status */
+    --success: 142 76% 36%;
+    --success-foreground: 0 0% 100%;
+    --warning: 38 92% 50%;
+    --warning-foreground: 0 0% 100%;
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 0 0% 100%;
+
+    /* Interactive Elements */
+    --border: 210 20% 90%;
+    --input: 210 20% 96%;
+    --ring: 142 76% 36%;
+
+    /* Design System Radius */
+    --radius: 0.75rem;
+
+    /* Beautiful Gradients */
+    --gradient-primary: linear-gradient(135deg, hsl(var(--primary)), hsl(var(--primary-glow)));
+    --gradient-accent: linear-gradient(135deg, hsl(var(--accent)), hsl(var(--accent-glow)));
+    --gradient-subtle: linear-gradient(180deg, hsl(var(--background)), hsl(var(--muted)));
+    --gradient-card: linear-gradient(145deg, hsl(0 0% 100% / 0.9), hsl(210 20% 98%));
+
+    /* Elegant Shadows */
+    --shadow-soft: 0 2px 8px -2px hsl(210 10% 50% / 0.1);
+    --shadow-medium: 0 8px 25px -8px hsl(210 10% 50% / 0.15);
+    --shadow-strong: 0 16px 40px -12px hsl(210 10% 50% / 0.2);
+    --shadow-glow: 0 0 30px hsl(var(--primary) / 0.3);
+    --shadow-accent-glow: 0 0 25px hsl(var(--accent) / 0.4);
+
+    /* Smooth Animations */
+    --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    --transition-spring: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+
+    /* Sidebar */
+    --sidebar-background: 0 0% 100%;
+    --sidebar-foreground: 210 12% 16%;
+    --sidebar-primary: 142 76% 36%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 210 30% 96%;
+    --sidebar-accent-foreground: 210 12% 16%;
+    --sidebar-border: 210 20% 90%;
+    --sidebar-ring: 142 76% 36%;
+  }
+
+  .dark {
+    /* Dark Mode - Modern & Elegant */
+    --background: 210 20% 8%;
+    --foreground: 210 20% 95%;
+
+    --card: 210 15% 12%;
+    --card-foreground: 210 20% 95%;
+
+    --popover: 210 15% 12%;
+    --popover-foreground: 210 20% 95%;
+
+    --primary: 142 86% 55%;
+    --primary-foreground: 210 20% 8%;
+    --primary-glow: 142 96% 65%;
+
+    --secondary: 210 15% 16%;
+    --secondary-foreground: 210 20% 95%;
+
+    --muted: 210 15% 16%;
+    --muted-foreground: 210 10% 60%;
+
+    --accent: 25 100% 65%;
+    --accent-foreground: 210 20% 8%;
+    --accent-glow: 25 100% 75%;
+
+    --success: 142 86% 55%;
+    --success-foreground: 210 20% 8%;
+    --warning: 38 100% 60%;
+    --warning-foreground: 210 20% 8%;
+    --destructive: 0 84% 70%;
+    --destructive-foreground: 210 20% 8%;
+
+    --border: 210 15% 20%;
+    --input: 210 15% 16%;
+    --ring: 142 86% 55%;
+
+    /* Dark Mode Gradients */
+    --gradient-primary: linear-gradient(135deg, hsl(var(--primary)), hsl(var(--primary-glow)));
+    --gradient-accent: linear-gradient(135deg, hsl(var(--accent)), hsl(var(--accent-glow)));
+    --gradient-subtle: linear-gradient(180deg, hsl(var(--background)), hsl(var(--muted)));
+    --gradient-card: linear-gradient(145deg, hsl(210 15% 12% / 0.9), hsl(210 15% 14%));
+
+    /* Dark Shadows */
+    --shadow-soft: 0 2px 8px -2px hsl(0 0% 0% / 0.3);
+    --shadow-medium: 0 8px 25px -8px hsl(0 0% 0% / 0.4);
+    --shadow-strong: 0 16px 40px -12px hsl(0 0% 0% / 0.5);
+    --shadow-glow: 0 0 30px hsl(var(--primary) / 0.4);
+    --shadow-accent-glow: 0 0 25px hsl(var(--accent) / 0.5);
+
+    /* Dark Sidebar */
+    --sidebar-background: 210 15% 10%;
+    --sidebar-foreground: 210 20% 95%;
+    --sidebar-primary: 142 86% 55%;
+    --sidebar-primary-foreground: 210 20% 8%;
+    --sidebar-accent: 210 15% 16%;
+    --sidebar-accent-foreground: 210 20% 95%;
+    --sidebar-border: 210 15% 20%;
+    --sidebar-ring: 142 86% 55%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground font-sans antialiased;
+    background: hsl(var(--background));
+  }
+
+  /* Beautiful scrollbars */
+  ::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: hsl(var(--muted));
+    border-radius: 3px;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: hsl(var(--muted-foreground) / 0.3);
+    border-radius: 3px;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    background: hsl(var(--muted-foreground) / 0.5);
+  }
+}
+
+@layer utilities {
+  .gradient-primary {
+    background: var(--gradient-primary);
+  }
+  
+  .gradient-accent {
+    background: var(--gradient-accent);
+  }
+  
+  .gradient-subtle {
+    background: var(--gradient-subtle);
+  }
+  
+  .gradient-card {
+    background: var(--gradient-card);
+  }
+  
+  .shadow-soft {
+    box-shadow: var(--shadow-soft);
+  }
+  
+  .shadow-medium {
+    box-shadow: var(--shadow-medium);
+  }
+  
+  .shadow-strong {
+    box-shadow: var(--shadow-strong);
+  }
+  
+  .shadow-glow {
+    box-shadow: var(--shadow-glow);
+  }
+  
+  .shadow-accent-glow {
+    box-shadow: var(--shadow-accent-glow);
+  }
+  
+  .transition-smooth {
+    transition: var(--transition-smooth);
+  }
+  
+  .transition-spring {
+    transition: var(--transition-spring);
+  }
+
+  /* Sleek glass morphism effects */
+  .glass {
+    background: rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+  }
+
+  /* Modern card hover effects */
+  .card-hover {
+    @apply transition-all duration-300 hover:shadow-strong hover:-translate-y-1;
+  }
+
+  /* Subtle animations for text */
+  .text-shimmer {
+    background: linear-gradient(
+      90deg,
+      hsl(var(--muted-foreground)),
+      hsl(var(--foreground)),
+      hsl(var(--muted-foreground))
+    );
+    background-size: 200% 100%;
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    animation: shimmer 3s ease-in-out infinite;
+  }
+
+  @keyframes shimmer {
+    0% { background-position: -200% 0; }
+    100% { background-position: 200% 0; }
+  }
+
+  /* Floating animations */
+  .float {
+    animation: float 6s ease-in-out infinite;
+  }
+
+  @keyframes float {
+    0%, 100% { transform: translateY(0px); }
+    50% { transform: translateY(-10px); }
+  }
+
+  /* Pulse glow effect */
+  .pulse-glow {
+    animation: pulse-glow 2s ease-in-out infinite alternate;
+  }
+
+  @keyframes pulse-glow {
+    from {
+      box-shadow: 0 0 20px hsl(var(--primary) / 0.3);
+    }
+    to {
+      box-shadow: 0 0 30px hsl(var(--primary) / 0.6);
+    }
+  }
+
+  /* iPad Pro 11" Specific Optimizations */
+  .touch-manipulation {
+    touch-action: manipulation;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  .scrollbar-hide {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+
+  .scrollbar-hide::-webkit-scrollbar {
+    display: none;
+  }
+
+  /* iPad Pro touch feedback */
+  .active\:scale-95:active {
+    transform: scale(0.95);
+  }
+
+  .active\:scale-98:active {
+    transform: scale(0.98);
+  }
+
+  /* Snappy scrolling for iPad - removed smooth for better responsiveness */
+  .overflow-y-auto {
+    -webkit-overflow-scrolling: touch;
+    scroll-behavior: auto;
+  }
+
+  /* iPad Pro viewport optimizations */
+  @media screen and (min-width: 768px) and (max-width: 1366px) and (orientation: landscape) {
+    /* iPad Pro landscape - optimize for horizontal space */
+    .dashboard-grid {
+      grid-template-columns: 300px 1fr 280px;
+      gap: 1rem;
+    }
+
+    .metrics-grid {
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1rem;
+    }
+
+    .header-mobile {
+      flex-direction: row;
+      align-items: center;
+    }
+  }
+
+  @media screen and (min-width: 768px) and (max-width: 1024px) and (orientation: portrait) {
+    /* iPad Pro portrait - optimize for vertical space */
+    .dashboard-grid {
+      grid-template-columns: 1fr;
+      gap: 1rem;
+    }
+
+    .metrics-grid {
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1rem;
+    }
+
+    .header-mobile {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+  }
+
+  /* General tablet optimizations */
+  @media screen and (min-width: 768px) and (max-width: 1366px) {
+    /* Larger touch targets for tablets */
+    button, .card, .interactive {
+      min-height: 44px;
+      min-width: 44px;
+    }
+
+    /* Optimized spacing for tablet */
+    .container-padding {
+      padding: 1rem 1.5rem;
+    }
+
+    /* Better text sizing for tablets */
+    .text-responsive {
+      font-size: clamp(0.875rem, 2vw, 1rem);
+    }
+  }
+
+  /* Prevent zoom on double tap */
+  * {
+    touch-action: manipulation;
+  }
+}

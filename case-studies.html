@@ -28,11 +28,10 @@
       <div class="nav-links">
         <a href="/" class="nav-link">Home</a>
         <a href="./revi.html" class="nav-link">Revi Device</a>
-        <a href="./dashboard.html" class="nav-link">Dashboard</a>
         <div class="nav-dropdown">
           <button class="nav-link">Solutions ▾</button>
           <div class="nav-dropdown-menu">
-            <a href="./solutions/mrfs.html" class="nav-dropdown-item">MRFs</a>
+            <a href="./solutions/mrfs.html" class="nav-dropdown-item">MRFs & Haulers</a>
             <a href="./solutions/waste-auditors.html" class="nav-dropdown-item">Waste Auditors</a>
             <a href="./solutions/campuses.html" class="nav-dropdown-item">Campuses & Offices</a>
           </div>
@@ -42,7 +41,7 @@
       </div>
       <div class="nav-actions">
         <a href="./contact.html" class="btn btn-ghost btn-sm">Contact</a>
-        <a href="./demo.html" class="btn btn-primary btn-sm">Book a Pilot</a>
+        <a href="#" onclick="openCalendly(); return false;" class="btn btn-primary btn-sm">Book a Call</a>
       </div>
       <button class="nav-toggle" id="nav-toggle" aria-label="Toggle menu">
         <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -54,13 +53,12 @@
       <div class="container">
         <a href="/" class="mobile-menu-link">Home</a>
         <a href="./revi.html" class="mobile-menu-link">Revi Device</a>
-        <a href="./dashboard.html" class="mobile-menu-link">Dashboard</a>
-        <a href="./solutions/mrfs.html" class="mobile-menu-link">MRFs</a>
+        <a href="./solutions/mrfs.html" class="mobile-menu-link">MRFs & Haulers</a>
         <a href="./solutions/waste-auditors.html" class="mobile-menu-link">Waste Auditors</a>
         <a href="./solutions/campuses.html" class="mobile-menu-link">Campuses & Offices</a>
         <a href="./case-studies.html" class="mobile-menu-link">Case Studies</a>
         <a href="./about.html" class="mobile-menu-link">About</a>
-        <a href="./demo.html" class="btn btn-primary mobile-menu-cta">Book a Pilot</a>
+        <a href="#" onclick="openCalendly(); return false;" class="btn btn-primary mobile-menu-cta">Book a Call</a>
       </div>
     </div>
   </header>
@@ -73,57 +71,192 @@
     </div>
   </section>
 
-  <!-- Case Studies Grid -->
-  <section class="section-padding bg-muted">
+  <!-- Case Studies -->
+  <section class="section-padding bg-white" style="padding-top: 2rem;">
     <div class="container">
-      <div class="grid gap-8 md:grid-cols-3">
-        <div class="feature-card">
-          <div style="margin-bottom: 1.5rem;">
-            <div style="font-size: 3rem; font-weight: 900; color: var(--primary);">45%</div>
-            <div style="font-size: 0.875rem; color: var(--muted-foreground);">Contamination Reduction</div>
+      <div class="case-studies-list">
+
+        <!-- USC Zero Waste -->
+        <div class="case-study-card">
+          <div class="case-study-header" onclick="toggleCaseStudy(this)">
+            <div class="case-study-summary">
+              <div class="case-study-stats">
+                <div class="case-study-stat">
+                  <span class="case-study-stat-value">45%</span>
+                  <span class="case-study-stat-label">Contamination Reduction</span>
+                </div>
+              </div>
+              <div class="case-study-info">
+                <h3 class="case-study-title">USC Zero Waste Initiative</h3>
+                <p class="case-study-excerpt">University of Southern California deployed Revi across campus dining halls to achieve their zero-waste certification goals.</p>
+                <div class="case-study-tags">
+                  <span class="tag">Higher Education</span>
+                  <span class="tag">Campus</span>
+                </div>
+              </div>
+            </div>
+            <div class="case-study-toggle">
+              <span class="case-study-toggle-text">Read full story</span>
+              <svg class="case-study-chevron" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="m6 9 6 6 6-6"/>
+              </svg>
+            </div>
           </div>
-          <h3 class="feature-title" style="font-size: 1.5rem;">USC Zero Waste</h3>
-          <p class="feature-description" style="margin-bottom: 1.5rem;">University of Southern California deployed Revi across campus to achieve their zero-waste goals.</p>
-          <div style="display: flex; flex-wrap: wrap; gap: 0.5rem;">
-            <span class="tag">Higher Education</span>
-            <span class="tag">Campus</span>
+          <div class="case-study-content">
+            <div class="case-study-image">
+              <img src="./assets/case-study-usc.jpg" alt="Revi device at USC dining hall">
+            </div>
+            <div class="case-study-detail">
+              <h4>The Challenge</h4>
+              <p>USC's sustainability team faced persistent contamination in recycling streams across their 30+ dining locations. Manual audits were time-consuming and provided only periodic snapshots of waste behavior.</p>
+            </div>
+            <div class="case-study-detail">
+              <h4>The Solution</h4>
+              <p>Revi devices were installed at high-traffic waste stations, providing real-time sorting guidance to students and staff. The dashboard gave facilities managers visibility into contamination patterns by location and time of day.</p>
+            </div>
+            <div class="case-study-detail">
+              <h4>The Results</h4>
+              <div class="case-study-results-grid">
+                <div class="case-study-result">
+                  <span class="case-study-result-value">45%</span>
+                  <span class="case-study-result-label">Less contamination</span>
+                </div>
+                <div class="case-study-result">
+                  <span class="case-study-result-value">3,200</span>
+                  <span class="case-study-result-label">Daily interactions</span>
+                </div>
+                <div class="case-study-result">
+                  <span class="case-study-result-value">$24K</span>
+                  <span class="case-study-result-label">Annual savings</span>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
-        
-        <div class="feature-card">
-          <div style="margin-bottom: 1.5rem;">
-            <div style="font-size: 3rem; font-weight: 900; color: var(--primary);">6,000</div>
-            <div style="font-size: 0.875rem; color: var(--muted-foreground);">Monthly Interactions Per Unit</div>
+
+        <!-- K-12 Schools - Crestview Preparatory School -->
+        <div class="case-study-card">
+          <div class="case-study-header" onclick="toggleCaseStudy(this)">
+            <div class="case-study-summary">
+              <div class="case-study-stats" style="display: flex; align-items: center; justify-content: center;">
+                <img src="./assets/Crestview.png" alt="Crestview Preparatory School Logo" style="max-width: 100px; max-height: 60px; object-fit: contain;">
+              </div>
+              <div class="case-study-info">
+                <h3 class="case-study-title">Building Lifelong Green Habits</h3>
+                <p class="case-study-excerpt">La Cañada Flintridge's Crestview Preparatory School uses Revi to educate students on proper waste sorting while building sustainable habits from an early age.</p>
+                <div class="case-study-tags">
+                  <span class="tag">K-12</span>
+                  <span class="tag">Education</span>
+                  <span class="tag">La Cañada Flintridge</span>
+                </div>
+              </div>
+            </div>
+            <div class="case-study-toggle">
+              <span class="case-study-toggle-text">Read full story</span>
+              <svg class="case-study-chevron" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="m6 9 6 6 6-6"/>
+              </svg>
+            </div>
           </div>
-          <h3 class="feature-title" style="font-size: 1.5rem;">K-12 Schools</h3>
-          <p class="feature-description" style="margin-bottom: 1.5rem;">School districts use Revi to educate students while capturing real waste composition data.</p>
-          <div style="display: flex; flex-wrap: wrap; gap: 0.5rem;">
-            <span class="tag">K-12</span>
-            <span class="tag">Education</span>
+          <div class="case-study-content">
+            <div class="case-study-image">
+              <img src="./assets/case-study-placeholder.jpg" alt="Revi device at Crestview Preparatory School">
+            </div>
+            <div class="case-study-detail">
+              <h4>The Challenge</h4>
+              <p>As a green-thinking independent school, Crestview Preparatory has long prioritized environmental education as part of their curriculum. However, administrators noticed a disconnect: while students learned about sustainability in the classroom, those lessons weren't translating to action at lunchtime. Younger students in particular seemed unsure about where different items belonged, and the school wanted more than just well-organized bins—they wanted a hands-on tool that would help children truly understand and internalize proper waste disposal habits that would stick with them for life.</p>
+            </div>
+            <div class="case-study-detail">
+              <h4>The Solution</h4>
+              <p>Crestview partnered with Revisent to deploy Revi devices in the 2nd grade and 5th grade wings. The device's real-time visual feedback instantly captured students' attention—when a child holds up a milk carton or apple core, Revi's LED lights guide them to the correct bin before they toss it. Teachers incorporated the devices into their environmental science lessons, using the dashboard to track how each wing was doing. The 5th graders embraced the responsibility, with some students volunteering as "Revi Ambassadors" to help younger kids at the bins. Meanwhile, the 2nd graders turned sorting into a game, celebrating each successful sort. Within just 30 days of deployment, the impact was clear: proper disposal had become second nature across both wings, with students proudly showing off their sorting skills to parents during pickup.</p>
+            </div>
+            <div class="case-study-detail">
+              <h4>The Results</h4>
+              <div class="case-study-results-grid">
+                <div class="case-study-result">
+                  <span class="case-study-result-value">6,000+</span>
+                  <span class="case-study-result-label">Monthly interactions</span>
+                </div>
+                <div class="case-study-result">
+                  <span class="case-study-result-value">+15%</span>
+                  <span class="case-study-result-label">Recycling Rate</span>
+                </div>
+                <div class="case-study-result">
+                  <span class="case-study-result-value">100%</span>
+                  <span class="case-study-result-label">Student engagement</span>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
-        
-        <div class="feature-card">
-          <div style="margin-bottom: 1.5rem;">
-            <div style="font-size: 3rem; font-weight: 900; color: var(--primary);">35%</div>
-            <div style="font-size: 0.875rem; color: var(--muted-foreground);">Route Optimization</div>
+
+        <!-- Corporate Offices -->
+        <div class="case-study-card">
+          <div class="case-study-header" onclick="toggleCaseStudy(this)">
+            <div class="case-study-summary">
+              <div class="case-study-stats">
+                <div class="case-study-stat">
+                  <span class="case-study-stat-value">35%</span>
+                  <span class="case-study-stat-label">Route Optimization</span>
+                </div>
+              </div>
+              <div class="case-study-info">
+                <h3 class="case-study-title">Enterprise Corporate Offices</h3>
+                <p class="case-study-excerpt">Fortune 500 companies optimize pickup schedules and reduce operational costs with AI-powered waste intelligence.</p>
+                <div class="case-study-tags">
+                  <span class="tag">Enterprise</span>
+                  <span class="tag">Corporate</span>
+                </div>
+              </div>
+            </div>
+            <div class="case-study-toggle">
+              <span class="case-study-toggle-text">Read full story</span>
+              <svg class="case-study-chevron" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="m6 9 6 6 6-6"/>
+              </svg>
+            </div>
           </div>
-          <h3 class="feature-title" style="font-size: 1.5rem;">Corporate Offices</h3>
-          <p class="feature-description" style="margin-bottom: 1.5rem;">Enterprise clients optimize pickup schedules and reduce operational costs with AI insights.</p>
-          <div style="display: flex; flex-wrap: wrap; gap: 0.5rem;">
-            <span class="tag">Enterprise</span>
-            <span class="tag">Corporate</span>
+          <div class="case-study-content">
+            <div class="case-study-image">
+              <img src="./assets/case-study-corporate.jpg" alt="Revi device in corporate office">
+            </div>
+            <div class="case-study-detail">
+              <h4>The Challenge</h4>
+              <p>Large corporate campuses had no visibility into waste patterns across buildings. Fixed pickup schedules led to overflowing bins in some areas and unnecessary trips to others.</p>
+            </div>
+            <div class="case-study-detail">
+              <h4>The Solution</h4>
+              <p>Revi's fill-level monitoring and composition tracking enabled dynamic route optimization. Facilities teams could see which floors needed attention and adjust pickup frequency accordingly.</p>
+            </div>
+            <div class="case-study-detail">
+              <h4>The Results</h4>
+              <div class="case-study-results-grid">
+                <div class="case-study-result">
+                  <span class="case-study-result-value">35%</span>
+                  <span class="case-study-result-label">Fewer pickups needed</span>
+                </div>
+                <div class="case-study-result">
+                  <span class="case-study-result-value">$18K</span>
+                  <span class="case-study-result-label">Annual labor savings</span>
+                </div>
+                <div class="case-study-result">
+                  <span class="case-study-result-value">92%</span>
+                  <span class="case-study-result-label">ESG reporting accuracy</span>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
+
       </div>
     </div>
   </section>
 
   <!-- CTA Section -->
-  <section class="cta-section bg-dark">
+  <section class="cta-section bg-primary">
     <div class="container">
       <h2 class="cta-title text-white">Join Our Growing List of Partners</h2>
-      <a href="./demo.html" class="btn btn-white btn-xl">
+      <a href="./contact.html" class="btn btn-white btn-xl">
         Become a Case Study
         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
       </a>
@@ -143,14 +276,15 @@
           <div class="footer-links">
             <a href="/" class="footer-link">Home</a>
             <a href="./revi.html" class="footer-link">Revi Device</a>
-            <a href="./dashboard.html" class="footer-link">Dashboard</a>
+            <a href="./case-studies.html" class="footer-link">Case Studies</a>
             <a href="./about.html" class="footer-link">About</a>
+            <a href="./contact.html" class="footer-link">Contact</a>
           </div>
         </div>
         <div>
           <h4 class="footer-heading">Solutions</h4>
           <div class="footer-links">
-            <a href="./solutions/mrfs.html" class="footer-link">MRFs</a>
+            <a href="./solutions/mrfs.html" class="footer-link">MRFs & Haulers</a>
             <a href="./solutions/waste-auditors.html" class="footer-link">Waste Auditors</a>
             <a href="./solutions/campuses.html" class="footer-link">Campuses & Offices</a>
           </div>
@@ -160,9 +294,8 @@
           <div class="footer-links">
             <a href="./investors.html" class="footer-link">Investors</a>
             <a href="./partners.html" class="footer-link">Partners</a>
-            <a href="./press.html" class="footer-link">Press</a>
             <a href="./careers.html" class="footer-link">Careers</a>
-            <a href="./esg.html" class="footer-link">ESG & Reporting</a>
+            <a href="./esg.html" class="footer-link">Security</a>
           </div>
         </div>
         <div>
@@ -179,10 +312,33 @@
     </div>
   </footer>
 
+  <!-- Calendly popup widget -->
+  <link href="https://assets.calendly.com/assets/external/widget.css" rel="stylesheet">
+  <script src="https://assets.calendly.com/assets/external/widget.js" type="text/javascript" async></script>
   <script>
+    function openCalendly() {
+      Calendly.initPopupWidget({url: 'https://calendly.com/chris-revisent/30min'});
+      return false;
+    }
     const header = document.getElementById('header');
     window.addEventListener('scroll', () => header.classList.toggle('scrolled', window.scrollY > 20));
     document.getElementById('nav-toggle').addEventListener('click', () => document.getElementById('mobile-menu').classList.toggle('open'));
+
+    // Case study accordion toggle
+    function toggleCaseStudy(headerEl) {
+      const card = headerEl.closest('.case-study-card');
+      const isOpen = card.classList.contains('open');
+
+      // Close all other cards
+      document.querySelectorAll('.case-study-card.open').forEach(openCard => {
+        if (openCard !== card) {
+          openCard.classList.remove('open');
+        }
+      });
+
+      // Toggle current card
+      card.classList.toggle('open');
+    }
   </script>
 </body>
 </html>

@@ -20,11 +20,10 @@
       <div class="nav-links">
         <a href="/" class="nav-link">Home</a>
         <a href="./revi.html" class="nav-link">Revi Device</a>
-        <a href="./dashboard.html" class="nav-link">Dashboard</a>
         <div class="nav-dropdown">
           <button class="nav-link">Solutions ▾</button>
           <div class="nav-dropdown-menu">
-            <a href="./solutions/mrfs.html" class="nav-dropdown-item">MRFs</a>
+            <a href="./solutions/mrfs.html" class="nav-dropdown-item">MRFs & Haulers</a>
             <a href="./solutions/waste-auditors.html" class="nav-dropdown-item">Waste Auditors</a>
             <a href="./solutions/campuses.html" class="nav-dropdown-item">Campuses & Offices</a>
           </div>
@@ -34,7 +33,7 @@
       </div>
       <div class="nav-actions">
         <a href="./contact.html" class="btn btn-ghost btn-sm">Contact</a>
-        <a href="./demo.html" class="btn btn-primary btn-sm">Book a Pilot</a>
+        <a href="#" onclick="openCalendly(); return false;" class="btn btn-primary btn-sm">Book a Call</a>
       </div>
       <button class="nav-toggle" id="nav-toggle" aria-label="Toggle menu">
         <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -46,13 +45,12 @@
       <div class="container">
         <a href="/" class="mobile-menu-link">Home</a>
         <a href="./revi.html" class="mobile-menu-link">Revi Device</a>
-        <a href="./dashboard.html" class="mobile-menu-link">Dashboard</a>
-        <a href="./solutions/mrfs.html" class="mobile-menu-link">MRFs</a>
+        <a href="./solutions/mrfs.html" class="mobile-menu-link">MRFs & Haulers</a>
         <a href="./solutions/waste-auditors.html" class="mobile-menu-link">Waste Auditors</a>
         <a href="./solutions/campuses.html" class="mobile-menu-link">Campuses & Offices</a>
         <a href="./case-studies.html" class="mobile-menu-link">Case Studies</a>
         <a href="./about.html" class="mobile-menu-link">About</a>
-        <a href="./demo.html" class="btn btn-primary mobile-menu-cta">Book a Pilot</a>
+        <a href="#" onclick="openCalendly(); return false;" class="btn btn-primary mobile-menu-cta">Book a Call</a>
       </div>
     </div>
   </header>
@@ -60,19 +58,60 @@
   <section class="page-header bg-white">
     <div class="container text-center">
       <h1 class="page-title">Terms of Service</h1>
-      <p class="page-subtitle">Rules for using Revisent products and services.</p>
+      <p class="page-subtitle">Last updated: December 2025</p>
     </div>
   </section>
 
-  <section class="section-padding bg-muted">
-    <div class="container">
-      <div class="feature-card">
-        <h3 class="feature-title">Acceptable use</h3>
-        <p class="feature-description">Use Revisent services in compliance with applicable laws and only for lawful waste management and analytics needs.</p>
-        <h3 class="feature-title" style="margin-top: 1.5rem;">Data and confidentiality</h3>
-        <p class="feature-description">We protect customer data and use it solely to provide and improve services. Confidential information is not shared without consent unless required by law.</p>
-        <h3 class="feature-title" style="margin-top: 1.5rem;">Support</h3>
-        <p class="feature-description">For questions about these terms, email <a href="mailto:contact@revisent.com">contact@revisent.com</a>.</p>
+  <section class="section-padding bg-white" style="padding-top: 2rem;">
+    <div class="container" style="max-width: 800px;">
+      <div class="legal-content" style="line-height: 1.8; color: var(--muted-foreground);">
+
+        <h2 style="font-size: 1.25rem; font-weight: 700; color: var(--foreground); margin-bottom: 1rem;">1. Acceptance of Terms</h2>
+        <p style="margin-bottom: 1.5rem;">By accessing or using Revisent's Revi devices, dashboard, website, or related services (collectively, the "Services"), you agree to be bound by these Terms of Service ("Terms"). If you do not agree to these Terms, do not use our Services.</p>
+
+        <h2 style="font-size: 1.25rem; font-weight: 700; color: var(--foreground); margin-bottom: 1rem;">2. Description of Services</h2>
+        <p style="margin-bottom: 1.5rem;">Revisent provides AI-powered waste intelligence solutions including smart waste detection devices, analytics dashboards, and related software services designed to reduce contamination and improve waste diversion rates.</p>
+
+        <h2 style="font-size: 1.25rem; font-weight: 700; color: var(--foreground); margin-bottom: 1rem;">3. Account Registration</h2>
+        <p style="margin-bottom: 1.5rem;">You may need to create an account to access certain features. You are responsible for maintaining the confidentiality of your account credentials and for all activities under your account. You agree to provide accurate and complete information and to notify us immediately of any unauthorized use.</p>
+
+        <h2 style="font-size: 1.25rem; font-weight: 700; color: var(--foreground); margin-bottom: 1rem;">4. Acceptable Use</h2>
+        <p style="margin-bottom: 0.5rem;">You agree to use the Services only for lawful purposes and in accordance with these Terms. You agree not to:</p>
+        <ul style="margin-bottom: 1.5rem; padding-left: 1.5rem;">
+          <li style="margin-bottom: 0.5rem;">Use the Services in violation of any applicable law or regulation</li>
+          <li style="margin-bottom: 0.5rem;">Attempt to gain unauthorized access to our systems or networks</li>
+          <li style="margin-bottom: 0.5rem;">Interfere with or disrupt the Services or servers</li>
+          <li style="margin-bottom: 0.5rem;">Reverse engineer, decompile, or disassemble any part of the Services</li>
+          <li style="margin-bottom: 0.5rem;">Use the Services to collect data in violation of privacy laws</li>
+        </ul>
+
+        <h2 style="font-size: 1.25rem; font-weight: 700; color: var(--foreground); margin-bottom: 1rem;">5. Intellectual Property</h2>
+        <p style="margin-bottom: 1.5rem;">The Services and all content, features, and functionality are owned by Revisent and are protected by copyright, trademark, and other intellectual property laws. You are granted a limited, non-exclusive, non-transferable license to use the Services in accordance with these Terms.</p>
+
+        <h2 style="font-size: 1.25rem; font-weight: 700; color: var(--foreground); margin-bottom: 1rem;">6. Data Ownership</h2>
+        <p style="margin-bottom: 1.5rem;">You retain ownership of data you provide to us ("Customer Data"). You grant Revisent a license to use Customer Data to provide and improve the Services. Aggregated, anonymized data may be used for product development and industry benchmarking.</p>
+
+        <h2 style="font-size: 1.25rem; font-weight: 700; color: var(--foreground); margin-bottom: 1rem;">7. Confidentiality</h2>
+        <p style="margin-bottom: 1.5rem;">Both parties agree to maintain the confidentiality of any proprietary or confidential information disclosed during the use of the Services. This obligation does not apply to information that is publicly available or independently developed.</p>
+
+        <h2 style="font-size: 1.25rem; font-weight: 700; color: var(--foreground); margin-bottom: 1rem;">8. Disclaimer of Warranties</h2>
+        <p style="margin-bottom: 1.5rem;">THE SERVICES ARE PROVIDED "AS IS" AND "AS AVAILABLE" WITHOUT WARRANTIES OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE, AND NON-INFRINGEMENT. WE DO NOT WARRANT THAT THE SERVICES WILL BE UNINTERRUPTED OR ERROR-FREE.</p>
+
+        <h2 style="font-size: 1.25rem; font-weight: 700; color: var(--foreground); margin-bottom: 1rem;">9. Limitation of Liability</h2>
+        <p style="margin-bottom: 1.5rem;">TO THE MAXIMUM EXTENT PERMITTED BY LAW, REVISENT SHALL NOT BE LIABLE FOR ANY INDIRECT, INCIDENTAL, SPECIAL, CONSEQUENTIAL, OR PUNITIVE DAMAGES ARISING FROM YOUR USE OF THE SERVICES. OUR TOTAL LIABILITY SHALL NOT EXCEED THE AMOUNTS PAID BY YOU IN THE TWELVE MONTHS PRECEDING THE CLAIM.</p>
+
+        <h2 style="font-size: 1.25rem; font-weight: 700; color: var(--foreground); margin-bottom: 1rem;">10. Termination</h2>
+        <p style="margin-bottom: 1.5rem;">We may suspend or terminate your access to the Services at any time for violation of these Terms or for any other reason with reasonable notice. Upon termination, your right to use the Services will immediately cease.</p>
+
+        <h2 style="font-size: 1.25rem; font-weight: 700; color: var(--foreground); margin-bottom: 1rem;">11. Governing Law</h2>
+        <p style="margin-bottom: 1.5rem;">These Terms shall be governed by and construed in accordance with the laws of the State of California, without regard to conflict of law principles. Any disputes shall be resolved in the courts located in San Francisco County, California.</p>
+
+        <h2 style="font-size: 1.25rem; font-weight: 700; color: var(--foreground); margin-bottom: 1rem;">12. Changes to Terms</h2>
+        <p style="margin-bottom: 1.5rem;">We may update these Terms from time to time. We will notify you of material changes by posting the updated Terms on our website. Your continued use of the Services after changes constitutes acceptance of the new Terms.</p>
+
+        <h2 style="font-size: 1.25rem; font-weight: 700; color: var(--foreground); margin-bottom: 1rem;">13. Contact</h2>
+        <p>For questions about these Terms, contact us at <a href="mailto:legal@revisent.com" style="color: var(--primary);">legal@revisent.com</a>.</p>
+
       </div>
     </div>
   </section>
@@ -91,7 +130,6 @@
           <div class="footer-links">
             <a href="/" class="footer-link">Home</a>
             <a href="./revi.html" class="footer-link">Revi Device</a>
-            <a href="./dashboard.html" class="footer-link">Dashboard</a>
             <a href="./case-studies.html" class="footer-link">Case Studies</a>
             <a href="./about.html" class="footer-link">About</a>
             <a href="./contact.html" class="footer-link">Contact</a>
@@ -100,7 +138,7 @@
         <div>
           <h4 class="footer-heading">Solutions</h4>
           <div class="footer-links">
-            <a href="./solutions/mrfs.html" class="footer-link">MRFs</a>
+            <a href="./solutions/mrfs.html" class="footer-link">MRFs & Haulers</a>
             <a href="./solutions/waste-auditors.html" class="footer-link">Waste Auditors</a>
             <a href="./solutions/campuses.html" class="footer-link">Campuses & Offices</a>
           </div>
@@ -110,9 +148,8 @@
           <div class="footer-links">
             <a href="./investors.html" class="footer-link">Investors</a>
             <a href="./partners.html" class="footer-link">Partners</a>
-            <a href="./press.html" class="footer-link">Press</a>
             <a href="./careers.html" class="footer-link">Careers</a>
-            <a href="./esg.html" class="footer-link">ESG & Reporting</a>
+            <a href="./esg.html" class="footer-link">Security</a>
           </div>
         </div>
         <div>

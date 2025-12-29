@@ -19,6 +19,9 @@
   <link rel="apple-touch-icon" href="../assets/Revisentfav.png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="preconnect" href="https://assets.calendly.com">
+  <link rel="prefetch" href="https://assets.calendly.com/assets/external/widget.js">
+  <link rel="prefetch" href="https://assets.calendly.com/assets/external/widget.css">
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;900&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="../styles.css">
 </head>
@@ -30,11 +33,10 @@
       <div class="nav-links">
         <a href="../" class="nav-link">Home</a>
         <a href="../revi.html" class="nav-link">Revi Device</a>
-        <a href="../dashboard.html" class="nav-link">Dashboard</a>
         <div class="nav-dropdown">
           <button class="nav-link active">Solutions ▾</button>
           <div class="nav-dropdown-menu">
-            <a href="./mrfs.html" class="nav-dropdown-item">MRFs</a>
+            <a href="./mrfs.html" class="nav-dropdown-item">MRFs & Haulers</a>
             <a href="./waste-auditors.html" class="nav-dropdown-item">Waste Auditors</a>
             <a href="./campuses.html" class="nav-dropdown-item">Campuses & Offices</a>
           </div>
@@ -44,7 +46,7 @@
       </div>
       <div class="nav-actions">
         <a href="../contact.html" class="btn btn-ghost btn-sm">Contact</a>
-        <a href="../demo.html" class="btn btn-primary btn-sm">Book a Pilot</a>
+        <a href="#" onclick="openCalendly(); return false;" class="btn btn-primary btn-sm">Book a Call</a>
       </div>
       <button class="nav-toggle" id="nav-toggle" aria-label="Toggle menu">
         <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -56,25 +58,24 @@
       <div class="container">
         <a href="../" class="mobile-menu-link">Home</a>
         <a href="../revi.html" class="mobile-menu-link">Revi Device</a>
-        <a href="../dashboard.html" class="mobile-menu-link">Dashboard</a>
-        <a href="./mrfs.html" class="mobile-menu-link">MRFs</a>
+        <a href="./mrfs.html" class="mobile-menu-link">MRFs & Haulers</a>
         <a href="./waste-auditors.html" class="mobile-menu-link">Waste Auditors</a>
         <a href="./campuses.html" class="mobile-menu-link">Campuses & Offices</a>
         <a href="../case-studies.html" class="mobile-menu-link">Case Studies</a>
         <a href="../about.html" class="mobile-menu-link">About</a>
-        <a href="../demo.html" class="btn btn-primary mobile-menu-cta">Book a Pilot</a>
+        <a href="#" onclick="openCalendly(); return false;" class="btn btn-primary mobile-menu-cta">Book a Call</a>
       </div>
     </div>
   </header>
 
   <!-- Page Header -->
-  <section class="page-header bg-white">
+  <section class="page-header bg-white" style="padding-bottom: 2rem;">
     <div class="container text-center">
       <span class="section-badge">For Campuses & Offices</span>
       <h1 class="page-title">Engage Every Floor.<br>Hit Sustainability Targets Faster.</h1>
-      <p class="page-subtitle">LED guidance and live data reduce contamination fees, educate occupants, and document ESG progress.</p>
+      <p class="page-subtitle">Real-time sorting guidance and automated reporting help facilities reduce contamination, lower hauler fees, and hit ESG goals.</p>
       <div class="mt-10">
-        <a href="../demo.html" class="btn btn-primary btn-xl">
+        <a href="#" onclick="openCalendly(); return false;" class="btn btn-primary btn-xl">
           Schedule a Demo
           <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
         </a>
@@ -82,8 +83,26 @@
     </div>
   </section>
 
+  <!-- Stats Section -->
+  <section class="py-3" style="background: #ffffff;">
+    <div class="container stats-bar stats-bar-light">
+      <div class="stat-item">
+        <div class="stat-value" data-count="45" data-suffix="%">0%</div>
+        <div class="stat-label">Less Contamination</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-value" data-count="15" data-suffix="%">0%</div>
+        <div class="stat-label">Higher Recycling Rates</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-value">100%</div>
+        <div class="stat-label">Audit-Ready Data</div>
+      </div>
+    </div>
+  </section>
+
   <!-- Benefits Section -->
-  <section class="section-padding bg-muted">
+  <section class="section-padding bg-white">
     <div class="container">
       <div class="grid gap-8 md:grid-cols-2">
         <div class="feature-card feature-card-horizontal">
@@ -94,8 +113,8 @@
             </svg>
           </div>
           <div>
-            <h3 class="feature-title">Reduce Hauler Fees</h3>
-            <p class="feature-description">Lower contamination fines and overweight pulls with in-the-moment guidance at the bin.</p>
+            <h3 class="feature-title">Hazardous Waste Detection</h3>
+            <p class="feature-description">Detect hazardous items before they enter your waste stream to avoid fines and ensure regulatory compliance.</p>
           </div>
         </div>
         
@@ -106,8 +125,8 @@
             </svg>
           </div>
           <div>
-            <h3 class="feature-title">Occupant Education</h3>
-            <p class="feature-description">On-device prompts and feedback loops train students and staff without extra signage spend.</p>
+            <h3 class="feature-title">Train Without Signage</h3>
+            <p class="feature-description">On-device prompts and feedback loops educate students and staff automatically—no extra signage needed.</p>
           </div>
         </div>
         
@@ -133,37 +152,19 @@
             </svg>
           </div>
           <div>
-            <h3 class="feature-title">Behavior Insights</h3>
-            <p class="feature-description">See which buildings or floors lag, target outreach, and measure financial impact of programs.</p>
+            <h3 class="feature-title">Track by Building</h3>
+            <p class="feature-description">See which buildings or floors lag, target outreach, and measure the financial impact of your programs.</p>
           </div>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- Stats Section -->
-  <section class="bg-primary py-20">
-    <div class="container stats-bar">
-      <div class="stat-item">
-        <div class="stat-value">6,000</div>
-        <div class="stat-label">Monthly Interactions Per Unit</div>
-      </div>
-      <div class="stat-item">
-        <div class="stat-value">45%</div>
-        <div class="stat-label">Better Sorting</div>
-      </div>
-      <div class="stat-item">
-        <div class="stat-value">15%</div>
-        <div class="stat-label">ESG Ready</div>
-      </div>
-    </div>
-  </section>
-
   <!-- CTA Section -->
-  <section class="cta-section bg-dark">
+  <section class="cta-section bg-primary">
     <div class="container">
-      <h2 class="cta-title text-white">Start Your Sustainability Journey</h2>
-      <a href="../demo.html" class="btn btn-white btn-xl">
+      <h2 class="cta-title text-white">Ready to Hit Your Zero-Waste Goals?</h2>
+      <a href="../contact.html" class="btn btn-white btn-xl">
         Book a Demo
         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
       </a>
@@ -183,14 +184,15 @@
           <div class="footer-links">
             <a href="../" class="footer-link">Home</a>
             <a href="../revi.html" class="footer-link">Revi Device</a>
-            <a href="../dashboard.html" class="footer-link">Dashboard</a>
+            <a href="../case-studies.html" class="footer-link">Case Studies</a>
             <a href="../about.html" class="footer-link">About</a>
+            <a href="../contact.html" class="footer-link">Contact</a>
           </div>
         </div>
         <div>
           <h4 class="footer-heading">Solutions</h4>
           <div class="footer-links">
-            <a href="./mrfs.html" class="footer-link">MRFs</a>
+            <a href="./mrfs.html" class="footer-link">MRFs & Haulers</a>
             <a href="./waste-auditors.html" class="footer-link">Waste Auditors</a>
             <a href="./campuses.html" class="footer-link">Campuses & Offices</a>
           </div>
@@ -200,9 +202,8 @@
           <div class="footer-links">
             <a href="../investors.html" class="footer-link">Investors</a>
             <a href="../partners.html" class="footer-link">Partners</a>
-            <a href="../press.html" class="footer-link">Press</a>
             <a href="../careers.html" class="footer-link">Careers</a>
-            <a href="../esg.html" class="footer-link">ESG & Reporting</a>
+            <a href="../esg.html" class="footer-link">Security</a>
           </div>
         </div>
         <div>
@@ -219,10 +220,59 @@
     </div>
   </footer>
 
+  <!-- Calendly popup widget -->
+  <link href="https://assets.calendly.com/assets/external/widget.css" rel="stylesheet">
+  <script src="https://assets.calendly.com/assets/external/widget.js" type="text/javascript" async></script>
   <script>
+    function openCalendly() {
+      Calendly.initPopupWidget({url: 'https://calendly.com/chris-revisent/30min'});
+      return false;
+    }
     const header = document.getElementById('header');
     window.addEventListener('scroll', () => header.classList.toggle('scrolled', window.scrollY > 20));
     document.getElementById('nav-toggle').addEventListener('click', () => document.getElementById('mobile-menu').classList.toggle('open'));
+
+    // Count-up animation
+    const countObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          const el = entry.target;
+          const target = parseFloat(el.dataset.count);
+          const suffix = el.dataset.suffix || '';
+          const prefix = el.dataset.prefix || '';
+          const isDecimal = target % 1 !== 0;
+          const duration = 2000;
+          const startTime = performance.now();
+
+          function updateCount(currentTime) {
+            const elapsed = currentTime - startTime;
+            const progress = Math.min(elapsed / duration, 1);
+            const easeOut = 1 - Math.pow(1 - progress, 3);
+            const current = target * easeOut;
+
+            if (isDecimal) {
+              el.textContent = prefix + current.toFixed(1) + suffix;
+            } else {
+              el.textContent = prefix + Math.floor(current).toLocaleString() + suffix;
+            }
+
+            if (progress < 1) {
+              requestAnimationFrame(updateCount);
+            } else {
+              if (isDecimal) {
+                el.textContent = prefix + target.toFixed(1) + suffix;
+              } else {
+                el.textContent = prefix + target.toLocaleString() + suffix;
+              }
+            }
+          }
+          requestAnimationFrame(updateCount);
+          countObserver.unobserve(el);
+        }
+      });
+    }, { threshold: 0.5 });
+
+    document.querySelectorAll('[data-count]').forEach(el => countObserver.observe(el));
   </script>
 </body>
 </html>

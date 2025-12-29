@@ -23,11 +23,10 @@
       <div class="nav-links">
         <a href="/" class="nav-link">Home</a>
         <a href="./revi.html" class="nav-link">Revi Device</a>
-        <a href="./dashboard.html" class="nav-link">Dashboard</a>
         <div class="nav-dropdown">
           <button class="nav-link">Solutions ▾</button>
           <div class="nav-dropdown-menu">
-            <a href="./solutions/mrfs.html" class="nav-dropdown-item">MRFs</a>
+            <a href="./solutions/mrfs.html" class="nav-dropdown-item">MRFs & Haulers</a>
             <a href="./solutions/waste-auditors.html" class="nav-dropdown-item">Waste Auditors</a>
             <a href="./solutions/campuses.html" class="nav-dropdown-item">Campuses & Offices</a>
           </div>
@@ -37,7 +36,7 @@
       </div>
       <div class="nav-actions">
         <a href="./contact.html" class="btn btn-ghost btn-sm">Contact</a>
-        <a href="./demo.html" class="btn btn-primary btn-sm">Book a Pilot</a>
+        <a href="#" onclick="openCalendly(); return false;" class="btn btn-primary btn-sm">Book a Call</a>
       </div>
       <button class="nav-toggle" id="nav-toggle" aria-label="Toggle menu">
         <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -49,84 +48,27 @@
       <div class="container">
         <a href="/" class="mobile-menu-link">Home</a>
         <a href="./revi.html" class="mobile-menu-link">Revi Device</a>
-        <a href="./dashboard.html" class="mobile-menu-link">Dashboard</a>
-        <a href="./solutions/mrfs.html" class="mobile-menu-link">MRFs</a>
+        <a href="./solutions/mrfs.html" class="mobile-menu-link">MRFs & Haulers</a>
         <a href="./solutions/waste-auditors.html" class="mobile-menu-link">Waste Auditors</a>
         <a href="./solutions/campuses.html" class="mobile-menu-link">Campuses & Offices</a>
         <a href="./about.html" class="mobile-menu-link">About</a>
-        <a href="./demo.html" class="btn btn-primary mobile-menu-cta">Book a Pilot</a>
+        <a href="#" onclick="openCalendly(); return false;" class="btn btn-primary mobile-menu-cta">Book a Call</a>
       </div>
     </div>
   </header>
 
   <!-- Page Header -->
-  <section class="page-header bg-white">
+  <section class="page-header bg-white" style="padding-bottom: 3rem;">
     <div class="container text-center">
       <h1 class="page-title">Invest in the Future of<br><span class="text-primary">Waste Intelligence</span></h1>
-      <p class="page-subtitle">Revisent is building the operating system for smarter waste management.</p>
-      <div style="margin-top: 2.5rem;">
-        <a class="btn btn-primary btn-xl" href="mailto:contact@revisent.com?subject=Investor%20Deck%20Request">
-          Request Investor Deck
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
-        </a>
-        <a class="btn btn-outline btn-xl" style="margin-left: 1rem;" href="https://calendly.com/revisent/demo">
-          Schedule a Call
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
-        </a>
-      </div>
-    </div>
-  </section>
-
-  <!-- Traction Stats -->
-  <section class="bg-primary" style="padding: 5rem 0;">
-    <div class="container">
-      <h2 style="text-align: center; font-size: 1.875rem; font-weight: 900; color: #fff; margin-bottom: 3rem;">Traction</h2>
-      <div class="stats-bar">
-        <div class="stat-item">
-          <div class="stat-value">45%</div>
-          <div class="stat-label">Contamination Reduction</div>
-        </div>
-        <div class="stat-item">
-          <div class="stat-value">6,000</div>
-          <div class="stat-label">Monthly Interactions Per Unit</div>
-        </div>
-        <div class="stat-item">
-          <div class="stat-value">15%</div>
-          <div class="stat-label">Penalties Prevented</div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Go-To-Market & Pipeline -->
-  <section class="section-padding bg-white">
-    <div class="container">
-      <div class="section-header">
-        <div class="section-badge">Go-To-Market</div>
-        <h2 class="section-title">Pilot-First, Expansion-Ready</h2>
-        <p class="section-subtitle">We lead with fast pilots, land with data, and expand across facilities.</p>
-      </div>
-      <div class="grid gap-8 md:grid-cols-3">
-        <div class="feature-card">
-          <h3 class="feature-title">Pilot Kits</h3>
-          <p class="feature-description">Preconfigured Revi units, training, and 30-day ROI snapshot to unlock expansion.</p>
-        </div>
-        <div class="feature-card">
-          <h3 class="feature-title">Enterprise Ready</h3>
-          <p class="feature-description">Dashboard exports, API hooks, and support SLAs designed for multi-site rollouts.</p>
-        </div>
-        <div class="feature-card">
-          <h3 class="feature-title">Expansion Motion</h3>
-          <p class="feature-description">Usage-based pricing with hardware + software bundle and playbooks by vertical.</p>
-        </div>
-      </div>
+      <p class="page-subtitle">Revisent is building the operating system for smarter waste management. We're transforming a $1.5 trillion industry with AI-powered solutions that deliver measurable results.</p>
     </div>
   </section>
 
   <!-- Why Invest -->
-  <section class="section-padding bg-muted">
+  <section class="section-padding bg-white" style="padding-top: 0;">
     <div class="container">
-      <div class="grid gap-8 md:grid-cols-2 lg:grid-cols-4">
+      <div class="grid gap-8 md:grid-cols-3">
         <div class="text-center">
           <div class="feature-icon center" style="width: 3.5rem; height: 3.5rem;">
             <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -134,18 +76,18 @@
               <path d="m16 12-4-4-4 4"/><path d="M12 16V8"/>
             </svg>
           </div>
-          <h3 class="feature-title" style="font-size: 1.125rem;">Vision</h3>
-          <p class="feature-description" style="font-size: 0.875rem;">Transform global waste management through AI-powered intelligence.</p>
+          <h3 class="feature-title" style="font-size: 1.125rem;">Massive Market</h3>
+          <p class="feature-description" style="font-size: 0.875rem;">$1.5T global waste management industry with growing ESG mandates driving adoption.</p>
         </div>
         <div class="text-center">
           <div class="feature-icon center" style="width: 3.5rem; height: 3.5rem;">
             <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-              <path d="M3 3v16a2 2 0 0 0 2 2h16"/>
-              <path d="M18 17V9"/><path d="M13 17V5"/><path d="M8 17v-3"/>
+              <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/>
+              <polyline points="22 4 12 14.01 9 11.01"/>
             </svg>
           </div>
-          <h3 class="feature-title" style="font-size: 1.125rem;">Market</h3>
-          <p class="feature-description" style="font-size: 0.875rem;">$2.5T global waste management market growing 5% annually.</p>
+          <h3 class="feature-title" style="font-size: 1.125rem;">Proven Results</h3>
+          <p class="feature-description" style="font-size: 0.875rem;">Live pilots with enterprise customers delivering measurable contamination reduction.</p>
         </div>
         <div class="text-center">
           <div class="feature-icon center" style="width: 3.5rem; height: 3.5rem;">
@@ -155,77 +97,21 @@
               <path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/>
             </svg>
           </div>
-          <h3 class="feature-title" style="font-size: 1.125rem;">Team</h3>
-          <p class="feature-description" style="font-size: 0.875rem;">Industry veterans and AI experts from top tech companies.</p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Milestones & Roadmap -->
-  <section class="section-padding bg-white">
-    <div class="container">
-      <div class="section-header">
-        <div class="section-badge">Milestones</div>
-        <h2 class="section-title">Execution So Far</h2>
-        <p class="section-subtitle">Hardware shipped, models tuned, customers live.</p>
-      </div>
-      <div class="grid gap-8 md:grid-cols-3">
-        <div class="feature-card">
-          <h3 class="feature-title">Product</h3>
-          <p class="feature-description">Production Revi hardware with LED routing, device health monitoring, and dashboard.</p>
-        </div>
-        <div class="feature-card">
-          <h3 class="feature-title">Customers</h3>
-          <p class="feature-description">MRF and campus pilots producing 45% contamination reduction with verified logs.</p>
-        </div>
-        <div class="feature-card">
-          <h3 class="feature-title">Pipeline</h3>
-          <p class="feature-description">Active enterprise conversations and city RFPs driven by sustainability mandates.</p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Investor FAQ -->
-  <section class="section-padding bg-muted">
-    <div class="container">
-      <div class="section-header">
-        <div class="section-badge">Investor FAQ</div>
-        <h2 class="section-title">What Investors Ask</h2>
-        <p class="section-subtitle">Short answers; full details in the deck.</p>
-      </div>
-      <div class="grid gap-8 md:grid-cols-2">
-        <div class="feature-card">
-          <h3 class="feature-title">Unit Economics</h3>
-          <p class="feature-description">Hardware + software bundle with recurring analytics; margin expands post-pilot via software and services.</p>
-        </div>
-        <div class="feature-card">
-          <h3 class="feature-title">Differentiation</h3>
-          <p class="feature-description">Purpose-built waste CV model, LED routing, and operational dashboard with audit-ready exports.</p>
-        </div>
-        <div class="feature-card">
-          <h3 class="feature-title">Adoption Risk</h3>
-          <p class="feature-description">On-site training, LED guidance, and behavior insights reduce change-management friction.</p>
-        </div>
-        <div class="feature-card">
-          <h3 class="feature-title">Rollout Time</h3>
-          <p class="feature-description">Pilot in 2 weeks, impact in 30 days, expansion plan delivered with procurement docs.</p>
+          <h3 class="feature-title" style="font-size: 1.125rem;">Fast Execution</h3>
+          <p class="feature-description" style="font-size: 0.875rem;">Technical team with deep domain expertise shipping product and iterating quickly.</p>
         </div>
       </div>
     </div>
   </section>
 
   <!-- CTA Section -->
-  <section class="cta-section bg-dark">
+  <section class="cta-section bg-primary">
     <div class="container">
-      <h2 class="cta-title text-white">Join Our Journey</h2>
-      <a class="btn btn-white btn-xl" href="mailto:contact@revisent.com?subject=Investor%20Deck%20Request">
-        Request Investor Deck
+      <h2 class="cta-title text-white">Interested in Learning More?</h2>
+      <p style="color: rgba(255,255,255,0.9); margin-bottom: 2rem; font-size: 1.125rem;">Request our investor deck to see traction, milestones, and the opportunity ahead.</p>
+      <a class="btn btn-white btn-xl" href="./contact.html">
+        Get in Touch
         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
-      </a>
-      <a class="btn btn-white-outline btn-xl" style="margin-left: 1rem;" href="https://calendly.com/revisent/demo">
-        Schedule a Call
       </a>
     </div>
   </section>
@@ -243,14 +129,15 @@
           <div class="footer-links">
             <a href="/" class="footer-link">Home</a>
             <a href="./revi.html" class="footer-link">Revi Device</a>
-            <a href="./dashboard.html" class="footer-link">Dashboard</a>
+            <a href="./case-studies.html" class="footer-link">Case Studies</a>
             <a href="./about.html" class="footer-link">About</a>
+            <a href="./contact.html" class="footer-link">Contact</a>
           </div>
         </div>
         <div>
           <h4 class="footer-heading">Solutions</h4>
           <div class="footer-links">
-            <a href="./solutions/mrfs.html" class="footer-link">MRFs</a>
+            <a href="./solutions/mrfs.html" class="footer-link">MRFs & Haulers</a>
             <a href="./solutions/waste-auditors.html" class="footer-link">Waste Auditors</a>
             <a href="./solutions/campuses.html" class="footer-link">Campuses & Offices</a>
           </div>
@@ -260,9 +147,8 @@
           <div class="footer-links">
             <a href="./investors.html" class="footer-link">Investors</a>
             <a href="./partners.html" class="footer-link">Partners</a>
-            <a href="./press.html" class="footer-link">Press</a>
             <a href="./careers.html" class="footer-link">Careers</a>
-            <a href="./esg.html" class="footer-link">ESG & Reporting</a>
+            <a href="./esg.html" class="footer-link">Security</a>
           </div>
         </div>
         <div>

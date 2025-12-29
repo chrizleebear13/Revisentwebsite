@@ -17,6 +17,9 @@
   <link rel="apple-touch-icon" href="./assets/Revisentfav.png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="preconnect" href="https://assets.calendly.com">
+  <link rel="prefetch" href="https://assets.calendly.com/assets/external/widget.js">
+  <link rel="prefetch" href="https://assets.calendly.com/assets/external/widget.css">
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;900&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="./styles.css">
 </head>
@@ -28,11 +31,10 @@
       <div class="nav-links">
         <a href="/" class="nav-link">Home</a>
         <a href="./revi.html" class="nav-link">Revi Device</a>
-        <a href="./dashboard.html" class="nav-link">Dashboard</a>
         <div class="nav-dropdown">
           <button class="nav-link">Solutions ▾</button>
           <div class="nav-dropdown-menu">
-            <a href="./solutions/mrfs.html" class="nav-dropdown-item">MRFs</a>
+            <a href="./solutions/mrfs.html" class="nav-dropdown-item">MRFs & Haulers</a>
             <a href="./solutions/waste-auditors.html" class="nav-dropdown-item">Waste Auditors</a>
             <a href="./solutions/campuses.html" class="nav-dropdown-item">Campuses & Offices</a>
           </div>
@@ -42,7 +44,7 @@
       </div>
       <div class="nav-actions">
         <a href="./contact.html" class="btn btn-ghost btn-sm">Contact</a>
-        <a href="./demo.html" class="btn btn-primary btn-sm">Book a Pilot</a>
+        <a href="#" onclick="openCalendly(); return false;" class="btn btn-primary btn-sm">Book a Call</a>
       </div>
       <button class="nav-toggle" id="nav-toggle" aria-label="Toggle menu">
         <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -54,13 +56,12 @@
       <div class="container">
         <a href="/" class="mobile-menu-link">Home</a>
         <a href="./revi.html" class="mobile-menu-link">Revi Device</a>
-        <a href="./dashboard.html" class="mobile-menu-link">Dashboard</a>
-        <a href="./solutions/mrfs.html" class="mobile-menu-link">MRFs</a>
+        <a href="./solutions/mrfs.html" class="mobile-menu-link">MRFs & Haulers</a>
         <a href="./solutions/waste-auditors.html" class="mobile-menu-link">Waste Auditors</a>
         <a href="./solutions/campuses.html" class="mobile-menu-link">Campuses & Offices</a>
         <a href="./case-studies.html" class="mobile-menu-link">Case Studies</a>
         <a href="./about.html" class="mobile-menu-link">About</a>
-        <a href="./demo.html" class="btn btn-primary mobile-menu-cta">Book a Pilot</a>
+        <a href="#" onclick="openCalendly(); return false;" class="btn btn-primary mobile-menu-cta">Book a Call</a>
       </div>
     </div>
   </header>
@@ -73,14 +74,76 @@
     </div>
   </section>
 
+  <!-- Our Story Section -->
+  <section class="section-padding bg-white" style="padding-top: 2rem; padding-bottom: 2rem;">
+    <div class="container">
+      <div class="grid gap-12 md:grid-cols-2 items-center max-w-lg">
+        <div>
+          <h2 class="section-title" style="text-align: left;">Our Story</h2>
+          <p class="text-description" style="margin-bottom: 1.5rem;">
+            Revisent started with a simple observation: recycling is confusing, and contamination costs everyone. Nayan and Chris met as students frustrated by how often recyclables ended up in the trash—and how little data existed to fix it.
+          </p>
+          <p class="text-description">
+            We built Revi to solve that. What began as a campus project became a mission to bring AI-powered waste intelligence to facilities everywhere—from universities to MRFs to enterprise campuses.
+          </p>
+        </div>
+        <div class="story-image-wrapper">
+          <img src="./assets/landfill.png" alt="Landfill waste management" class="story-image">
+        </div>
+      </div>
+    </div>
+  </section>
+
   <!-- Mission Section -->
-  <section class="section-padding section-padding-sm bg-muted">
+  <section class="section-padding section-padding-sm bg-white" style="padding-top: 2rem;">
     <div class="container">
       <div class="max-w-md text-center">
         <h2 class="section-title section-title-md">Our Mission</h2>
         <p class="text-description">
           Every year, billions of dollars are lost to contaminated recycling streams. We believe AI can solve this problem at scale — by detecting waste in real-time, educating users, and giving facilities the operational intelligence they need to run cleaner, more efficient operations.
         </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Values Section -->
+  <section class="section-padding bg-muted">
+    <div class="container">
+      <h2 class="section-title text-center mb-12">What Drives Us</h2>
+      <div class="grid gap-6 md:grid-cols-3 max-w-lg">
+        <div class="feature-card text-center">
+          <div class="feature-icon center">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M12 2L2 7l10 5 10-5-10-5z"/>
+              <path d="M2 17l10 5 10-5"/>
+              <path d="M2 12l10 5 10-5"/>
+            </svg>
+          </div>
+          <h3 class="feature-title">Data-Driven Impact</h3>
+          <p class="feature-description">Every decision we make is backed by real data. We measure what matters and optimize for outcomes.</p>
+        </div>
+        <div class="feature-card text-center">
+          <div class="feature-icon center">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
+              <circle cx="9" cy="7" r="4"/>
+              <path d="M23 21v-2a4 4 0 0 0-3-3.87"/>
+              <path d="M16 3.13a4 4 0 0 1 0 7.75"/>
+            </svg>
+          </div>
+          <h3 class="feature-title">Customer Obsessed</h3>
+          <p class="feature-description">We build for operators, not just technology. Our success is measured by your results.</p>
+        </div>
+        <div class="feature-card text-center">
+          <div class="feature-icon center">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/>
+              <polyline points="22 4 12 14.01 9 11.01"/>
+            </svg>
+          </div>
+          <h3 class="feature-title">Ship Fast, Iterate</h3>
+          <p class="feature-description">We move quickly, learn from deployments, and continuously improve our product.</p>
+        </div>
       </div>
     </div>
   </section>
@@ -93,18 +156,74 @@
       <div class="grid gap-10 md:grid-cols-2 max-w-lg">
         <div class="feature-card text-center">
           <p class="team-role">Co-Founder</p>
-          <img src="./assets/nayan.jpg" alt="Nayan Sarma" class="team-photo">
+          <img src="./assets/nayan.png" alt="Nayan Sarma" class="team-photo">
           <h3 class="feature-title mb-1">Nayan Sarma</h3>
-          <p class="text-primary-bold mb-3">Chief Executive Officer</p>
-          <p class="feature-description text-description-sm">Leads strategy and customer partnerships; drives deployment playbooks with MRFs, campuses, and enterprises.</p>
+          <p class="text-primary-bold">Chief Executive Officer</p>
+          <div class="team-linkedin-wrapper">
+            <a href="https://www.linkedin.com/in/nayan-sarma-658380227/" target="_blank" rel="noopener" class="team-linkedin">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/>
+                <rect width="4" height="12" x="2" y="9"/><circle cx="4" cy="4" r="2"/>
+              </svg>
+            </a>
+          </div>
         </div>
 
         <div class="feature-card text-center">
           <p class="team-role">Co-Founder</p>
-          <img src="./assets/chris.jpg" alt="Chris Lee" class="team-photo">
+          <img src="./assets/chris.png" alt="Chris Lee" class="team-photo">
           <h3 class="feature-title mb-1">Chris Lee</h3>
-          <p class="text-primary-bold mb-3">Chief Product Officer</p>
-          <p class="feature-description text-description-sm">Leads product and AI; builds the Revi experience, dashboard analytics, and integrations for operators.</p>
+          <p class="text-primary-bold">Chief Product Officer</p>
+          <div class="team-linkedin-wrapper">
+            <a href="https://www.linkedin.com/in/chrisxlee13/" target="_blank" rel="noopener" class="team-linkedin">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/>
+                <rect width="4" height="12" x="2" y="9"/><circle cx="4" cy="4" r="2"/>
+              </svg>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Backed By Section -->
+  <section class="section-padding bg-white" style="padding-top: 2rem; padding-bottom: 2rem;">
+    <div class="container text-center">
+      <p class="backed-by-label">Backed by industry leaders</p>
+      <div class="logo-carousel">
+        <div class="logo-track">
+          <div class="logo-item">
+            <img src="./assets/nvidia.png" alt="NVIDIA Inception Program" class="partner-logo" style="height: 5rem;">
+          </div>
+          <div class="logo-item">
+            <img src="./assets/plugin.png" alt="Plug In Ventures" class="partner-logo">
+          </div>
+          <div class="logo-item">
+            <img src="./assets/quotient.png" alt="Quotient" class="partner-logo" style="height: 4.5rem;">
+          </div>
+          <div class="logo-item">
+            <img src="./assets/troylabs.png" alt="TroyLabs" class="partner-logo" style="height: 3.5rem;">
+          </div>
+          <div class="logo-item">
+            <img src="./assets/terreform.png" alt="Terreform" class="partner-logo">
+          </div>
+          <!-- Duplicate logos for seamless loop -->
+          <div class="logo-item">
+            <img src="./assets/nvidia.png" alt="NVIDIA Inception Program" class="partner-logo" style="height: 5rem;">
+          </div>
+          <div class="logo-item">
+            <img src="./assets/plugin.png" alt="Plug In Ventures" class="partner-logo">
+          </div>
+          <div class="logo-item">
+            <img src="./assets/quotient.png" alt="Quotient" class="partner-logo" style="height: 4.5rem;">
+          </div>
+          <div class="logo-item">
+            <img src="./assets/troylabs.png" alt="TroyLabs" class="partner-logo" style="height: 3.5rem;">
+          </div>
+          <div class="logo-item">
+            <img src="./assets/terreform.png" alt="Terreform" class="partner-logo">
+          </div>
         </div>
       </div>
     </div>
@@ -113,13 +232,13 @@
   <!-- CTA Section -->
   <section class="cta-section bg-primary">
     <div class="container">
-      <h2 class="cta-title text-white">Join Us in Transforming Waste</h2>
+      <h2 class="cta-title text-white">Let's Transform Waste Together</h2>
       <div class="cta-actions">
         <a href="./careers.html" class="btn btn-white btn-xl">
           View Careers
           <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
         </a>
-        <a href="./demo.html" class="btn btn-white-outline btn-xl">Partner With Us</a>
+        <a href="./contact.html" class="btn btn-white-outline btn-xl">Partner With Us</a>
       </div>
     </div>
   </section>
@@ -137,14 +256,15 @@
           <div class="footer-links">
             <a href="/" class="footer-link">Home</a>
             <a href="./revi.html" class="footer-link">Revi Device</a>
-            <a href="./dashboard.html" class="footer-link">Dashboard</a>
+            <a href="./case-studies.html" class="footer-link">Case Studies</a>
             <a href="./about.html" class="footer-link">About</a>
+            <a href="./contact.html" class="footer-link">Contact</a>
           </div>
         </div>
         <div>
           <h4 class="footer-heading">Solutions</h4>
           <div class="footer-links">
-            <a href="./solutions/mrfs.html" class="footer-link">MRFs</a>
+            <a href="./solutions/mrfs.html" class="footer-link">MRFs & Haulers</a>
             <a href="./solutions/waste-auditors.html" class="footer-link">Waste Auditors</a>
             <a href="./solutions/campuses.html" class="footer-link">Campuses & Offices</a>
           </div>
@@ -154,9 +274,8 @@
           <div class="footer-links">
             <a href="./investors.html" class="footer-link">Investors</a>
             <a href="./partners.html" class="footer-link">Partners</a>
-            <a href="./press.html" class="footer-link">Press</a>
             <a href="./careers.html" class="footer-link">Careers</a>
-            <a href="./esg.html" class="footer-link">ESG & Reporting</a>
+            <a href="./esg.html" class="footer-link">Security</a>
           </div>
         </div>
         <div>
@@ -173,7 +292,14 @@
     </div>
   </footer>
 
+  <!-- Calendly popup widget -->
+  <link href="https://assets.calendly.com/assets/external/widget.css" rel="stylesheet">
+  <script src="https://assets.calendly.com/assets/external/widget.js" type="text/javascript" async></script>
   <script>
+    function openCalendly() {
+      Calendly.initPopupWidget({url: 'https://calendly.com/chris-revisent/30min'});
+      return false;
+    }
     const header = document.getElementById('header');
     window.addEventListener('scroll', () => header.classList.toggle('scrolled', window.scrollY > 20));
     document.getElementById('nav-toggle').addEventListener('click', () => document.getElementById('mobile-menu').classList.toggle('open'));

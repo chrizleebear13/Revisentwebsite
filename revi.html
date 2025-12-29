@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Revi Device | AI Smart Waste Detector - Revisent</title>
+  <meta name="description" content="Meet Revi: The AI-powered smart waste detector. Show Revi your item — it sees it, understands it, and tells you exactly where it belongs.">
+  <meta name="keywords" content="Revi, smart waste detector, AI waste detection, computer vision, LED guidance, waste sorting device">
+  <meta name="author" content="Revisent">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://revisent.com/revi">
+  
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://revisent.com/revi">
+  <meta property="og:title" content="Revi Device | AI Smart Waste Detector">
+  <meta property="og:description" content="Meet Revi: The AI-powered smart waste detector with real-time computer vision and LED guidance.">
+  <meta property="og:image" content="https://revisent.com/assets/Revisentlogo.png">
+  
+  <link rel="icon" type="image/png" href="./assets/Revisentfav.png">
+  <link rel="apple-touch-icon" href="./assets/Revisentfav.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="preconnect" href="https://assets.calendly.com">
+  <link rel="prefetch" href="https://assets.calendly.com/assets/external/widget.js">
+  <link rel="prefetch" href="https://assets.calendly.com/assets/external/widget.css">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="./styles.css">
+</head>
+<body>
+  <!-- Header -->
+  <header class="header" id="header">
+    <nav class="container nav">
+      <a href="/" class="nav-logo" aria-label="Revisent">
+        <img src="./assets/Revisentlogo.png" alt="Revisent Logo">
+      </a>
+      <div class="nav-links">
+        <a href="/" class="nav-link">Home</a>
+        <a href="./revi.html" class="nav-link active">Revi Device</a>
+        <div class="nav-dropdown">
+          <button class="nav-link">Solutions ▾</button>
+          <div class="nav-dropdown-menu">
+            <a href="./solutions/mrfs.html" class="nav-dropdown-item">MRFs & Haulers</a>
+            <a href="./solutions/waste-auditors.html" class="nav-dropdown-item">Waste Auditors</a>
+            <a href="./solutions/campuses.html" class="nav-dropdown-item">Campuses & Offices</a>
+          </div>
+        </div>
+        <a href="./case-studies.html" class="nav-link">Case Studies</a>
+        <a href="./about.html" class="nav-link">About</a>
+      </div>
+      <div class="nav-actions">
+        <a href="./contact.html" class="btn btn-ghost btn-sm">Contact</a>
+        <a href="#" onclick="openCalendly(); return false;" class="btn btn-primary btn-sm">Book a Call</a>
+      </div>
+      <button class="nav-toggle" id="nav-toggle" aria-label="Toggle menu">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <line x1="3" y1="12" x2="21" y2="12"></line>
+          <line x1="3" y1="6" x2="21" y2="6"></line>
+          <line x1="3" y1="18" x2="21" y2="18"></line>
+        </svg>
+      </button>
+    </nav>
+    <div class="mobile-menu" id="mobile-menu">
+      <div class="container">
+        <a href="/" class="mobile-menu-link">Home</a>
+        <a href="./revi.html" class="mobile-menu-link">Revi Device</a>
+        <a href="./solutions/mrfs.html" class="mobile-menu-link">MRFs & Haulers</a>
+        <a href="./solutions/waste-auditors.html" class="mobile-menu-link">Waste Auditors</a>
+        <a href="./solutions/campuses.html" class="mobile-menu-link">Campuses & Offices</a>
+        <a href="./case-studies.html" class="mobile-menu-link">Case Studies</a>
+        <a href="./about.html" class="mobile-menu-link">About</a>
+        <a href="./contact.html" class="mobile-menu-link">Contact</a>
+        <a href="#" onclick="openCalendly(); return false;" class="btn btn-primary" style="margin-top: 1rem; width: 100%;">Book a Call</a>
+      </div>
+    </div>
+  </header>
+
+  <!-- Page Header -->
+  <section class="page-header bg-white" style="padding-bottom: 2rem;">
+    <div class="container text-center">
+      <h1 class="page-title">Meet Revi: The AI Waste Detector</h1>
+      <p class="page-subtitle">Show Revi your item — it sees it, understands it, and tells you exactly where it belongs.</p>
+    </div>
+  </section>
+
+  <!-- Product & Stats Section -->
+  <section class="product-stats-section">
+    <div class="container">
+      <div class="product-image-wrapper fade-up" style="margin-bottom: 3rem;">
+        <img src="./assets/revicombined.png" alt="Revi smart waste detector" class="product-image" style="max-width: 70%; height: auto;">
+      </div>
+      <div class="product-stats-row">
+        <div class="product-stat-item fade-up fade-up-delay-1">
+          <div class="product-stat-value" data-count="45" data-suffix="%">0%</div>
+          <div class="product-stat-label">Contamination Reduction</div>
+        </div>
+        <div class="product-stat-item fade-up fade-up-delay-2">
+          <div class="product-stat-value" data-count="3000" data-format="comma">0</div>
+          <div class="product-stat-label">Average Monthly Interactions Per Unit</div>
+        </div>
+        <div class="product-stat-item fade-up fade-up-delay-3">
+          <div class="product-stat-value">24/7</div>
+          <div class="product-stat-label">Waste Coverage</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Features Section -->
+  <section class="section-padding bg-white">
+    <div class="container">
+      <h2 class="section-title text-center" style="margin-bottom: 4rem;">Built for Performance</h2>
+      
+      <div class="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
+        <div class="feature-card">
+          <div class="feature-icon">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M14.5 4h-5L7 7H4a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2h-3l-2.5-3z"/>
+              <circle cx="12" cy="13" r="3"/>
+            </svg>
+          </div>
+          <h3 class="feature-title">Computer Vision</h3>
+          <p class="feature-description">Identifies 70+ material types in real-time with 97% accuracy.</p>
+        </div>
+        
+        <div class="feature-card">
+          <div class="feature-icon">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M15 14c.2-1 .7-1.7 1.5-2.5 1-.9 1.5-2.2 1.5-3.5A6 6 0 0 0 6 8c0 1 .2 2.2 1.5 3.5.7.7 1.3 1.5 1.5 2.5"/>
+              <path d="M9 18h6"/><path d="M10 22h4"/>
+            </svg>
+          </div>
+          <h3 class="feature-title">LED Guidance</h3>
+          <p class="feature-description">Illuminates the correct bin so users sort right the first time.</p>
+        </div>
+        
+        <div class="feature-card">
+          <div class="feature-icon">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M11 4.702a.705.705 0 0 0-1.203-.498L6.413 7.587A1.4 1.4 0 0 1 5.416 8H3a1 1 0 0 0-1 1v6a1 1 0 0 0 1 1h2.416a1.4 1.4 0 0 1 .997.413l3.383 3.384A.705.705 0 0 0 11 19.298z"/>
+              <path d="M16 9a5 5 0 0 1 0 6"/>
+              <path d="M19.364 18.364a9 9 0 0 0 0-12.728"/>
+            </svg>
+          </div>
+          <h3 class="feature-title">Audio Feedback</h3>
+          <p class="feature-description">Voice cues reinforce sorting guidance for accessibility and engagement.</p>
+        </div>
+        
+        <div class="feature-card">
+          <div class="feature-icon">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <rect width="16" height="16" x="4" y="4" rx="2"/>
+              <rect width="6" height="6" x="9" y="9" rx="1"/>
+              <path d="M15 2v2"/><path d="M15 20v2"/>
+              <path d="M2 15h2"/><path d="M2 9h2"/>
+              <path d="M20 15h2"/><path d="M20 9h2"/>
+              <path d="M9 2v2"/><path d="M9 20v2"/>
+            </svg>
+          </div>
+          <h3 class="feature-title">Cloud-Based</h3>
+          <p class="feature-description">Link multiple Revi units to view organization-wide waste data in one dashboard.</p>
+        </div>
+        
+        <div class="feature-card">
+          <div class="feature-icon">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M8 16V8a4 4 0 0 1 8 0v8"/>
+              <path d="M4 12h16"/>
+              <path d="M6 20h12"/>
+            </svg>
+          </div>
+          <h3 class="feature-title">Cooling System</h3>
+          <p class="feature-description">Active cooling maintains optimal performance in any environment.</p>
+        </div>
+        
+        <div class="feature-card">
+          <div class="feature-icon">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M21 8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16Z"/>
+              <path d="m3.3 7 8.7 5 8.7-5"/>
+              <path d="M12 22V12"/>
+            </svg>
+          </div>
+          <h3 class="feature-title">Chassis</h3>
+          <p class="feature-description">Durable, weather-resistant housing designed for high-traffic locations.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Deployed With Section -->
+  <section class="py-16 bg-white">
+    <div class="container text-center">
+      <h2 class="section-title">Deployed With</h2>
+      <div class="logo-grid">
+        <div class="logo-item">
+          <img src="./assets/terreform.png" alt="Terreform logo" class="partner-logo">
+        </div>
+        <div class="logo-item">
+          <img src="./assets/jellypop.png" alt="Jellypop logo" class="partner-logo">
+        </div>
+        <div class="logo-item">
+          <img src="./assets/Crestview.png" alt="Crestview logo" class="partner-logo">
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Testimonial Section -->
+  <section class="section-padding bg-white">
+    <div class="container">
+      <div class="section-surface text-center" style="max-width: 48rem; margin: 0 auto;">
+        <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="var(--primary)" stroke-width="1.5" style="margin: 0 auto 1.5rem; opacity: 0.5;">
+          <path d="M3 21c3 0 7-1 7-8V5c0-1.25-.756-2.017-2-2H4c-1.25 0-2 .75-2 1.972V11c0 1.25.75 2 2 2 1 0 1 0 1 1v1c0 1-1 2-2 2s-1 .008-1 1.031V21c0 1 0 1 1 1z"/>
+          <path d="M15 21c3 0 7-1 7-8V5c0-1.25-.757-2.017-2-2h-4c-1.25 0-2 .75-2 1.972V11c0 1.25.75 2 2 2h.75c0 2.25.25 4-2.75 4v3c0 1 0 1 1 1z"/>
+        </svg>
+        <blockquote style="font-size: 1.5rem; font-weight: 600; color: var(--foreground); margin-bottom: 1.5rem; line-height: 1.4;">
+          "Revi transformed how we approach contamination. We've seen a 45% reduction in sorting errors and our hauler fees dropped significantly."
+        </blockquote>
+        <div>
+          <p style="font-weight: 700; color: var(--foreground);">Facilities Manager</p>
+          <p style="color: var(--muted-foreground); font-size: 0.875rem;">University of California Campus</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA Section -->
+  <section class="cta-section bg-primary">
+    <div class="container">
+      <h2 class="cta-title text-white">Ready to Deploy Revi?</h2>
+      <a href="#" onclick="openCalendly(); return false;" class="btn btn-white btn-xl">
+        Schedule a Demo
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+      </a>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <a href="/" class="footer-logo">
+            <img src="./assets/Revisentlogo.png" alt="Revisent Logo">
+          </a>
+          <p class="footer-tagline">AI-powered waste intelligence for contamination reduction and operational efficiency.</p>
+        </div>
+        <div>
+          <h4 class="footer-heading">Navigation</h4>
+          <div class="footer-links">
+            <a href="/" class="footer-link">Home</a>
+            <a href="./revi.html" class="footer-link">Revi Device</a>
+            <a href="./case-studies.html" class="footer-link">Case Studies</a>
+            <a href="./about.html" class="footer-link">About</a>
+            <a href="./contact.html" class="footer-link">Contact</a>
+          </div>
+        </div>
+        <div>
+          <h4 class="footer-heading">Solutions</h4>
+          <div class="footer-links">
+            <a href="./solutions/mrfs.html" class="footer-link">MRFs & Haulers</a>
+            <a href="./solutions/waste-auditors.html" class="footer-link">Waste Auditors</a>
+            <a href="./solutions/campuses.html" class="footer-link">Campuses & Offices</a>
+          </div>
+        </div>
+        <div>
+          <h4 class="footer-heading">Company</h4>
+          <div class="footer-links">
+            <a href="./investors.html" class="footer-link">Investors</a>
+            <a href="./partners.html" class="footer-link">Partners</a>
+            <a href="./careers.html" class="footer-link">Careers</a>
+            <a href="./esg.html" class="footer-link">Security</a>
+          </div>
+        </div>
+        <div>
+          <h4 class="footer-heading">Legal</h4>
+          <div class="footer-links">
+            <a href="./privacy.html" class="footer-link">Privacy Policy</a>
+            <a href="./terms.html" class="footer-link">Terms of Service</a>
+          </div>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p class="footer-copyright">© 2025 Revisent. All rights reserved.</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Calendly popup widget -->
+  <link href="https://assets.calendly.com/assets/external/widget.css" rel="stylesheet">
+  <script src="https://assets.calendly.com/assets/external/widget.js" type="text/javascript" async></script>
+  <script>
+    function openCalendly() {
+      Calendly.initPopupWidget({url: 'https://calendly.com/chris-revisent/30min'});
+      return false;
+    }
+    const header = document.getElementById('header');
+    window.addEventListener('scroll', () => {
+      header.classList.toggle('scrolled', window.scrollY > 20);
+    });
+    const navToggle = document.getElementById('nav-toggle');
+    const mobileMenu = document.getElementById('mobile-menu');
+    navToggle.addEventListener('click', () => mobileMenu.classList.toggle('open'));
+
+    // Fade-up animation on scroll
+    const fadeElements = document.querySelectorAll('.fade-up');
+    const fadeObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          fadeObserver.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.1 });
+    fadeElements.forEach(el => fadeObserver.observe(el));
+
+    // Count-up animation for numbers
+    function animateCount(el) {
+      const target = parseInt(el.dataset.count);
+      const prefix = el.dataset.prefix || '';
+      const suffix = el.dataset.suffix || '';
+      const format = el.dataset.format;
+      const duration = 2000;
+      const start = performance.now();
+
+      function update(now) {
+        const elapsed = now - start;
+        const progress = Math.min(elapsed / duration, 1);
+        const eased = 1 - Math.pow(1 - progress, 3); // ease-out cubic
+        const current = Math.floor(eased * target);
+
+        let display = current;
+        if (format === 'comma') {
+          display = current.toLocaleString();
+        }
+        el.textContent = prefix + display + suffix;
+
+        if (progress < 1) {
+          requestAnimationFrame(update);
+        }
+      }
+      requestAnimationFrame(update);
+    }
+
+    const countElements = document.querySelectorAll('[data-count]');
+    const countObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          animateCount(entry.target);
+          countObserver.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.5 });
+    countElements.forEach(el => countObserver.observe(el));
+  </script>
+</body>
+</html>
+
+
+
