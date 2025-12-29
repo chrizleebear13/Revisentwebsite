@@ -18,6 +18,10 @@
   
   <link rel="icon" type="image/png" href="./assets/Revisentfav.png">
   <link rel="apple-touch-icon" href="./assets/Revisentfav.png">
+
+  <!-- Preload critical assets -->
+  <link rel="preload" href="./styles.css" as="style">
+  <link rel="preload" href="./assets/Revisentlogo.png" as="image" fetchpriority="high">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="preconnect" href="https://assets.calendly.com">
@@ -31,7 +35,7 @@
   <header class="header" id="header">
     <nav class="container nav">
       <a href="/" class="nav-logo" aria-label="Revisent">
-        <img src="./assets/Revisentlogo.png" alt="Revisent Logo">
+        <img src="./assets/Revisentlogo.png" alt="Revisent Logo" fetchpriority="high">
       </a>
       <div class="nav-links">
         <a href="/" class="nav-link">Home</a>
@@ -241,7 +245,7 @@
       <div class="footer-grid">
         <div class="footer-brand">
           <a href="/" class="footer-logo">
-            <img src="./assets/Revisentlogo.png" alt="Revisent Logo">
+            <img src="./assets/Revisentlogo.png" alt="Revisent Logo" fetchpriority="high">
           </a>
           <p class="footer-tagline">AI-powered waste intelligence for contamination reduction and operational efficiency.</p>
         </div>
