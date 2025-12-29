@@ -2002,15 +2002,20 @@ h1, h2, h3, h4, h5, h6 {
   }
 }
 
-/* Dashboard container mobile fix */
-@media (max-width: 640px) {
+/* Dashboard container mobile fix - hide interactive demo on small screens */
+@media (max-width: 768px) {
   .demo-container {
-    height: 350px !important;
+    display: none !important;
   }
 
-  .demo-container iframe {
-    width: 100% !important;
-    height: 100% !important;
-    transform: none !important;
+  .demo-mobile-fallback {
+    display: flex !important;
   }
+}
+
+.demo-mobile-fallback {
+  display: none;
+  border-radius: 1rem;
+  box-shadow: 0 4px 24px rgba(0,0,0,0.1);
+  overflow: hidden;
 }
