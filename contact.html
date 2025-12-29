@@ -145,6 +145,16 @@
             Send Message
             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
           </button>
+          <div id="form-success" style="display: none; margin-top: 1.5rem; padding: 1.25rem; background: var(--primary-light); border-radius: 0.75rem; text-align: center;">
+            <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="var(--primary)" stroke-width="2" style="margin: 0 auto 0.75rem;"><circle cx="12" cy="12" r="10"/><path d="m9 12 2 2 4-4"/></svg>
+            <h3 style="color: var(--primary); font-size: 1.25rem; font-weight: 700; margin-bottom: 0.5rem;">Message Sent!</h3>
+            <p style="color: var(--muted-foreground); font-size: 0.9375rem;">Thanks for reaching out. We'll get back to you within 24 hours.</p>
+          </div>
+          <div id="form-error" style="display: none; margin-top: 1.5rem; padding: 1.25rem; background: #fef2f2; border-radius: 0.75rem; text-align: center;">
+            <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="#dc2626" stroke-width="2" style="margin: 0 auto 0.75rem;"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+            <h3 style="color: #dc2626; font-size: 1.25rem; font-weight: 700; margin-bottom: 0.5rem;">Something went wrong</h3>
+            <p style="color: var(--muted-foreground); font-size: 0.9375rem;">Please try again or email us directly at <a href="mailto:contact@revisent.com" style="color: var(--primary);">contact@revisent.com</a></p>
+          </div>
         </form>
       </div>
     </div>
@@ -236,6 +246,9 @@
 
     // Contact form submission
     const contactForm = document.getElementById('contact-form');
+    const formSuccess = document.getElementById('form-success');
+    const formError = document.getElementById('form-error');
+
     contactForm.addEventListener('submit', async (e) => {
       e.preventDefault();
 
@@ -243,6 +256,8 @@
       const originalText = submitBtn.innerHTML;
       submitBtn.innerHTML = 'Sending...';
       submitBtn.disabled = true;
+      formSuccess.style.display = 'none';
+      formError.style.display = 'none';
 
       const formData = {
         firstName: document.getElementById('firstName').value,
@@ -262,25 +277,19 @@
         });
 
         if (response.ok) {
-          submitBtn.innerHTML = 'Message Sent!';
-          submitBtn.style.background = '#16a34a';
           contactForm.reset();
-          setTimeout(() => {
-            submitBtn.innerHTML = originalText;
-            submitBtn.style.background = '';
-            submitBtn.disabled = false;
-          }, 3000);
+          formSuccess.style.display = 'block';
+          formSuccess.scrollIntoView({ behavior: 'smooth', block: 'center' });
+          submitBtn.innerHTML = originalText;
+          submitBtn.disabled = false;
         } else {
           throw new Error('Failed to send');
         }
       } catch (err) {
-        submitBtn.innerHTML = 'Failed to send. Try again.';
-        submitBtn.style.background = '#dc2626';
-        setTimeout(() => {
-          submitBtn.innerHTML = originalText;
-          submitBtn.style.background = '';
-          submitBtn.disabled = false;
-        }, 3000);
+        formError.style.display = 'block';
+        formError.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        submitBtn.innerHTML = originalText;
+        submitBtn.disabled = false;
       }
     });
   </script>
