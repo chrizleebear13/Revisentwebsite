@@ -1,5 +1,5 @@
 {
-  "buildCommand": "cd Demo && npm install && npm run build && cp -r dist/* ../demo-dashboard/",
+  "buildCommand": "cd Demo && npm install && npm run build",
   "outputDirectory": ".",
   "cleanUrls": true,
   "rewrites": [
