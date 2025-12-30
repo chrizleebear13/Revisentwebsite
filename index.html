@@ -302,7 +302,7 @@
     </div>
     <div style="max-width: 1200px; margin: 0 auto; padding: 0 1rem;">
       <div id="home-demo-container" class="demo-container" style="position: relative; background: #f5f7fa; border-radius: 1rem; overflow: hidden; box-shadow: 0 4px 24px rgba(0,0,0,0.1); height: 600px;">
-        <iframe id="home-demo-iframe" src="./demo-dashboard/" style="width: 142.86%; height: 142.86%; border: none; display: block; transform: scale(0.7); transform-origin: top left;"></iframe>
+        <iframe id="home-demo-iframe" data-src="./demo-dashboard/" style="width: 142.86%; height: 142.86%; border: none; display: block; transform: scale(0.7); transform-origin: top left;" title="Revisent Waste Intelligence Dashboard Demo"></iframe>
         <!-- Blur overlay with start button -->
         <div id="home-demo-overlay" style="position: absolute; inset: 0; background: rgba(255,255,255,0.3); backdrop-filter: blur(8px); display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 1rem; cursor: pointer; transition: opacity 0.3s ease;" onclick="startHomeDemo()">
           <div style="background: var(--primary, #10b981); color: white; padding: 1rem 2rem; border-radius: 0.75rem; font-weight: 600; font-size: 1.125rem; display: flex; align-items: center; gap: 0.5rem; box-shadow: 0 4px 16px rgba(16,185,129,0.3); transition: transform 0.2s ease, box-shadow 0.2s ease;" onmouseover="this.style.transform='scale(1.05)'; this.style.boxShadow='0 6px 20px rgba(16,185,129,0.4)';" onmouseout="this.style.transform='scale(1)'; this.style.boxShadow='0 4px 16px rgba(16,185,129,0.3)';">
@@ -312,11 +312,9 @@
           <p style="color: #64748b; font-size: 0.875rem;">Click to explore the dashboard</p>
         </div>
       </div>
-      <!-- Mobile fallback for dashboard -->
+      <!-- Mobile fallback for dashboard (static, no link) -->
       <div class="demo-mobile-fallback" style="padding: 0; overflow: hidden;">
-        <a href="./demo-dashboard/" style="display: block; width: 100%;">
-          <img src="./assets/dashboard-preview.png" alt="Waste Intelligence Dashboard Preview" style="width: 100%; height: auto; display: block; border-radius: 1rem;">
-        </a>
+        <img src="./assets/dashboard-preview.png" alt="Waste Intelligence Dashboard showing real-time analytics, contamination alerts, station map, and diversion metrics" style="width: 100%; height: auto; display: block; border-radius: 1rem;">
       </div>
       <p id="home-demo-caption" style="text-align: center; margin-top: 1rem; color: var(--muted-foreground); font-size: 0.875rem; opacity: 0; transition: opacity 0.3s ease;">Interactive demo — click and explore the dashboard above</p>
 
@@ -468,7 +466,7 @@
             <a href="./investors.html" class="footer-link">Investors</a>
             <a href="./partners.html" class="footer-link">Partners</a>
             <a href="./careers.html" class="footer-link">Careers</a>
-            <a href="./esg.html" class="footer-link">Security</a>
+            <a href="./security.html" class="footer-link">Security</a>
           </div>
         </div>
         
@@ -499,16 +497,6 @@
     const header = document.getElementById('header');
     window.addEventListener('scroll', () => header.classList.toggle('scrolled', window.scrollY > 20));
     document.getElementById('nav-toggle').addEventListener('click', () => document.getElementById('mobile-menu').classList.toggle('open'));
-
-    // Start home demo function
-    function startHomeDemo() {
-      const overlay = document.getElementById('home-demo-overlay');
-      const caption = document.getElementById('home-demo-caption');
-      overlay.style.opacity = '0';
-      overlay.style.pointerEvents = 'none';
-      setTimeout(() => overlay.style.display = 'none', 300);
-      caption.style.opacity = '1';
-    }
 
     // Fade-up animation on scroll
     const fadeElements = document.querySelectorAll('.fade-up');
@@ -561,10 +549,17 @@
     }, { threshold: 0.5 });
     countElements.forEach(el => countObserver.observe(el));
 
-    // Dashboard demo overlay
+    // Dashboard demo overlay - lazy load iframe on click
     function startHomeDemo() {
       const overlay = document.getElementById('home-demo-overlay');
       const caption = document.getElementById('home-demo-caption');
+      const iframe = document.getElementById('home-demo-iframe');
+
+      // Lazy load the iframe
+      if (iframe && iframe.dataset.src && !iframe.src) {
+        iframe.src = iframe.dataset.src;
+      }
+
       if (overlay) {
         overlay.style.opacity = '0';
         overlay.style.pointerEvents = 'none';
