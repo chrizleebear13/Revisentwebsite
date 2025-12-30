@@ -5,6 +5,7 @@ import { LiveTracking } from "@/components/LiveTracking";
 import { AlertsPanel } from "@/components/AlertsPanel";
 import { RecyclingInsights } from "@/components/RecyclingInsights";
 import { InteractiveMap } from "@/components/InteractiveMap";
+import { TutorialModal } from "@/components/TutorialModal";
 import { Recycle, TrendingUp, Users, AlertTriangle } from "lucide-react";
 import { useLiveStats } from "@/context/LiveStatsContext";
 
@@ -16,6 +17,7 @@ export default function Dashboard() {
 
   return (
     <div className="min-h-screen bg-gradient-subtle touch-manipulation">
+      <TutorialModal />
       <div className="w-full px-4 md:px-6 lg:px-8 py-4 md:py-6 lg:py-8 space-y-4 md:space-y-6 lg:space-y-8">
         {/* Sleek Header - iPad optimized */}
         <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between bg-card/50 backdrop-blur-xl rounded-2xl p-4 md:p-6 shadow-medium border border-border/50 active:scale-98 transition-transform">
@@ -47,7 +49,7 @@ export default function Dashboard() {
         </div>
 
         {/* Sleek Metrics Row - iPad optimized */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6">
+        <div data-tutorial="metrics" className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6">
           <MetricsCard
             title="Total Items Processed"
             value={stats.total.toLocaleString()}
@@ -82,30 +84,30 @@ export default function Dashboard() {
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-4 md:gap-6 lg:gap-8">
           {/* Left Column: Waste Analytics + Station Leaderboard */}
           <div className="lg:col-span-3 space-y-4 md:space-y-6">
-            <div className="transition-all duration-300 hover:scale-[1.02] active:scale-98">
+            <div data-tutorial="insights" className="transition-all duration-300 hover:scale-[1.02] active:scale-98">
               <RecyclingInsights />
             </div>
-            <div className="transition-all duration-300 hover:scale-[1.02] active:scale-98">
+            <div data-tutorial="leaderboard" className="transition-all duration-300 hover:scale-[1.02] active:scale-98">
               <Leaderboard />
             </div>
           </div>
 
           {/* Center Column: Station Map + Live Tracking */}
           <div className="lg:col-span-6 space-y-4 md:space-y-6">
-            <div className="transition-all duration-300 hover:scale-[1.01] active:scale-98">
+            <div data-tutorial="map" className="transition-all duration-300 hover:scale-[1.01] active:scale-98">
               <InteractiveMap />
             </div>
-            <div className="transition-all duration-300 hover:scale-[1.02] active:scale-98">
+            <div data-tutorial="live-tracking" className="transition-all duration-300 hover:scale-[1.02] active:scale-98">
               <LiveTracking />
             </div>
           </div>
 
           {/* Right Column: Alerts + Item Breakdown */}
           <div className="lg:col-span-3 flex flex-col space-y-4 md:space-y-6">
-            <div className="transition-all duration-300 hover:scale-[1.02] active:scale-98">
+            <div data-tutorial="alerts" className="transition-all duration-300 hover:scale-[1.02] active:scale-98">
               <AlertsPanel />
             </div>
-            <div className="transition-all duration-300 hover:scale-[1.02] active:scale-98 flex-1">
+            <div data-tutorial="item-breakdown" className="transition-all duration-300 hover:scale-[1.02] active:scale-98 flex-1">
               <ItemBreakdown />
             </div>
           </div>
