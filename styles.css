@@ -1811,7 +1811,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .case-study-card.open .case-study-content {
-  max-height: 2000px;
+  max-height: 4000px;
   padding: 1.5rem;
   border-top-width: 1px;
 }
