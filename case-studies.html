@@ -295,6 +295,16 @@
 
       // Toggle current card
       card.classList.toggle('open');
+
+      // If opening, scroll to make content visible on mobile
+      if (!isOpen) {
+        setTimeout(() => {
+          const content = card.querySelector('.case-study-content');
+          if (content) {
+            content.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+          }
+        }, 100);
+      }
     }
   </script>
   <script defer src="/_vercel/insights/script.js"></script>
