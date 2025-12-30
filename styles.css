@@ -1923,8 +1923,14 @@ h1, h2, h3, h4, h5, h6 {
   }
 
   .case-study-image-side img {
-    max-height: 250px;
+    max-height: 200px;
     object-fit: cover;
+  }
+}
+
+@media (max-width: 480px) {
+  .case-study-image-side {
+    display: none;
   }
 }
 
