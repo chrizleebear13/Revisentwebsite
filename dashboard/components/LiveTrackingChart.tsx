@@ -69,8 +69,8 @@ export function LiveTrackingChart({ organizationId, deviceId }: LiveTrackingChar
       setLoading(true)
       try {
         const now = new Date()
-        let startDate: Date
-        let endDate: Date
+        let startDate: Date = new Date()
+        let endDate: Date = new Date()
         let timeSlots: Date[] = []
 
         if (timeFrame === 'D') {
