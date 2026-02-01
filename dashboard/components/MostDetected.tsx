@@ -29,7 +29,7 @@ export function MostDetected({ organizationId }: MostDetectedProps) {
       setLoading(true)
       try {
         const now = new Date()
-        let startDate: Date
+        let startDate: Date = new Date(now.getTime() - 24 * 60 * 60 * 1000)
 
         switch (timeFrame) {
           case 'D':

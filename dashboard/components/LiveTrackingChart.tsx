@@ -254,7 +254,7 @@ export function LiveTrackingChart({ organizationId, deviceId }: LiveTrackingChar
         // Convert to array with formatted labels
         const dataPoints: ChartDataPoint[] = timeSlots.map((slot, index) => {
           const counts = grouped.get(getSlotKey(slot))!
-          let label: string
+          let label: string = ''
 
           if (timeFrame === 'D') {
             const hours = slot.getHours()
