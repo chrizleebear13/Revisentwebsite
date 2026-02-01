@@ -16,7 +16,8 @@ import {
   X,
   ChevronRight,
   AlertTriangle,
-  LogOut
+  LogOut,
+  Users
 } from 'lucide-react'
 
 interface NavItem {
@@ -86,6 +87,12 @@ export function DashboardSidebar({ isAdmin = false }: DashboardSidebarProps) {
       href: '/admin/stations',
       icon: Trash2,
       description: 'Manage all stations'
+    },
+    {
+      label: 'Users',
+      href: '/admin/users',
+      icon: Users,
+      description: 'Manage users & invites'
     },
     {
       label: 'Analytics',
