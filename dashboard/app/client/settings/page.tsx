@@ -5,9 +5,8 @@ import { Button } from '@/components/ui/button'
 import { Card } from '@/components/ui/card'
 import { Input } from '@/components/ui/input'
 import { DashboardSidebar } from '@/components/DashboardSidebar'
-import { Settings, User, Mail, Building2, Calendar, LogOut, Check, AlertCircle, Lock, Loader2, Eye, EyeOff } from 'lucide-react'
+import { Settings, User, Mail, Building2, Calendar, Check, AlertCircle, Lock, Loader2, Eye, EyeOff } from 'lucide-react'
 import { useEffect, useState } from 'react'
-import { useRouter } from 'next/navigation'
 import Image from 'next/image'
 
 interface UserProfile {
@@ -30,7 +29,6 @@ export default function ClientSettings() {
   const [confirmPassword, setConfirmPassword] = useState('')
   const [showPassword, setShowPassword] = useState(false)
   const [showConfirmPassword, setShowConfirmPassword] = useState(false)
-  const router = useRouter()
   const supabase = createClient()
 
   useEffect(() => {
@@ -76,11 +74,6 @@ export default function ClientSettings() {
     fetchProfile()
   }, [supabase])
 
-  const handleSignOut = async () => {
-    await supabase.auth.signOut()
-    router.push('/login')
-  }
-
   const handleSave = () => {
     // Show saved indicator
     setSaved(true)
@@ -107,23 +100,12 @@ export default function ClientSettings() {
               <h1 className="text-sm font-semibold">Settings</h1>
             </div>
           </div>
-          <div className="flex items-center gap-2">
-            {saved && (
-              <div className="flex items-center gap-1.5 px-2.5 py-1 bg-success/10 rounded-full border border-success/20">
-                <Check className="w-3 h-3 text-success" />
-                <span className="text-xs font-medium text-success">Saved</span>
-              </div>
-            )}
-            <Button
-              variant="ghost"
-              size="sm"
-              onClick={handleSignOut}
-              className="gap-1.5 h-8"
-            >
-              <LogOut className="w-3.5 h-3.5" />
-              <span className="hidden sm:inline text-xs">Sign out</span>
-            </Button>
-          </div>
+          {saved && (
+            <div className="flex items-center gap-1.5 px-2.5 py-1 bg-success/10 rounded-full border border-success/20">
+              <Check className="w-3 h-3 text-success" />
+              <span className="text-xs font-medium text-success">Saved</span>
+            </div>
+          )}
         </div>
 
         {loading ? (
