@@ -860,7 +860,7 @@ export default function AdminAnalytics() {
                           fontSize: '12px'
                         }}
                         labelStyle={{ fontWeight: 600, marginBottom: '8px', color: '#111827' }}
-                        formatter={(value: number) => [`${value}%`, '']}
+                        formatter={(value) => [`${value ?? 0}%`, '']}
                       />
                       {comparisonData.map((org) => (
                         <Line
@@ -1129,7 +1129,7 @@ export default function AdminAnalytics() {
                         fontSize: '12px'
                       }}
                       labelStyle={{ fontWeight: 600, marginBottom: '4px', color: '#111827' }}
-                      formatter={(value: number) => [`${value}%`, 'Diversion Rate']}
+                      formatter={(value) => [`${value ?? 0}%`, 'Diversion Rate']}
                       cursor={{ stroke: '#e5e7eb', strokeWidth: 1 }}
                     />
                     <Area
@@ -1191,7 +1191,7 @@ export default function AdminAnalytics() {
                         fontSize: '12px'
                       }}
                       labelStyle={{ fontWeight: 600, marginBottom: '4px', color: '#111827' }}
-                      formatter={(value: number) => [`${value}%`, 'Activity']}
+                      formatter={(value) => [`${value ?? 0}%`, 'Activity']}
                       cursor={{ fill: 'rgba(22, 163, 74, 0.1)' }}
                     />
                     <Bar
