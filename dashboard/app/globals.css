@@ -1,0 +1,212 @@
+@import "tailwindcss";
+
+/* EcoTrack Waste Analytics - Design System
+Beautiful eco-friendly palette with vibrant accents for modern waste analytics dashboard.
+*/
+
+@theme inline {
+  /* Core Background & Text */
+  --color-background: oklch(98% 0.01 240);
+  --color-foreground: oklch(25% 0.01 240);
+
+  /* Cards & Surfaces */
+  --color-card: oklch(100% 0 0);
+  --color-card-foreground: oklch(25% 0.01 240);
+
+  /* Popovers & Overlays */
+  --color-popover: oklch(100% 0 0);
+  --color-popover-foreground: oklch(25% 0.01 240);
+
+  /* Primary Brand - Eco Green */
+  --color-primary: oklch(45% 0.15 145);
+  --color-primary-foreground: oklch(100% 0 0);
+
+  /* Secondary - Clean Blue */
+  --color-secondary: oklch(96% 0.01 240);
+  --color-secondary-foreground: oklch(25% 0.01 240);
+
+  /* Muted - Subtle Grays */
+  --color-muted: oklch(96% 0.005 240);
+  --color-muted-foreground: oklch(55% 0.01 240);
+
+  /* Accent - Vibrant Orange */
+  --color-accent: oklch(65% 0.2 40);
+  --color-accent-foreground: oklch(100% 0 0);
+
+  /* Alerts & Status */
+  --color-success: oklch(45% 0.15 145);
+  --color-success-foreground: oklch(100% 0 0);
+  --color-warning: oklch(65% 0.15 60);
+  --color-warning-foreground: oklch(100% 0 0);
+  --color-destructive: oklch(60% 0.2 25);
+  --color-destructive-foreground: oklch(100% 0 0);
+
+  /* Interactive Elements */
+  --color-border: oklch(90% 0.005 240);
+  --color-input: oklch(96% 0.005 240);
+  --color-ring: oklch(45% 0.15 145);
+
+  /* Design System Radius */
+  --radius-sm: 0.5rem;
+  --radius: 0.75rem;
+  --radius-lg: 1rem;
+  --radius-xl: 1.5rem;
+
+  /* Fonts */
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
+}
+
+body {
+  background: var(--color-background);
+  color: var(--color-foreground);
+  font-family: var(--font-sans), system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Beautiful scrollbars */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--color-muted);
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: color-mix(in oklch, var(--color-muted-foreground) 30%, transparent);
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: color-mix(in oklch, var(--color-muted-foreground) 50%, transparent);
+}
+
+/* Utility classes */
+.gradient-primary {
+  background: linear-gradient(135deg, var(--color-primary), oklch(from var(--color-primary) calc(l + 0.1) c h));
+}
+
+.gradient-accent {
+  background: linear-gradient(135deg, var(--color-accent), oklch(from var(--color-accent) calc(l + 0.1) c h));
+}
+
+.gradient-subtle {
+  background: linear-gradient(180deg, var(--color-background), var(--color-muted));
+}
+
+.gradient-card {
+  background: linear-gradient(145deg, color-mix(in oklch, var(--color-card) 90%, transparent), var(--color-background));
+}
+
+.shadow-soft {
+  box-shadow: 0 2px 8px -2px color-mix(in oklch, black 10%, transparent);
+}
+
+.shadow-medium {
+  box-shadow: 0 8px 25px -8px color-mix(in oklch, black 15%, transparent);
+}
+
+.shadow-strong {
+  box-shadow: 0 16px 40px -12px color-mix(in oklch, black 20%, transparent);
+}
+
+.shadow-glow {
+  box-shadow: 0 0 30px color-mix(in oklch, var(--color-primary) 30%, transparent);
+}
+
+.shadow-accent-glow {
+  box-shadow: 0 0 25px color-mix(in oklch, var(--color-accent) 40%, transparent);
+}
+
+.transition-smooth {
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.transition-spring {
+  transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+/* Sleek glass morphism effects */
+.glass {
+  background: color-mix(in oklch, var(--color-card) 5%, transparent);
+  backdrop-filter: blur(20px);
+  border: 1px solid color-mix(in oklch, var(--color-card) 10%, transparent);
+}
+
+/* Modern card hover effects */
+.card-hover {
+  transition: all 0.3s ease;
+}
+
+.card-hover:hover {
+  box-shadow: 0 16px 40px -12px color-mix(in oklch, black 20%, transparent);
+  transform: translateY(-4px);
+}
+
+/* Touch optimizations */
+* {
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* Smooth chart loading animations */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.animate-fade-in {
+  animation: fadeIn 0.4s ease-out forwards;
+}
+
+.animate-fade-in-up {
+  animation: fadeInUp 0.5s ease-out forwards;
+}
+
+.animate-fade-in-up-delay-1 {
+  animation: fadeInUp 0.5s ease-out 0.1s forwards;
+  opacity: 0;
+}
+
+.animate-fade-in-up-delay-2 {
+  animation: fadeInUp 0.5s ease-out 0.2s forwards;
+  opacity: 0;
+}
+
+.animate-fade-in-up-delay-3 {
+  animation: fadeInUp 0.5s ease-out 0.3s forwards;
+  opacity: 0;
+}
+
+/* Chart container transitions */
+.chart-container {
+  transition: opacity 0.3s ease-out;
+}
+
+/* Recharts smooth rendering */
+.recharts-wrapper {
+  transition: opacity 0.3s ease-out;
+}
+
+.recharts-surface {
+  overflow: visible;
+}
