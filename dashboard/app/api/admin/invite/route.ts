@@ -33,12 +33,22 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ error: 'Organization ID is required' }, { status: 400 })
     }
 
+    // Fetch organization name
+    const { data: orgData } = await supabase
+      .from('organizations')
+      .select('name')
+      .eq('id', organization_id)
+      .single()
+
+    const organizationName = orgData?.name || 'your organization'
+
     // Use admin client to invite user
     const adminClient = createAdminClient()
 
     const { data, error } = await adminClient.auth.admin.inviteUserByEmail(email, {
       data: {
         organization_id: organization_id,
+        organization_name: organizationName,
         role: role
       },
       redirectTo: `${process.env.NEXT_PUBLIC_SITE_URL || 'https://dashboard.revisent.com'}/auth/callback`
