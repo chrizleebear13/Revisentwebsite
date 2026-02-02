@@ -21,15 +21,17 @@ export async function GET(request: NextRequest) {
         .single()
 
       // If no profile exists (OAuth user without trigger), create one
+      // Use upsert to handle race conditions with trigger
       if (!existingProfile) {
+        const metadata = user.user_metadata || {}
         await supabase
           .from('user_profiles')
-          .insert({
+          .upsert({
             id: user.id,
             email: user.email,
-            role: 'client',
-            created_at: new Date().toISOString()
-          })
+            role: metadata.role || 'client',
+            organization_id: metadata.organization_id || null,
+          }, { onConflict: 'id', ignoreDuplicates: true })
       }
 
       // Get role from profile (or default to client for new users)
