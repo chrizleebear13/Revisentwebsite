@@ -120,8 +120,8 @@ export default function ClientStations() {
               , stationDetections[0].created_at)
             : null
 
-          // Compute live status from updated_at (when ESP last touched the station row)
-          const lastSeenTime = station.updated_at ? new Date(station.updated_at).getTime() : 0
+          // Compute live status from last_seen (device heartbeat)
+          const lastSeenTime = station.last_seen ? new Date(station.last_seen).getTime() : 0
           const isOnline = lastSeenTime > 0 && (now - lastSeenTime) < ONLINE_THRESHOLD_MS
 
           return {
@@ -130,8 +130,8 @@ export default function ClientStations() {
             lastDetection,
             diversionRate,
             liveStatus: isOnline ? 'online' : 'offline' as 'online' | 'offline',
-            // Use updated_at for device status display
-            effectiveLastSeen: station.updated_at
+            // Use last_seen for device status display
+            effectiveLastSeen: station.last_seen
           }
         })
 
