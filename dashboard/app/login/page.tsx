@@ -48,6 +48,12 @@ export default function LoginPage() {
           const { data: { user } } = await supabase.auth.getUser()
 
           if (user) {
+            // If this is an invite, redirect to set password first
+            if (type === 'invite') {
+              router.push('/auth/set-password?from=invite')
+              return
+            }
+
             // Get role from profile or metadata
             const { data: profile } = await supabase
               .from('user_profiles')

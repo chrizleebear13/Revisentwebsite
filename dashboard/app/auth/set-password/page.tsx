@@ -22,9 +22,24 @@ function SetPasswordForm() {
 
   const token_hash = searchParams.get('token_hash')
   const type = searchParams.get('type')
+  const from = searchParams.get('from')
 
   useEffect(() => {
-    const verifyToken = async () => {
+    const verifyAccess = async () => {
+      // If coming from invite hash flow, user is already authenticated
+      if (from === 'invite') {
+        const { data: { user } } = await supabase.auth.getUser()
+        if (user) {
+          setVerifying(false)
+          return
+        } else {
+          setError('Session expired. Please use the invite link again.')
+          setVerifying(false)
+          return
+        }
+      }
+
+      // Otherwise, verify OTP token
       if (!token_hash || !type) {
         setError('Invalid or missing token')
         setVerifying(false)
@@ -48,8 +63,8 @@ function SetPasswordForm() {
       }
     }
 
-    verifyToken()
-  }, [token_hash, type, supabase.auth])
+    verifyAccess()
+  }, [token_hash, type, from, supabase.auth, supabase])
 
   const handleSetPassword = async (e: React.FormEvent) => {
     e.preventDefault()
