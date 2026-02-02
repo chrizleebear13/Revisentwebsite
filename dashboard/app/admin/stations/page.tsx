@@ -206,6 +206,9 @@ export default function AdminStations() {
 
     fetchStations()
 
+    // Poll every 30 seconds as fallback (in case Realtime isn't working)
+    const pollInterval = setInterval(fetchStations, 30000)
+
     // Subscribe to real-time updates
     const channel = supabase
       .channel('admin_stations_updates')
@@ -226,6 +229,7 @@ export default function AdminStations() {
       .subscribe()
 
     return () => {
+      clearInterval(pollInterval)
       supabase.removeChannel(channel)
     }
   }, [selectedOrganization, supabase])
