@@ -1,6 +1,6 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { useRouter } from 'next/navigation'
 import Link from 'next/link'
 import { createClient } from '@/lib/supabase/client'
@@ -8,7 +8,7 @@ import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import { Card } from '@/components/ui/card'
-import { Leaf, Mail } from 'lucide-react'
+import { Leaf, Mail, Loader2 } from 'lucide-react'
 
 export default function LoginPage() {
   const [identifier, setIdentifier] = useState('') // Can be email or username
@@ -16,8 +16,63 @@ export default function LoginPage() {
   const [error, setError] = useState<string | null>(null)
   const [loading, setLoading] = useState(false)
   const [oauthLoading, setOauthLoading] = useState<string | null>(null)
+  const [processingToken, setProcessingToken] = useState(false)
   const router = useRouter()
   const supabase = createClient()
+
+  // Handle hash-based auth tokens (from invite links)
+  useEffect(() => {
+    const handleHashToken = async () => {
+      const hash = window.location.hash
+      if (!hash || !hash.includes('access_token')) return
+
+      setProcessingToken(true)
+
+      try {
+        // Parse hash params
+        const params = new URLSearchParams(hash.substring(1))
+        const accessToken = params.get('access_token')
+        const refreshToken = params.get('refresh_token')
+        const type = params.get('type')
+
+        if (accessToken && refreshToken) {
+          // Set the session
+          const { error } = await supabase.auth.setSession({
+            access_token: accessToken,
+            refresh_token: refreshToken,
+          })
+
+          if (error) throw error
+
+          // Get user to determine redirect
+          const { data: { user } } = await supabase.auth.getUser()
+
+          if (user) {
+            // Get role from profile or metadata
+            const { data: profile } = await supabase
+              .from('user_profiles')
+              .select('role')
+              .eq('id', user.id)
+              .single()
+
+            const role = profile?.role || user.user_metadata?.role || 'client'
+
+            if (role === 'admin') {
+              router.push('/admin/dashboard')
+            } else {
+              router.push('/client/dashboard')
+            }
+          }
+        }
+      } catch (err: any) {
+        console.error('Error processing token:', err)
+        setError(err.message || 'Failed to process invitation')
+        setProcessingToken(false)
+      }
+    }
+
+    handleHashToken()
+  }, [supabase, router])
 
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault()
@@ -81,6 +136,18 @@ export default function LoginPage() {
       setError(err.message || `An error occurred signing in with ${provider}`)
       setOauthLoading(null)
     }
+  }
+
+  // Show loading while processing invite token
+  if (processingToken) {
+    return (
+      <div className="flex min-h-screen items-center justify-center gradient-subtle">
+        <div className="text-center">
+          <Loader2 className="w-8 h-8 animate-spin text-primary mx-auto mb-4" />
+          <p className="text-muted-foreground">Setting up your account...</p>
+        </div>
+      </div>
+    )
   }
 
   return (
