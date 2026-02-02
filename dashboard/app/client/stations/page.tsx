@@ -120,11 +120,9 @@ export default function ClientStations() {
               , stationDetections[0].created_at)
             : null
 
-          // Compute live status from last_seen OR most recent detection
+          // Compute live status from last_seen (device heartbeat)
           const lastSeenTime = station.last_seen ? new Date(station.last_seen).getTime() : 0
-          const lastDetectionTime = lastDetection ? new Date(lastDetection).getTime() : 0
-          const mostRecentActivity = Math.max(lastSeenTime, lastDetectionTime)
-          const isOnline = mostRecentActivity > 0 && (now - mostRecentActivity) < ONLINE_THRESHOLD_MS
+          const isOnline = lastSeenTime > 0 && (now - lastSeenTime) < ONLINE_THRESHOLD_MS
 
           return {
             ...station,
@@ -132,8 +130,8 @@ export default function ClientStations() {
             lastDetection,
             diversionRate,
             liveStatus: isOnline ? 'online' : 'offline' as 'online' | 'offline',
-            // Use most recent activity time for display
-            effectiveLastSeen: mostRecentActivity > 0 ? new Date(mostRecentActivity).toISOString() : null
+            // Use last_seen for device status display
+            effectiveLastSeen: station.last_seen
           }
         })
 
