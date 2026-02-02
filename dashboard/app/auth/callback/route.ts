@@ -4,6 +4,15 @@ import { createClient } from '@/lib/supabase/server'
 export async function GET(request: NextRequest) {
   const requestUrl = new URL(request.url)
   const code = requestUrl.searchParams.get('code')
+  const token_hash = requestUrl.searchParams.get('token_hash')
+  const type = requestUrl.searchParams.get('type')
+
+  // Handle invite/recovery tokens - redirect to set password page
+  if (token_hash && (type === 'invite' || type === 'recovery')) {
+    return NextResponse.redirect(
+      new URL(`/auth/set-password?token_hash=${token_hash}&type=${type}`, requestUrl.origin)
+    )
+  }
 
   if (code) {
     const supabase = await createClient()
