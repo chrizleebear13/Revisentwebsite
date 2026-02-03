@@ -218,73 +218,74 @@ export function LiveTrackingChart({ organizationId, deviceId }: LiveTrackingChar
           return normalized
         }
 
-        // Helper to generate a consistent slot key from a date
-        const getSlotKey = (date: Date, isFromDetection: boolean = false): string => {
+        // Initialize all time slots with zero counts using array (index-based)
+        const grouped: Array<{ total: number; compost: number; recycle: number; trash: number }> =
+          timeSlots.map(() => ({ total: 0, compost: 0, recycle: 0, trash: 0 }))
+
+        // Helper to find which slot index a date belongs to
+        const getSlotIndex = (date: Date): number => {
+          if (timeSlots.length === 0) return -1
+
           if (timeFrame === 'D') {
-            // Use local date + hour as key (1-hour intervals)
-            const hours = date.getHours()
-            return `${date.getFullYear()}-${date.getMonth()}-${date.getDate()}-${hours}`
-          } else if (timeFrame === 'Y' || (timeFrame === 'C' && timeSlots.length > 0 && timeSlots.length < 15)) {
-            // Weekly grouping for YTD or long custom ranges
-            // Find the week this date belongs to using timestamp comparisons
-            const normalizedDate = normalizeToLocalDay(date)
-            const dateTime = normalizedDate.getTime()
-
+            // For Day view: match by hour
+            const dateHour = date.getHours()
             for (let idx = 0; idx < timeSlots.length; idx++) {
-              const slotStart = normalizeToLocalDay(timeSlots[idx])
-              const slotStartTime = slotStart.getTime()
-              const nextSlot = timeSlots[idx + 1]
-
-              if (!nextSlot) {
-                // Last slot - any date on or after this slot start goes here
-                if (dateTime >= slotStartTime) {
-                  return `${slotStart.getFullYear()}-${slotStart.getMonth()}-${slotStart.getDate()}`
-                }
+              const slotHour = timeSlots[idx].getHours()
+              if (idx === timeSlots.length - 1) {
+                // Last slot - any hour >= this slot's hour goes here
+                if (dateHour >= slotHour) return idx
               } else {
-                const nextSlotStart = normalizeToLocalDay(nextSlot)
-                const nextSlotTime = nextSlotStart.getTime()
-                if (dateTime >= slotStartTime && dateTime < nextSlotTime) {
-                  return `${slotStart.getFullYear()}-${slotStart.getMonth()}-${slotStart.getDate()}`
+                const nextSlotHour = timeSlots[idx + 1].getHours()
+                if (dateHour >= slotHour && dateHour < nextSlotHour) {
+                  return idx
                 }
               }
             }
-
-            // Fallback: find the closest slot by checking if date is before first slot
-            if (timeSlots.length > 0) {
-              const firstSlot = normalizeToLocalDay(timeSlots[0])
-              if (dateTime < firstSlot.getTime()) {
-                // Date is before the year started - put in first slot
-                return `${firstSlot.getFullYear()}-${firstSlot.getMonth()}-${firstSlot.getDate()}`
-              }
-              // Otherwise use last slot
-              const lastSlot = normalizeToLocalDay(timeSlots[timeSlots.length - 1])
-              return `${lastSlot.getFullYear()}-${lastSlot.getMonth()}-${lastSlot.getDate()}`
-            }
-            return `${date.getFullYear()}-${date.getMonth()}-${date.getDate()}`
-          } else {
-            // Daily grouping - use local date as key
-            const normalized = normalizeToLocalDay(date)
-            return `${normalized.getFullYear()}-${normalized.getMonth()}-${normalized.getDate()}`
+            // Before first slot
+            if (dateHour < timeSlots[0].getHours()) return 0
+            return timeSlots.length - 1
           }
-        }
 
-        // Initialize all time slots with zero counts
-        const grouped = new Map<string, { total: number; compost: number; recycle: number; trash: number }>()
-        timeSlots.forEach(slot => {
-          grouped.set(getSlotKey(slot, false), { total: 0, compost: 0, recycle: 0, trash: 0 })
-        })
+          // For weekly/daily views: compare normalized dates
+          const normalizedDate = normalizeToLocalDay(date)
+          const dateTime = normalizedDate.getTime()
+
+          // For each slot, check if this date falls within it
+          for (let idx = 0; idx < timeSlots.length; idx++) {
+            const slotStart = normalizeToLocalDay(timeSlots[idx])
+            const slotStartTime = slotStart.getTime()
+
+            if (idx === timeSlots.length - 1) {
+              // Last slot - any date >= this slot start goes here
+              if (dateTime >= slotStartTime) return idx
+            } else {
+              const nextSlotStart = normalizeToLocalDay(timeSlots[idx + 1])
+              const nextSlotTime = nextSlotStart.getTime()
+              if (dateTime >= slotStartTime && dateTime < nextSlotTime) {
+                return idx
+              }
+            }
+          }
+
+          // Date before first slot - put in first slot
+          const firstSlotTime = normalizeToLocalDay(timeSlots[0]).getTime()
+          if (dateTime < firstSlotTime) return 0
+
+          // Fallback to last slot
+          return timeSlots.length - 1
+        }
 
         // Group detections into time slots
         if (detections && detections.length > 0) {
           detections.forEach((item) => {
             const detectedDate = parseLocalDate(item.created_at)
-            const slotKey = getSlotKey(detectedDate, true)
+            const slotIdx = getSlotIndex(detectedDate)
 
-            if (grouped.has(slotKey)) {
-              const group = grouped.get(slotKey)!
+            if (slotIdx >= 0 && slotIdx < grouped.length) {
+              const group = grouped[slotIdx]
               group.total++
               const category = item.category?.toLowerCase() as 'compost' | 'recycle' | 'trash'
-              if (category in group) {
+              if (category === 'compost' || category === 'recycle' || category === 'trash') {
                 group[category]++
               }
             }
@@ -293,7 +294,7 @@ export function LiveTrackingChart({ organizationId, deviceId }: LiveTrackingChar
 
         // Convert to array with formatted labels
         const dataPoints: ChartDataPoint[] = timeSlots.map((slot, index) => {
-          const counts = grouped.get(getSlotKey(slot, false))!
+          const counts = grouped[index]
           let label: string = ''
           let displayLabel: string = ''
 
