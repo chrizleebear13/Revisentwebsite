@@ -1,16 +1,8 @@
 'use client'
 
 import { useState, useRef, useEffect } from 'react'
-import { Bell, AlertTriangle, CheckCircle, XCircle, AlertCircle, X } from 'lucide-react'
+import { Bell, CheckCircle, AlertCircle, X } from 'lucide-react'
 import { getDemoAlerts } from '@/lib/demo-data'
-
-interface Alert {
-  id: string
-  type: 'warning' | 'error' | 'info' | 'success'
-  message: string
-  station_name?: string
-  created_at: string
-}
 
 export function DemoAlertsDropdown() {
   const [isOpen, setIsOpen] = useState(false)
@@ -42,12 +34,8 @@ export function DemoAlertsDropdown() {
     }
   }, [isOpen])
 
-  const getAlertIcon = (type: Alert['type']) => {
+  const getAlertIcon = (type: 'success' | 'info') => {
     switch (type) {
-      case 'error':
-        return <XCircle className="w-3.5 h-3.5" />
-      case 'warning':
-        return <AlertTriangle className="w-3.5 h-3.5" />
       case 'success':
         return <CheckCircle className="w-3.5 h-3.5" />
       case 'info':
@@ -56,12 +44,8 @@ export function DemoAlertsDropdown() {
     }
   }
 
-  const getAlertColor = (type: Alert['type']) => {
+  const getAlertColor = (type: 'success' | 'info') => {
     switch (type) {
-      case 'error':
-        return 'text-red-600 bg-red-50 border-red-200'
-      case 'warning':
-        return 'text-yellow-600 bg-yellow-50 border-yellow-200'
       case 'success':
         return 'text-green-600 bg-green-50 border-green-200'
       case 'info':
@@ -138,9 +122,6 @@ export function DemoAlertsDropdown() {
                       </div>
                       <div className="flex-1 min-w-0">
                         <p className="text-xs font-medium leading-snug">{alert.message}</p>
-                        {alert.station_name && (
-                          <p className="text-xs opacity-75 mt-0.5">Station: {alert.station_name}</p>
-                        )}
                         <p className="text-xs opacity-60 mt-1">{formatTimeAgo(alert.created_at)}</p>
                       </div>
                       <button
