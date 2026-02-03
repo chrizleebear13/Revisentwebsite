@@ -92,7 +92,7 @@ export function DemoAlertsDropdown() {
       </button>
 
       {isOpen && (
-        <div className="absolute right-0 mt-2 w-80 bg-card/95 backdrop-blur-xl border border-border/50 rounded-xl shadow-lg z-50">
+        <div className="absolute right-0 mt-2 w-80 bg-card/95 backdrop-blur-xl border border-border/50 rounded-xl shadow-lg z-[100]">
           <div className="p-3 border-b border-border/50">
             <h3 className="text-sm font-semibold flex items-center gap-2">
               <Bell className="w-4 h-4" />

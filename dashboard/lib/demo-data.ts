@@ -2,8 +2,8 @@
 
 export const DEMO_ORGANIZATION_ID = 'demo-org-001'
 
-// Fixed demo date: always show as if it's 2:30 PM on this day
-export const DEMO_DATE = new Date('2025-01-15T14:30:00')
+// Fixed demo date: always show as if it's 2:30 PM on this day (local time)
+export const DEMO_DATE = new Date(2025, 0, 15, 14, 30, 0)
 
 export const DEMO_STATIONS = [
   { id: 'station-001', name: 'Main Lobby', status: 'active', last_seen: '2025-01-15T14:28:00Z', organization_id: DEMO_ORGANIZATION_ID },
@@ -25,11 +25,47 @@ function generateFixedDetections() {
   const detections: typeof DEMO_DETECTIONS = []
   const stationIds = ['station-001', 'station-002', 'station-003']
 
-  // Fixed item lists
-  const items = {
-    trash: ['food_wrapper', 'napkin', 'styrofoam', 'plastic_bag', 'chip_bag', 'candy_wrapper', 'paper_towel'],
-    recycle: ['plastic_bottle', 'aluminum_can', 'cardboard', 'paper', 'glass_bottle', 'milk_carton', 'newspaper'],
-    compost: ['banana_peel', 'apple_core', 'coffee_grounds', 'food_scraps', 'orange_peel', 'egg_shells', 'vegetable_scraps'],
+  // Fixed item lists - with weights for realistic distribution
+  // Higher weight = more common
+  const itemsWithWeights = {
+    trash: [
+      { name: 'food_wrapper', weight: 4 },
+      { name: 'styrofoam', weight: 2 },
+      { name: 'plastic_bag', weight: 3 },
+      { name: 'chip_bag', weight: 3 },
+      { name: 'candy_wrapper', weight: 3 },
+      { name: 'straw', weight: 2 },
+    ],
+    recycle: [
+      { name: 'plastic_bottle', weight: 8 },  // Most common recyclable
+      { name: 'aluminum_can', weight: 7 },    // Very common
+      { name: 'cardboard', weight: 4 },
+      { name: 'paper', weight: 5 },
+      { name: 'glass_bottle', weight: 2 },
+      { name: 'milk_carton', weight: 1 },
+      { name: 'newspaper', weight: 1 },
+    ],
+    compost: [
+      { name: 'banana_peel', weight: 6 },     // Very common
+      { name: 'apple_core', weight: 5 },      // Common
+      { name: 'napkin', weight: 5 },          // Compostable paper product
+      { name: 'paper_towel', weight: 4 },     // Compostable paper product
+      { name: 'coffee_grounds', weight: 4 },
+      { name: 'food_scraps', weight: 3 },
+      { name: 'orange_peel', weight: 3 },
+      { name: 'egg_shells', weight: 1 },
+    ],
+  }
+
+  // Helper to pick weighted random item
+  const pickWeightedItem = (items: { name: string; weight: number }[]): string => {
+    const totalWeight = items.reduce((sum, item) => sum + item.weight, 0)
+    let random = seededRandom() * totalWeight
+    for (const item of items) {
+      random -= item.weight
+      if (random <= 0) return item.name
+    }
+    return items[items.length - 1].name
   }
 
   // Fixed daily counts for last 30 days (consistent pattern)
@@ -50,8 +86,9 @@ function generateFixedDetections() {
 
   // Generate detections for each day
   for (let dayOffset = 0; dayOffset < 30; dayOffset++) {
-    const date = new Date('2025-01-15')
-    date.setDate(date.getDate() - dayOffset)
+    // Use explicit year/month/day to avoid timezone issues
+    const baseDate = new Date(2025, 0, 15) // January 15, 2025 in local time
+    baseDate.setDate(baseDate.getDate() - dayOffset)
     const itemCount = dailyCounts[dayOffset] || 100
 
     for (let i = 0; i < itemCount; i++) {
@@ -66,8 +103,7 @@ function generateFixedDetections() {
         category = 'compost'
       }
 
-      const categoryItems = items[category]
-      const item = categoryItems[Math.floor(seededRandom() * categoryItems.length)]
+      const item = pickWeightedItem(itemsWithWeights[category])
 
       // Distribute throughout the day (7 AM to 6 PM) with lunch peak
       let hour: number
@@ -83,11 +119,10 @@ function generateFixedDetections() {
       }
 
       const minute = Math.floor(seededRandom() * 60)
-      const detectionDate = new Date(date)
-      detectionDate.setHours(hour, minute, Math.floor(seededRandom() * 60), 0)
+      const detectionDate = new Date(baseDate.getFullYear(), baseDate.getMonth(), baseDate.getDate(), hour, minute, Math.floor(seededRandom() * 60))
 
       // Only include detections up to 2:30 PM for "today"
-      if (dayOffset === 0 && detectionDate.getHours() >= 15) {
+      if (dayOffset === 0 && hour >= 15) {
         continue
       }
 
@@ -106,7 +141,7 @@ function generateFixedDetections() {
 
 // Fixed demo metrics
 export function getDemoMetrics() {
-  const startOfToday = new Date('2025-01-15T00:00:00')
+  const startOfToday = new Date(2025, 0, 15, 0, 0, 0)
   const todayDetections = DEMO_DETECTIONS.filter(d => new Date(d.created_at) >= startOfToday)
 
   const categoryCounts = DEMO_DETECTIONS.reduce(
