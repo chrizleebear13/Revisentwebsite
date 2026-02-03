@@ -284,7 +284,7 @@ export function LiveTrackingChart({ organizationId, deviceId }: LiveTrackingChar
             if (slotIdx >= 0 && slotIdx < grouped.length) {
               const group = grouped[slotIdx]
               group.total++
-              const category = item.category?.toLowerCase() as 'compost' | 'recycle' | 'trash'
+              const category = item.category?.toLowerCase()?.trim() as 'compost' | 'recycle' | 'trash'
               if (category === 'compost' || category === 'recycle' || category === 'trash') {
                 group[category]++
               }
@@ -355,7 +355,7 @@ export function LiveTrackingChart({ organizationId, deviceId }: LiveTrackingChar
           ? detections.reduce(
               (acc, item) => {
                 acc.total++
-                const category = item.category?.toLowerCase() as 'compost' | 'recycle' | 'trash'
+                const category = item.category?.toLowerCase()?.trim() as 'compost' | 'recycle' | 'trash'
                 if (category in acc) {
                   acc[category]++
                 }
@@ -381,7 +381,7 @@ export function LiveTrackingChart({ organizationId, deviceId }: LiveTrackingChar
             if (existing) {
               existing.count++
             } else {
-              itemCounts.set(name, { count: 1, category: item.category?.toLowerCase() || 'trash' })
+              itemCounts.set(name, { count: 1, category: item.category?.toLowerCase()?.trim() || 'trash' })
             }
           })
 
@@ -608,6 +608,12 @@ export function LiveTrackingChart({ organizationId, deviceId }: LiveTrackingChar
                         labelStyle={{ fontWeight: 600, marginBottom: '8px', color: '#111827' }}
                         itemStyle={{ padding: '2px 0' }}
                         cursor={{ stroke: '#e5e7eb', strokeWidth: 1 }}
+                        labelFormatter={(label, payload) => {
+                          if (payload && payload.length > 0 && payload[0]?.payload?.displayLabel) {
+                            return payload[0].payload.displayLabel
+                          }
+                          return label
+                        }}
                       />
                       <Area
                         type="monotone"
