@@ -232,7 +232,6 @@ export function LiveTrackingChart({ organizationId, deviceId }: LiveTrackingChar
             for (let idx = 0; idx < timeSlots.length; idx++) {
               const slotHour = timeSlots[idx].getHours()
               if (idx === timeSlots.length - 1) {
-                // Last slot - any hour >= this slot's hour goes here
                 if (dateHour >= slotHour) return idx
               } else {
                 const nextSlotHour = timeSlots[idx + 1].getHours()
@@ -241,37 +240,55 @@ export function LiveTrackingChart({ organizationId, deviceId }: LiveTrackingChar
                 }
               }
             }
-            // Before first slot
             if (dateHour < timeSlots[0].getHours()) return 0
             return timeSlots.length - 1
           }
 
-          // For weekly/daily views: compare normalized dates
-          const normalizedDate = normalizeToLocalDay(date)
-          const dateTime = normalizedDate.getTime()
+          // For W and M: daily slots - match by exact date (year-month-day)
+          if (timeFrame === 'W' || timeFrame === 'M') {
+            const dateYear = date.getFullYear()
+            const dateMonth = date.getMonth()
+            const dateDay = date.getDate()
 
-          // For each slot, check if this date falls within it
+            for (let idx = 0; idx < timeSlots.length; idx++) {
+              const slot = timeSlots[idx]
+              if (slot.getFullYear() === dateYear &&
+                  slot.getMonth() === dateMonth &&
+                  slot.getDate() === dateDay) {
+                return idx
+              }
+            }
+            // Date not in range - find closest slot
+            const dateTime = date.getTime()
+            const firstSlotTime = timeSlots[0].getTime()
+            const lastSlotTime = timeSlots[timeSlots.length - 1].getTime()
+            if (dateTime < firstSlotTime) return 0
+            if (dateTime > lastSlotTime) return timeSlots.length - 1
+            return -1
+          }
+
+          // For Y and C: weekly slots - find which week range the date falls into
+          const dateTime = new Date(date.getFullYear(), date.getMonth(), date.getDate()).getTime()
+
           for (let idx = 0; idx < timeSlots.length; idx++) {
-            const slotStart = normalizeToLocalDay(timeSlots[idx])
-            const slotStartTime = slotStart.getTime()
+            const slotStart = timeSlots[idx]
+            const slotStartTime = new Date(slotStart.getFullYear(), slotStart.getMonth(), slotStart.getDate()).getTime()
 
             if (idx === timeSlots.length - 1) {
-              // Last slot - any date >= this slot start goes here
+              // Last slot - any date on or after this slot goes here
               if (dateTime >= slotStartTime) return idx
             } else {
-              const nextSlotStart = normalizeToLocalDay(timeSlots[idx + 1])
-              const nextSlotTime = nextSlotStart.getTime()
+              const nextSlot = timeSlots[idx + 1]
+              const nextSlotTime = new Date(nextSlot.getFullYear(), nextSlot.getMonth(), nextSlot.getDate()).getTime()
               if (dateTime >= slotStartTime && dateTime < nextSlotTime) {
                 return idx
               }
             }
           }
 
-          // Date before first slot - put in first slot
-          const firstSlotTime = normalizeToLocalDay(timeSlots[0]).getTime()
+          // Fallback
+          const firstSlotTime = new Date(timeSlots[0].getFullYear(), timeSlots[0].getMonth(), timeSlots[0].getDate()).getTime()
           if (dateTime < firstSlotTime) return 0
-
-          // Fallback to last slot
           return timeSlots.length - 1
         }
 
