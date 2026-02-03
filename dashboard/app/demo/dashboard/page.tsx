@@ -1,39 +1,18 @@
 'use client'
 
-import { useMemo, useState, useEffect } from 'react'
+import { useMemo } from 'react'
 import { MetricsCard } from '@/components/MetricsCard'
 import { DemoSidebar } from '@/components/DemoSidebar'
 import { DemoAlertsDropdown } from '@/components/DemoAlertsDropdown'
 import { DemoLiveTrackingChart } from '@/components/DemoLiveTrackingChart'
 import { DemoWasteAnalytics } from '@/components/DemoWasteAnalytics'
 import { Trash2, Package, TrendingUp, Clock } from 'lucide-react'
-import { getDemoMetrics, DEMO_DETECTIONS } from '@/lib/demo-data'
+import { getDemoMetrics, DEMO_DATE } from '@/lib/demo-data'
 
 export default function DemoDashboard() {
-  const [duration, setDuration] = useState<string>('0h 0m')
+  // Fixed demo values - no dynamic calculations
+  const duration = '7h 23m'
   const metrics = useMemo(() => getDemoMetrics(), [])
-
-  useEffect(() => {
-    // Calculate duration from first detection today to now
-    const now = new Date()
-    const startOfDay = new Date(now)
-    startOfDay.setHours(0, 0, 0, 0)
-
-    const todayDetections = DEMO_DETECTIONS.filter(d => new Date(d.created_at) >= startOfDay)
-
-    if (todayDetections.length > 0) {
-      const firstItem = todayDetections[0]
-      const sessionStartDate = new Date(firstItem.created_at)
-      const endOfDay = new Date(now)
-      endOfDay.setHours(17, 0, 0, 0)
-
-      const endTime = now.getTime() < endOfDay.getTime() ? now : endOfDay
-      const durationMs = endTime.getTime() - sessionStartDate.getTime()
-      const hours = Math.floor(durationMs / (1000 * 60 * 60))
-      const minutes = Math.floor((durationMs % (1000 * 60 * 60)) / (1000 * 60))
-      setDuration(`${hours}h ${minutes}m`)
-    }
-  }, [])
 
   return (
     <div className="h-screen overflow-hidden gradient-subtle touch-manipulation">
@@ -49,7 +28,7 @@ export default function DemoDashboard() {
             <div className="flex items-center gap-1.5">
               <Clock className="w-3.5 h-3.5 text-muted-foreground" />
               <span className="text-xs text-muted-foreground">
-                Session: {new Date().toLocaleDateString('en-US', { month: 'numeric', day: 'numeric', year: '2-digit' })}, {new Date().toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit', hour12: true })}
+                Session: {DEMO_DATE.toLocaleDateString('en-US', { month: 'numeric', day: 'numeric', year: '2-digit' })}, {DEMO_DATE.toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit', hour12: true })}
               </span>
               <span className="text-xs text-muted-foreground">•</span>
               <span className="text-xs text-muted-foreground">

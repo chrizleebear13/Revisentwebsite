@@ -4,7 +4,7 @@ import { useState, useEffect, useMemo } from 'react'
 import { Card } from '@/components/ui/card'
 import { AreaChart, Area, XAxis, YAxis, ResponsiveContainer, Tooltip } from 'recharts'
 import { Wifi, Package, Trash2, Recycle, Leaf, TrendingUp, Calendar } from 'lucide-react'
-import { DEMO_DETECTIONS } from '@/lib/demo-data'
+import { DEMO_DETECTIONS, DEMO_DATE } from '@/lib/demo-data'
 
 type TimeFrame = 'D' | 'W' | 'M' | 'Y' | 'C'
 
@@ -48,18 +48,19 @@ export function DemoLiveTrackingChart() {
   }
 
   const { chartData, stats, topItems } = useMemo(() => {
-    const now = new Date()
-    let startDate: Date = new Date()
-    let endDate: Date = new Date()
+    // Use fixed demo date instead of current date
+    const now = new Date(DEMO_DATE)
+    let startDate: Date = new Date(DEMO_DATE)
+    let endDate: Date = new Date(DEMO_DATE)
     let timeSlots: Date[] = []
 
     if (timeFrame === 'D') {
-      const today = new Date()
+      const today = new Date(DEMO_DATE)
       today.setHours(7, 0, 0, 0)
       startDate = today
-      const lastSlotStart = new Date(today)
+      const lastSlotStart = new Date(DEMO_DATE)
       lastSlotStart.setHours(18, 0, 0, 0)
-      endDate = new Date(today)
+      endDate = new Date(DEMO_DATE)
       endDate.setHours(18, 59, 59, 999)
 
       let current = new Date(startDate)
@@ -68,9 +69,9 @@ export function DemoLiveTrackingChart() {
         current.setHours(current.getHours() + 1)
       }
     } else if (timeFrame === 'W') {
-      endDate = new Date()
+      endDate = new Date(DEMO_DATE)
       endDate.setHours(23, 59, 59, 999)
-      startDate = new Date(endDate)
+      startDate = new Date(DEMO_DATE)
       startDate.setDate(startDate.getDate() - 6)
       startDate.setHours(0, 0, 0, 0)
 
@@ -80,9 +81,9 @@ export function DemoLiveTrackingChart() {
         current.setDate(current.getDate() + 1)
       }
     } else if (timeFrame === 'M') {
-      endDate = new Date()
+      endDate = new Date(DEMO_DATE)
       endDate.setHours(23, 59, 59, 999)
-      startDate = new Date(endDate)
+      startDate = new Date(DEMO_DATE)
       startDate.setDate(startDate.getDate() - 29)
       startDate.setHours(0, 0, 0, 0)
 
@@ -92,9 +93,9 @@ export function DemoLiveTrackingChart() {
         current.setDate(current.getDate() + 1)
       }
     } else if (timeFrame === 'Y') {
-      endDate = new Date()
+      endDate = new Date(DEMO_DATE)
       endDate.setHours(23, 59, 59, 999)
-      startDate = new Date(now.getFullYear(), 0, 1)
+      startDate = new Date(DEMO_DATE.getFullYear(), 0, 1)
       startDate.setHours(0, 0, 0, 0)
 
       let current = new Date(startDate)

@@ -1,32 +1,11 @@
 'use client'
 
-import { useMemo } from 'react'
 import { Card } from '@/components/ui/card'
 import { Zap } from 'lucide-react'
-import { DEMO_DETECTIONS } from '@/lib/demo-data'
 
 export function DemoWasteAnalytics() {
-  const avgPerHour = useMemo(() => {
-    const now = new Date()
-    const startOfDay = new Date(now)
-    startOfDay.setHours(0, 0, 0, 0)
-
-    const todayDetections = DEMO_DETECTIONS.filter(d => new Date(d.created_at) >= startOfDay)
-
-    if (todayDetections.length === 0) return 0
-
-    // Calculate duration from first detection to now
-    const firstItem = todayDetections[0]
-    const sessionStartDate = new Date(firstItem.created_at)
-    const endOfDay = new Date(now)
-    endOfDay.setHours(17, 0, 0, 0)
-
-    const endTime = now.getTime() < endOfDay.getTime() ? now : endOfDay
-    const durationMs = endTime.getTime() - sessionStartDate.getTime()
-    const durationHours = durationMs / (1000 * 60 * 60)
-
-    return durationHours > 0 ? Math.round(todayDetections.length / durationHours) : 0
-  }, [])
+  // Fixed demo value - average items per hour
+  const avgPerHour = 17
 
   return (
     <Card className="p-4 gradient-card shadow-sm border-0">
