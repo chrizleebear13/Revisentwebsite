@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from 'react'
 import { Card } from '@/components/ui/card'
-import { AreaChart, Area, XAxis, YAxis, ResponsiveContainer, Tooltip } from 'recharts'
+import { AreaChart, Area, XAxis, YAxis, ResponsiveContainer, Tooltip, TooltipProps } from 'recharts'
 import { Wifi, Package, Trash2, Recycle, Leaf, TrendingUp, Calendar } from 'lucide-react'
 import { createClient } from '@/lib/supabase/client'
 
@@ -10,6 +10,7 @@ type TimeFrame = 'D' | 'W' | 'M' | 'Y' | 'C'
 
 interface ChartDataPoint {
   label: string
+  displayLabel: string // Full label for tooltip display
   total: number
   compost: number
   recycle: number
@@ -204,41 +205,72 @@ export function LiveTrackingChart({ organizationId, deviceId }: LiveTrackingChar
 
         if (error) throw error
 
+        // Helper to parse a date from ISO string ensuring local timezone
+        const parseLocalDate = (isoString: string): Date => {
+          const date = new Date(isoString)
+          return date
+        }
+
+        // Helper to normalize a date to start of day in local time
+        const normalizeToLocalDay = (date: Date): Date => {
+          const normalized = new Date(date)
+          normalized.setHours(0, 0, 0, 0)
+          return normalized
+        }
+
         // Helper to generate a consistent slot key from a date
-        const getSlotKey = (date: Date): string => {
+        const getSlotKey = (date: Date, isFromDetection: boolean = false): string => {
           if (timeFrame === 'D') {
             // Use local date + hour as key (1-hour intervals)
             const hours = date.getHours()
             return `${date.getFullYear()}-${date.getMonth()}-${date.getDate()}-${hours}`
           } else if (timeFrame === 'Y' || (timeFrame === 'C' && timeSlots.length > 0 && timeSlots.length < 15)) {
             // Weekly grouping for YTD or long custom ranges
-            // Find the week this date belongs to
-            const weekStart = timeSlots.find((slot, idx) => {
+            // Find the week this date belongs to by comparing normalized dates
+            const normalizedDate = normalizeToLocalDay(date)
+
+            for (let idx = 0; idx < timeSlots.length; idx++) {
+              const slotStart = normalizeToLocalDay(timeSlots[idx])
               const nextSlot = timeSlots[idx + 1]
-              if (!nextSlot) return true
-              return date >= slot && date < nextSlot
-            })
-            if (weekStart) {
-              return `${weekStart.getFullYear()}-${weekStart.getMonth()}-${weekStart.getDate()}`
+
+              if (!nextSlot) {
+                // Last slot - check if date is on or after this slot start
+                if (normalizedDate >= slotStart) {
+                  return `${slotStart.getFullYear()}-${slotStart.getMonth()}-${slotStart.getDate()}`
+                }
+              } else {
+                const nextSlotStart = normalizeToLocalDay(nextSlot)
+                if (normalizedDate >= slotStart && normalizedDate < nextSlotStart) {
+                  return `${slotStart.getFullYear()}-${slotStart.getMonth()}-${slotStart.getDate()}`
+                }
+              }
+            }
+
+            // If no slot found (shouldn't happen), return first slot key for detections
+            // to avoid orphaned data, or daily key for initial setup
+            if (isFromDetection && timeSlots.length > 0) {
+              const firstSlot = timeSlots[0]
+              return `${firstSlot.getFullYear()}-${firstSlot.getMonth()}-${firstSlot.getDate()}`
             }
             return `${date.getFullYear()}-${date.getMonth()}-${date.getDate()}`
           } else {
-            // Use local date as key
-            return `${date.getFullYear()}-${date.getMonth()}-${date.getDate()}`
+            // Daily grouping - use local date as key
+            const normalized = normalizeToLocalDay(date)
+            return `${normalized.getFullYear()}-${normalized.getMonth()}-${normalized.getDate()}`
           }
         }
 
         // Initialize all time slots with zero counts
         const grouped = new Map<string, { total: number; compost: number; recycle: number; trash: number }>()
         timeSlots.forEach(slot => {
-          grouped.set(getSlotKey(slot), { total: 0, compost: 0, recycle: 0, trash: 0 })
+          grouped.set(getSlotKey(slot, false), { total: 0, compost: 0, recycle: 0, trash: 0 })
         })
 
         // Group detections into time slots
         if (detections && detections.length > 0) {
           detections.forEach((item) => {
-            const detectedDate = new Date(item.created_at)
-            const slotKey = getSlotKey(detectedDate)
+            const detectedDate = parseLocalDate(item.created_at)
+            const slotKey = getSlotKey(detectedDate, true)
 
             if (grouped.has(slotKey)) {
               const group = grouped.get(slotKey)!
@@ -253,31 +285,40 @@ export function LiveTrackingChart({ organizationId, deviceId }: LiveTrackingChar
 
         // Convert to array with formatted labels
         const dataPoints: ChartDataPoint[] = timeSlots.map((slot, index) => {
-          const counts = grouped.get(getSlotKey(slot))!
+          const counts = grouped.get(getSlotKey(slot, false))!
           let label: string = ''
+          let displayLabel: string = ''
+
+          // Format for full display in tooltip
+          const monthNames = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
+          const dayNames = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat']
 
           if (timeFrame === 'D') {
             const hours = slot.getHours()
             const ampm = hours >= 12 ? 'PM' : 'AM'
             const displayHours = hours % 12 || 12
             label = `${displayHours}${ampm}`
+            displayLabel = `${dayNames[slot.getDay()]}, ${monthNames[slot.getMonth()]} ${slot.getDate()} at ${displayHours}:00 ${ampm}`
           } else if (timeFrame === 'W') {
-            label = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'][slot.getDay()]
+            label = dayNames[slot.getDay()]
+            displayLabel = `${dayNames[slot.getDay()]}, ${monthNames[slot.getMonth()]} ${slot.getDate()}`
           } else if (timeFrame === 'M') {
-            // For month view, show every other day to reduce crowding
-            if (index % 2 === 0) {
-              label = `${slot.getMonth() + 1}/${slot.getDate()}`
-            } else {
-              label = ''
-            }
+            // For month view, show every 3rd day to reduce crowding
+            const showLabel = index % 3 === 0 || index === timeSlots.length - 1
+            label = showLabel ? `${slot.getMonth() + 1}/${slot.getDate()}` : ''
+            displayLabel = `${dayNames[slot.getDay()]}, ${monthNames[slot.getMonth()]} ${slot.getDate()}`
           } else if (timeFrame === 'Y') {
             // For YTD, show month abbreviation for first week of each month
             const prevSlot = index > 0 ? timeSlots[index - 1] : null
             if (!prevSlot || slot.getMonth() !== prevSlot.getMonth()) {
-              label = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'][slot.getMonth()]
+              label = monthNames[slot.getMonth()]
             } else {
               label = ''
             }
+            // Show week range in tooltip
+            const weekEnd = new Date(slot)
+            weekEnd.setDate(weekEnd.getDate() + 6)
+            displayLabel = `Week of ${monthNames[slot.getMonth()]} ${slot.getDate()} - ${monthNames[weekEnd.getMonth()]} ${weekEnd.getDate()}`
           } else {
             // Custom: Show date based on interval
             const daysDiff = Math.ceil((new Date(appliedEndDate).getTime() - new Date(appliedStartDate).getTime()) / (1000 * 60 * 60 * 24))
@@ -288,10 +329,12 @@ export function LiveTrackingChart({ organizationId, deviceId }: LiveTrackingChar
             } else {
               label = ''
             }
+            displayLabel = `${dayNames[slot.getDay()]}, ${monthNames[slot.getMonth()]} ${slot.getDate()}`
           }
 
           return {
             label,
+            displayLabel,
             ...counts
           }
         })
@@ -415,6 +458,48 @@ export function LiveTrackingChart({ organizationId, deviceId }: LiveTrackingChar
     return name
       .replace(/_/g, ' ')
       .replace(/\b\w/g, (char) => char.toUpperCase())
+  }
+
+  // Custom tooltip component for better display
+  const CustomTooltip = ({ active, payload, label }: TooltipProps<number, string>) => {
+    if (active && payload && payload.length > 0) {
+      // Get the display label from the first payload item's data
+      const dataPoint = payload[0]?.payload as ChartDataPoint | undefined
+      const displayLabel = dataPoint?.displayLabel || label
+      const total = dataPoint?.total || 0
+
+      return (
+        <div className="bg-white/95 dark:bg-gray-900/95 border-none rounded-xl shadow-lg p-3 min-w-[140px]">
+          <p className="font-semibold text-sm mb-2 text-gray-900 dark:text-gray-100">{displayLabel}</p>
+          <div className="space-y-1.5">
+            {payload.map((entry) => {
+              const value = entry.value || 0
+              const name = entry.name || ''
+              const color = entry.color || '#666'
+              return (
+                <div key={name} className="flex items-center justify-between gap-4">
+                  <div className="flex items-center gap-2">
+                    <div
+                      className="w-2 h-2 rounded-full"
+                      style={{ backgroundColor: color }}
+                    />
+                    <span className="text-xs text-gray-600 dark:text-gray-400">{name}</span>
+                  </div>
+                  <span className="text-xs font-semibold text-gray-900 dark:text-gray-100">{value}</span>
+                </div>
+              )
+            })}
+            <div className="border-t border-gray-200 dark:border-gray-700 pt-1.5 mt-1.5">
+              <div className="flex items-center justify-between gap-4">
+                <span className="text-xs font-medium text-gray-700 dark:text-gray-300">Total</span>
+                <span className="text-xs font-bold text-primary">{total}</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      )
+    }
+    return null
   }
 
   return (
@@ -545,16 +630,7 @@ export function LiveTrackingChart({ organizationId, deviceId }: LiveTrackingChar
                         tickFormatter={(value) => value >= 1000 ? `${(value / 1000).toFixed(value >= 10000 ? 0 : 1)}k` : value}
                       />
                       <Tooltip
-                        contentStyle={{
-                          backgroundColor: 'rgba(255, 255, 255, 0.95)',
-                          border: 'none',
-                          borderRadius: '12px',
-                          boxShadow: '0 4px 20px rgba(0, 0, 0, 0.1)',
-                          padding: '12px 16px',
-                          fontSize: '12px'
-                        }}
-                        labelStyle={{ fontWeight: 600, marginBottom: '8px', color: '#111827' }}
-                        itemStyle={{ padding: '2px 0' }}
+                        content={<CustomTooltip />}
                         cursor={{ stroke: '#e5e7eb', strokeWidth: 1 }}
                       />
                       <Area

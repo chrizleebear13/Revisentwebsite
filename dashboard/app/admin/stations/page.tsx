@@ -261,7 +261,7 @@ export default function AdminStations() {
       <DashboardSidebar isAdmin={true} />
       <div className="lg:ml-64 h-screen overflow-y-auto px-4 md:px-6 lg:px-8 py-3 md:py-4 space-y-3 md:space-y-4">
         {/* Header */}
-        <div className="flex items-center justify-between bg-card/50 backdrop-blur-xl rounded-xl p-3 shadow-sm border border-border/50">
+        <div className="flex items-center justify-between bg-card/50 backdrop-blur-xl rounded-xl p-3 shadow-sm border border-border/50 relative z-[100]">
           <div className="flex items-center gap-3">
             <Trash2 className="w-4 h-4 text-primary" />
             <h1 className="text-sm font-semibold">Station Management</h1>

@@ -8,7 +8,7 @@ import { WasteAnalytics } from '@/components/WasteAnalytics'
 import { LiveTrackingChart } from '@/components/LiveTrackingChart'
 import { DashboardSidebar } from '@/components/DashboardSidebar'
 import { AlertsDropdown } from '@/components/AlertsDropdown'
-import { Building2, Trash2, TrendingUp, Clock, Package, ChevronDown, AlertTriangle, WifiOff, Activity } from 'lucide-react'
+import { Building2, Trash2, TrendingUp, Clock, Package, ChevronDown, Activity } from 'lucide-react'
 import { useEffect, useState, useRef } from 'react'
 import { useRouter } from 'next/navigation'
 import { useAdminMetrics } from '@/hooks/useAdminMetrics'
@@ -321,7 +321,7 @@ export default function AdminDashboard() {
       <DashboardSidebar isAdmin={true} />
       <div className="lg:ml-64 h-screen overflow-y-auto px-4 md:px-6 lg:px-8 py-3 md:py-4 space-y-3 md:space-y-4">
         {/* Compact Header */}
-        <div className="flex items-center justify-between bg-card/50 backdrop-blur-xl rounded-xl p-3 shadow-sm border border-border/50">
+        <div className="flex items-center justify-between bg-card/50 backdrop-blur-xl rounded-xl p-3 shadow-sm border border-border/50 relative z-[100]">
           <div className="flex items-center gap-3">
             <div className="flex items-center gap-2 px-3 py-1.5 bg-success/10 rounded-full border border-success/20">
               <div className="w-2 h-2 bg-success rounded-full animate-pulse"></div>
@@ -450,68 +450,6 @@ export default function AdminDashboard() {
                 </div>
               </div>
             </Card>
-          </div>
-        )}
-
-        {/* System Health Section - Only show when viewing all organizations */}
-        {!selectedOrganization && !healthLoading && (systemHealth.offlineStations.length > 0 || systemHealth.inactiveOrganizations.length > 0) && (
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-3">
-            {/* Offline Stations */}
-            {systemHealth.offlineStations.length > 0 && (
-              <Card className="p-4 gradient-card shadow-sm border-0">
-                <div className="flex items-center gap-2 mb-3">
-                  <WifiOff className="w-4 h-4 text-destructive" />
-                  <h3 className="text-sm font-semibold">Offline Stations</h3>
-                  <span className="text-xs text-muted-foreground">({systemHealth.offlineStations.length})</span>
-                </div>
-                <div className="space-y-2 max-h-40 overflow-y-auto">
-                  {systemHealth.offlineStations.slice(0, 5).map((station) => (
-                    <div key={station.id} className="flex items-center justify-between p-2 rounded-lg bg-destructive/5 border border-destructive/10">
-                      <div>
-                        <p className="text-sm font-medium">{station.name}</p>
-                        {station.organizationName && (
-                          <p className="text-xs text-muted-foreground">{station.organizationName}</p>
-                        )}
-                      </div>
-                      <span className="text-xs text-destructive">
-                        {getTimeSince(station.lastSeen)}
-                      </span>
-                    </div>
-                  ))}
-                  {systemHealth.offlineStations.length > 5 && (
-                    <p className="text-xs text-muted-foreground text-center pt-1">
-                      +{systemHealth.offlineStations.length - 5} more
-                    </p>
-                  )}
-                </div>
-              </Card>
-            )}
-
-            {/* Inactive Organizations */}
-            {systemHealth.inactiveOrganizations.length > 0 && (
-              <Card className="p-4 gradient-card shadow-sm border-0">
-                <div className="flex items-center gap-2 mb-3">
-                  <AlertTriangle className="w-4 h-4 text-amber-500" />
-                  <h3 className="text-sm font-semibold">Inactive Organizations</h3>
-                  <span className="text-xs text-muted-foreground">({systemHealth.inactiveOrganizations.length})</span>
-                </div>
-                <div className="space-y-2 max-h-40 overflow-y-auto">
-                  {systemHealth.inactiveOrganizations.slice(0, 5).map((org) => (
-                    <div key={org.id} className="flex items-center justify-between p-2 rounded-lg bg-amber-500/5 border border-amber-500/10">
-                      <p className="text-sm font-medium">{org.name}</p>
-                      <span className="text-xs text-amber-600">
-                        {org.lastActivity ? getTimeSince(org.lastActivity) : 'No activity'}
-                      </span>
-                    </div>
-                  ))}
-                  {systemHealth.inactiveOrganizations.length > 5 && (
-                    <p className="text-xs text-muted-foreground text-center pt-1">
-                      +{systemHealth.inactiveOrganizations.length - 5} more
-                    </p>
-                  )}
-                </div>
-              </Card>
-            )}
           </div>
         )}
 

@@ -5,7 +5,7 @@ import { Button } from '@/components/ui/button'
 import { Card } from '@/components/ui/card'
 import { Badge } from '@/components/ui/badge'
 import { DashboardSidebar } from '@/components/DashboardSidebar'
-import { AlertTriangle, LogOut, Filter, TrendingUp, Target, RefreshCw, Download, CheckCircle, XCircle } from 'lucide-react'
+import { AlertTriangle, LogOut, Filter, TrendingUp, Target, RefreshCw, Download, CheckCircle, XCircle, Shuffle } from 'lucide-react'
 import { useEffect, useState } from 'react'
 import { useRouter } from 'next/navigation'
 import Image from 'next/image'
@@ -39,7 +39,17 @@ interface UncertainKeywordGroup {
   items: Detection[]
 }
 
-type ReviewTab = 'uncertain' | 'frequent' | 'model-predictions'
+interface ConfusionPair {
+  detection: Detection
+  topPrediction: string
+  topConfidence: number
+  secondPrediction: string
+  secondConfidence: number
+  confidenceDiff: number
+  categoryScoreDiff: number | null
+}
+
+type ReviewTab = 'uncertain' | 'frequent' | 'confusion-pairs' | 'model-predictions'
 
 export default function AdminReview() {
   const [user, setUser] = useState<any>(null)
@@ -47,13 +57,14 @@ export default function AdminReview() {
   const [uncertainItems, setUncertainItems] = useState<Detection[]>([])
   const [uncertainKeywordGroups, setUncertainKeywordGroups] = useState<UncertainKeywordGroup[]>([])
   const [frequentItems, setFrequentItems] = useState<FrequentItem[]>([])
+  const [confusionPairs, setConfusionPairs] = useState<ConfusionPair[]>([])
   const [recentDetections, setRecentDetections] = useState<Detection[]>([])
   const [loading, setLoading] = useState(true)
   const [frequencyThreshold, setFrequencyThreshold] = useState(50)
   const [deviceFilter, setDeviceFilter] = useState<string>('all')
-  const [clientFilter, setClientFilter] = useState<string>('all')
+  const [organizationFilter, setOrganizationFilter] = useState<string>('all')
   const [allDevices, setAllDevices] = useState<string[]>([])
-  const [allClients, setAllClients] = useState<string[]>([])
+  const [allOrganizations, setAllOrganizations] = useState<{ id: string; name: string }[]>([])
   const [viewMode, setViewMode] = useState<'grouped' | 'list'>('grouped')
   const [selectedKeywordGroup, setSelectedKeywordGroup] = useState<string | null>(null)
   const router = useRouter()
@@ -69,17 +80,54 @@ export default function AdminReview() {
 
   useEffect(() => {
     fetchReviewData()
-  }, [supabase, frequencyThreshold, deviceFilter, clientFilter])
+  }, [supabase, frequencyThreshold, deviceFilter, organizationFilter])
 
   const fetchReviewData = async () => {
     setLoading(true)
     try {
+      // Fetch organizations for filter dropdown
+      const { data: orgs } = await supabase
+        .from('organizations')
+        .select('id, name')
+        .order('name')
+
+      if (orgs) {
+        setAllOrganizations(orgs)
+      }
+
+      // Get device IDs for selected organization (if filtered)
+      let allowedDeviceIds: string[] | null = null
+      if (organizationFilter !== 'all') {
+        const { data: stations } = await supabase
+          .from('stations')
+          .select('id')
+          .eq('organization_id', organizationFilter)
+
+        allowedDeviceIds = stations?.map(s => s.id) || []
+      }
+
       // Fetch all detections with top_item_results for model analysis
-      const { data: items, error } = await supabase
+      let detectionsQuery = supabase
         .from('detections')
         .select('*')
         .order('created_at', { ascending: false })
         .limit(1000) // Limit to recent 1000 items for performance
+
+      // If organization filter is active and has devices, filter by those
+      if (allowedDeviceIds && allowedDeviceIds.length > 0) {
+        detectionsQuery = detectionsQuery.in('device_id', allowedDeviceIds)
+      } else if (allowedDeviceIds && allowedDeviceIds.length === 0) {
+        // Organization has no stations, return empty
+        setAllDevices([])
+        setUncertainItems([])
+        setUncertainKeywordGroups([])
+        setFrequentItems([])
+        setRecentDetections([])
+        setLoading(false)
+        return
+      }
+
+      const { data: items, error } = await detectionsQuery
 
       if (error) throw error
 
@@ -96,16 +144,13 @@ export default function AdminReview() {
         reason: item.reason
       }))
 
-      // Extract unique devices and clients for filters
+      // Extract unique devices for filter
       const devices = [...new Set(allDetections.map(d => d.device_id).filter(Boolean))].sort()
-      const clients = [...new Set(allDetections.map(d => d.client_id).filter(Boolean))].sort()
       setAllDevices(devices)
-      setAllClients(clients)
 
-      // Apply filters
+      // Apply device filter
       const detections = allDetections.filter(d => {
         if (deviceFilter !== 'all' && d.device_id !== deviceFilter) return false
-        if (clientFilter !== 'all' && d.client_id !== clientFilter) return false
         return true
       })
 
@@ -180,7 +225,44 @@ export default function AdminReview() {
 
       setFrequentItems(frequent)
 
-      // 4. Store recent detections with top_item_results for model predictions tab
+      // 4. Find confusion pairs - items where top predictions have close confidence scores
+      const confusionThreshold = 0.15 // 15% difference threshold
+      const confusionItems: ConfusionPair[] = []
+
+      detections.forEach(item => {
+        // Check top_item_results for close confidence scores
+        if (item.top_item_results && item.top_item_results.length >= 2) {
+          const sorted = [...item.top_item_results].sort((a, b) => b.confidence - a.confidence)
+          const top = sorted[0]
+          const second = sorted[1]
+          const diff = top.confidence - second.confidence
+
+          if (diff <= confusionThreshold && diff >= 0) {
+            // Also check category_scores if available
+            let categoryDiff: number | null = null
+            if (item.category_scores && item.category_scores.length >= 2) {
+              const sortedCats = [...item.category_scores].sort((a, b) => b.score - a.score)
+              categoryDiff = sortedCats[0].score - sortedCats[1].score
+            }
+
+            confusionItems.push({
+              detection: item,
+              topPrediction: top.item,
+              topConfidence: top.confidence,
+              secondPrediction: second.item,
+              secondConfidence: second.confidence,
+              confidenceDiff: diff,
+              categoryScoreDiff: categoryDiff
+            })
+          }
+        }
+      })
+
+      // Sort by smallest difference (most confused) first
+      confusionItems.sort((a, b) => a.confidenceDiff - b.confidenceDiff)
+      setConfusionPairs(confusionItems.slice(0, 100)) // Limit to 100 for performance
+
+      // 5. Store recent detections with top_item_results for model predictions tab
       const withTopResults = detections.filter(d => d.top_item_results && d.top_item_results.length > 0)
       setRecentDetections(withTopResults.slice(0, 50))
 
@@ -232,6 +314,19 @@ export default function AdminReview() {
         'Last Detected': new Date(item.lastDetected).toISOString()
       }))
       filename = `frequent-items-${new Date().toISOString().split('T')[0]}.csv`
+    } else if (activeTab === 'confusion-pairs') {
+      data = confusionPairs.map(pair => ({
+        ID: pair.detection.id,
+        'Top Prediction': pair.topPrediction,
+        'Top Confidence': (pair.topConfidence * 100).toFixed(1) + '%',
+        'Second Prediction': pair.secondPrediction,
+        'Second Confidence': (pair.secondConfidence * 100).toFixed(1) + '%',
+        'Confidence Diff': (pair.confidenceDiff * 100).toFixed(1) + '%',
+        'Category': pair.detection.category,
+        'Device ID': pair.detection.device_id,
+        'Detected At': new Date(pair.detection.created_at).toISOString()
+      }))
+      filename = `confusion-pairs-${new Date().toISOString().split('T')[0]}.csv`
     } else if (activeTab === 'model-predictions') {
       data = recentDetections.map(item => ({
         ID: item.id,
@@ -293,6 +388,7 @@ export default function AdminReview() {
   const tabs = [
     { id: 'uncertain' as ReviewTab, label: 'Uncertain', count: uncertainItems.length },
     { id: 'frequent' as ReviewTab, label: 'Over-Detection', count: frequentItems.length },
+    { id: 'confusion-pairs' as ReviewTab, label: 'Confusion Pairs', count: confusionPairs.length },
     { id: 'model-predictions' as ReviewTab, label: 'Model Predictions', count: recentDetections.length },
   ]
 
@@ -381,7 +477,7 @@ export default function AdminReview() {
             </div>
 
             {/* Filters */}
-            <Card className="p-4 gradient-card shadow-sm border-0">
+            <Card className="p-4 gradient-card shadow-sm border-0 relative z-[50]">
               <div className="flex items-center gap-2 mb-3">
                 <Filter className="w-4 h-4 text-primary" />
                 <h3 className="text-sm font-semibold">Filters</h3>
@@ -404,16 +500,16 @@ export default function AdminReview() {
                 </div>
                 <div>
                   <label className="text-xs text-muted-foreground mb-2 block">
-                    Client
+                    Organization
                   </label>
                   <select
-                    value={clientFilter}
-                    onChange={(e) => setClientFilter(e.target.value)}
+                    value={organizationFilter}
+                    onChange={(e) => setOrganizationFilter(e.target.value)}
                     className="w-full h-9 px-3 rounded-md border border-border bg-background text-sm"
                   >
-                    <option value="all">All Clients</option>
-                    {allClients.map(client => (
-                      <option key={client} value={client}>{client}</option>
+                    <option value="all">All Organizations</option>
+                    {allOrganizations.map(org => (
+                      <option key={org.id} value={org.id}>{org.name}</option>
                     ))}
                   </select>
                 </div>
@@ -730,6 +826,106 @@ export default function AdminReview() {
               </div>
             )}
 
+            {activeTab === 'confusion-pairs' && (
+              <div className="space-y-3">
+                {confusionPairs.length === 0 ? (
+                  <Card className="p-8 gradient-card shadow-sm border-0">
+                    <div className="text-center">
+                      <CheckCircle className="w-12 h-12 text-success mx-auto mb-3" />
+                      <h3 className="text-lg font-semibold mb-1">No Confusion Pairs Found</h3>
+                      <p className="text-sm text-muted-foreground">
+                        All model predictions have clear confidence differences. The model is making decisive classifications.
+                      </p>
+                    </div>
+                  </Card>
+                ) : (
+                  <>
+                    <p className="text-xs text-muted-foreground">
+                      Items where the model's top two predictions have very similar confidence scores (within 15%).
+                      These indicate potential confusion between items and are good candidates for additional training data.
+                    </p>
+                    <div className="grid grid-cols-1 gap-3">
+                      {confusionPairs.map((pair, index) => (
+                        <Card key={index} className="p-4 gradient-card shadow-sm border-0 border-l-4 border-l-amber-500">
+                          <div className="flex items-start justify-between mb-3">
+                            <div>
+                              <div className="flex items-center gap-2 mb-1">
+                                <Shuffle className="w-4 h-4 text-amber-500" />
+                                <span className="text-sm font-semibold">Confused Between:</span>
+                              </div>
+                              <div className="flex items-center gap-2 flex-wrap">
+                                <div className="px-2 py-1 rounded-md bg-primary/10 text-xs">
+                                  <span className="font-semibold">{pair.topPrediction}</span>
+                                  <span className="text-muted-foreground ml-1">({(pair.topConfidence * 100).toFixed(1)}%)</span>
+                                </div>
+                                <span className="text-xs text-muted-foreground">vs</span>
+                                <div className="px-2 py-1 rounded-md bg-amber-500/10 text-xs">
+                                  <span className="font-semibold">{pair.secondPrediction}</span>
+                                  <span className="text-muted-foreground ml-1">({(pair.secondConfidence * 100).toFixed(1)}%)</span>
+                                </div>
+                              </div>
+                            </div>
+                            <div className="text-right">
+                              <p className="text-lg font-bold text-amber-500">
+                                {(pair.confidenceDiff * 100).toFixed(1)}%
+                              </p>
+                              <p className="text-xs text-muted-foreground">difference</p>
+                            </div>
+                          </div>
+
+                          <div className="grid grid-cols-2 md:grid-cols-4 gap-3 text-xs">
+                            <div>
+                              <span className="text-muted-foreground">Final Category</span>
+                              <Badge variant="outline" className={`mt-1 text-xs ${getCategoryColor(pair.detection.category)}`}>
+                                {pair.detection.category}
+                              </Badge>
+                            </div>
+                            <div>
+                              <span className="text-muted-foreground">Device</span>
+                              <p className="font-semibold font-mono text-xs">{pair.detection.device_id}</p>
+                            </div>
+                            {pair.categoryScoreDiff !== null && (
+                              <div>
+                                <span className="text-muted-foreground">Category Score Diff</span>
+                                <p className="font-semibold text-amber-500">
+                                  {(pair.categoryScoreDiff * 100).toFixed(1)}%
+                                </p>
+                              </div>
+                            )}
+                            <div>
+                              <span className="text-muted-foreground">Detected</span>
+                              <p className="font-semibold">
+                                {new Date(pair.detection.created_at).toLocaleDateString()}
+                              </p>
+                            </div>
+                          </div>
+
+                          {/* Show all alternative predictions if available */}
+                          {pair.detection.top_item_results && pair.detection.top_item_results.length > 2 && (
+                            <div className="mt-3 pt-3 border-t border-border/50">
+                              <p className="text-xs text-muted-foreground mb-2">All Predictions:</p>
+                              <div className="flex flex-wrap gap-1">
+                                {pair.detection.top_item_results.slice(0, 5).map((result, idx) => (
+                                  <span
+                                    key={idx}
+                                    className={`px-2 py-0.5 rounded text-xs ${
+                                      idx === 0 ? 'bg-primary/20 font-medium' : 'bg-muted/30'
+                                    }`}
+                                  >
+                                    {result.item}: {(result.confidence * 100).toFixed(1)}%
+                                  </span>
+                                ))}
+                              </div>
+                            </div>
+                          )}
+                        </Card>
+                      ))}
+                    </div>
+                  </>
+                )}
+              </div>
+            )}
+
             {activeTab === 'model-predictions' && (
               <div className="space-y-3">
                 {recentDetections.length === 0 ? (
@@ -838,6 +1034,10 @@ export default function AdminReview() {
                 <p>
                   <strong>Over-Detection:</strong> Items detected very frequently. Check if this represents actual usage
                   patterns or potential sensor/model issues.
+                </p>
+                <p>
+                  <strong>Confusion Pairs:</strong> Items where the model's top two predictions have similar confidence
+                  scores (within 15%). These indicate items the model struggles to distinguish - add more training data for these.
                 </p>
                 <p>
                   <strong>Model Predictions:</strong> View detailed model output including alternative item predictions,
