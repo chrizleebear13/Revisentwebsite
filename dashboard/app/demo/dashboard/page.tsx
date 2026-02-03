@@ -19,7 +19,7 @@ export default function DemoDashboard() {
       <DemoSidebar />
       <div className="lg:ml-64 h-screen overflow-y-auto px-4 md:px-6 lg:px-8 py-3 md:py-4 space-y-3 md:space-y-4">
         {/* Compact Header */}
-        <div className="flex items-center justify-between bg-card/50 backdrop-blur-xl rounded-xl p-3 shadow-sm border border-border/50">
+        <div className="flex items-center justify-between bg-card/50 backdrop-blur-xl rounded-xl p-3 shadow-sm border border-border/50 relative z-50 overflow-visible">
           <div className="flex items-center gap-3">
             <div className="flex items-center gap-2 px-3 py-1.5 bg-success/10 rounded-full border border-success/20">
               <div className="w-2 h-2 bg-success rounded-full animate-pulse"></div>

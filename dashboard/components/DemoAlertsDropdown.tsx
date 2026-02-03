@@ -2,7 +2,7 @@
 
 import { useState, useRef, useEffect } from 'react'
 import { Bell, CheckCircle, AlertCircle, X } from 'lucide-react'
-import { getDemoAlerts } from '@/lib/demo-data'
+import { getDemoAlerts, DEMO_DATE } from '@/lib/demo-data'
 
 export function DemoAlertsDropdown() {
   const [isOpen, setIsOpen] = useState(false)
@@ -56,8 +56,8 @@ export function DemoAlertsDropdown() {
 
   const formatTimeAgo = (dateString: string) => {
     const date = new Date(dateString)
-    const now = new Date()
-    const diffMs = now.getTime() - date.getTime()
+    // Use DEMO_DATE as reference instead of real current date
+    const diffMs = DEMO_DATE.getTime() - date.getTime()
     const diffHours = Math.floor(diffMs / (1000 * 60 * 60))
     const diffMins = Math.floor(diffMs / (1000 * 60))
 
