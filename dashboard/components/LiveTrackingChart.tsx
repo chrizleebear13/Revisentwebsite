@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from 'react'
 import { Card } from '@/components/ui/card'
-import { AreaChart, Area, XAxis, YAxis, ResponsiveContainer, Tooltip, TooltipProps } from 'recharts'
+import { AreaChart, Area, XAxis, YAxis, ResponsiveContainer, Tooltip } from 'recharts'
 import { Wifi, Package, Trash2, Recycle, Leaf, TrendingUp, Calendar } from 'lucide-react'
 import { createClient } from '@/lib/supabase/client'
 
@@ -461,10 +461,14 @@ export function LiveTrackingChart({ organizationId, deviceId }: LiveTrackingChar
   }
 
   // Custom tooltip component for better display
-  const CustomTooltip = ({ active, payload, label }: TooltipProps<number, string>) => {
+  const CustomTooltip = ({ active, payload, label }: {
+    active?: boolean
+    payload?: Array<{ value?: number; name?: string; color?: string; payload?: ChartDataPoint }>
+    label?: string
+  }) => {
     if (active && payload && payload.length > 0) {
       // Get the display label from the first payload item's data
-      const dataPoint = payload[0]?.payload as ChartDataPoint | undefined
+      const dataPoint = payload[0]?.payload
       const displayLabel = dataPoint?.displayLabel || label
       const total = dataPoint?.total || 0
 
