@@ -47,7 +47,6 @@ export default function AdminReview() {
   const [frequentItems, setFrequentItems] = useState<FrequentItem[]>([])
   const [recentDetections, setRecentDetections] = useState<Detection[]>([])
   const [loading, setLoading] = useState(true)
-  const [confidenceThreshold, setConfidenceThreshold] = useState(0.7) // Items below 70% confidence
   const [frequencyThreshold, setFrequencyThreshold] = useState(50) // Items detected more than 50 times
   const router = useRouter()
   const supabase = createClient()
@@ -62,7 +61,7 @@ export default function AdminReview() {
 
   useEffect(() => {
     fetchReviewData()
-  }, [supabase, confidenceThreshold, frequencyThreshold])
+  }, [supabase, frequencyThreshold])
 
   const fetchReviewData = async () => {
     setLoading(true)
@@ -89,9 +88,9 @@ export default function AdminReview() {
         reason: item.reason
       }))
 
-      // 1. Find low-confidence items
+      // 1. Find uncertain items (reason === 'uncertain')
       const lowConf = detections.filter(
-        item => item.confidence !== null && item.confidence < confidenceThreshold
+        item => item.reason?.toLowerCase() === 'uncertain'
       )
       setLowConfidenceItems(lowConf)
 
@@ -266,7 +265,7 @@ export default function AdminReview() {
   }
 
   const tabs = [
-    { id: 'low-confidence' as ReviewTab, label: 'Low Confidence', count: lowConfidenceItems.length },
+    { id: 'low-confidence' as ReviewTab, label: 'Uncertain', count: lowConfidenceItems.length },
     { id: 'ambiguous' as ReviewTab, label: 'Ambiguous', count: ambiguousItems.length },
     { id: 'frequent' as ReviewTab, label: 'Over-Detection', count: frequentItems.length },
     { id: 'model-predictions' as ReviewTab, label: 'Model Predictions', count: recentDetections.length },
@@ -313,12 +312,12 @@ export default function AdminReview() {
             <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
               <Card className="p-4 gradient-card shadow-sm border-0">
                 <div className="flex items-center justify-between mb-2">
-                  <h4 className="text-xs text-muted-foreground">Low Confidence Items</h4>
+                  <h4 className="text-xs text-muted-foreground">Uncertain Items</h4>
                   <AlertTriangle className="w-4 h-4 text-destructive" />
                 </div>
                 <p className="text-2xl font-bold">{lowConfidenceItems.length}</p>
                 <p className="text-xs text-muted-foreground mt-1">
-                  Below {(confidenceThreshold * 100).toFixed(0)}% confidence
+                  Flagged as uncertain by model
                 </p>
               </Card>
 
@@ -351,43 +350,23 @@ export default function AdminReview() {
                 <Filter className="w-4 h-4 text-primary" />
                 <h3 className="text-sm font-semibold">Filters</h3>
               </div>
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                <div>
-                  <label className="text-xs text-muted-foreground mb-2 block">
-                    Confidence Threshold (Low Confidence Tab)
-                  </label>
-                  <div className="flex items-center gap-3">
-                    <input
-                      type="range"
-                      min="0"
-                      max="100"
-                      value={confidenceThreshold * 100}
-                      onChange={(e) => setConfidenceThreshold(parseInt(e.target.value) / 100)}
-                      className="flex-1"
-                    />
-                    <span className="text-sm font-semibold w-12">
-                      {(confidenceThreshold * 100).toFixed(0)}%
-                    </span>
-                  </div>
-                </div>
-                <div>
-                  <label className="text-xs text-muted-foreground mb-2 block">
-                    Frequency Threshold (Over-Detection Tab)
-                  </label>
-                  <div className="flex items-center gap-3">
-                    <input
-                      type="range"
-                      min="10"
-                      max="200"
-                      step="10"
-                      value={frequencyThreshold}
-                      onChange={(e) => setFrequencyThreshold(parseInt(e.target.value))}
-                      className="flex-1"
-                    />
-                    <span className="text-sm font-semibold w-12">
-                      {frequencyThreshold}+
-                    </span>
-                  </div>
+              <div>
+                <label className="text-xs text-muted-foreground mb-2 block">
+                  Frequency Threshold (Over-Detection Tab)
+                </label>
+                <div className="flex items-center gap-3">
+                  <input
+                    type="range"
+                    min="10"
+                    max="200"
+                    step="10"
+                    value={frequencyThreshold}
+                    onChange={(e) => setFrequencyThreshold(parseInt(e.target.value))}
+                    className="flex-1 max-w-xs"
+                  />
+                  <span className="text-sm font-semibold w-12">
+                    {frequencyThreshold}+
+                  </span>
                 </div>
               </div>
             </Card>
@@ -429,14 +408,14 @@ export default function AdminReview() {
                       <CheckCircle className="w-12 h-12 text-success mx-auto mb-3" />
                       <h3 className="text-lg font-semibold mb-1">Great Model Performance!</h3>
                       <p className="text-sm text-muted-foreground">
-                        No low-confidence detections found. Your model is performing well.
+                        No uncertain detections found. Your model is performing well.
                       </p>
                     </div>
                   </Card>
                 ) : (
                   <>
                     <p className="text-xs text-muted-foreground">
-                      These items had confidence scores below {(confidenceThreshold * 100).toFixed(0)}%.
+                      These items were flagged as "uncertain" by the model.
                       Review these to identify patterns and improve model training.
                     </p>
                     <div className="grid grid-cols-1 gap-3">
@@ -713,7 +692,7 @@ export default function AdminReview() {
               <h3 className="text-sm font-semibold mb-2">Using the Review Dashboard</h3>
               <div className="space-y-2 text-xs text-muted-foreground">
                 <p>
-                  <strong>Low Confidence:</strong> Items the model is uncertain about. Review these to identify edge cases
+                  <strong>Uncertain:</strong> Items flagged with reason "uncertain" by the model. Review these to identify edge cases
                   or items that need better training data.
                 </p>
                 <p>
