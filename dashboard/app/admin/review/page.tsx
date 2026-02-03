@@ -23,12 +23,6 @@ interface Detection {
   reason: string | null
 }
 
-interface AmbiguousItem extends Detection {
-  confidenceGap: number // Difference between top confidence and second-best
-  secondBestCategory?: string
-  secondBestConfidence?: number
-}
-
 interface FrequentItem {
   item: string
   count: number
@@ -37,17 +31,31 @@ interface FrequentItem {
   lastDetected: string
 }
 
-type ReviewTab = 'low-confidence' | 'ambiguous' | 'frequent' | 'model-predictions'
+interface UncertainKeywordGroup {
+  keyword: string
+  count: number
+  categories: Record<string, number>
+  avgConfidence: number
+  items: Detection[]
+}
+
+type ReviewTab = 'uncertain' | 'frequent' | 'model-predictions'
 
 export default function AdminReview() {
   const [user, setUser] = useState<any>(null)
-  const [activeTab, setActiveTab] = useState<ReviewTab>('low-confidence')
-  const [lowConfidenceItems, setLowConfidenceItems] = useState<Detection[]>([])
-  const [ambiguousItems, setAmbiguousItems] = useState<AmbiguousItem[]>([])
+  const [activeTab, setActiveTab] = useState<ReviewTab>('uncertain')
+  const [uncertainItems, setUncertainItems] = useState<Detection[]>([])
+  const [uncertainKeywordGroups, setUncertainKeywordGroups] = useState<UncertainKeywordGroup[]>([])
   const [frequentItems, setFrequentItems] = useState<FrequentItem[]>([])
   const [recentDetections, setRecentDetections] = useState<Detection[]>([])
   const [loading, setLoading] = useState(true)
-  const [frequencyThreshold, setFrequencyThreshold] = useState(50) // Items detected more than 50 times
+  const [frequencyThreshold, setFrequencyThreshold] = useState(50)
+  const [deviceFilter, setDeviceFilter] = useState<string>('all')
+  const [clientFilter, setClientFilter] = useState<string>('all')
+  const [allDevices, setAllDevices] = useState<string[]>([])
+  const [allClients, setAllClients] = useState<string[]>([])
+  const [viewMode, setViewMode] = useState<'grouped' | 'list'>('grouped')
+  const [selectedKeywordGroup, setSelectedKeywordGroup] = useState<string | null>(null)
   const router = useRouter()
   const supabase = createClient()
 
@@ -61,7 +69,7 @@ export default function AdminReview() {
 
   useEffect(() => {
     fetchReviewData()
-  }, [supabase, frequencyThreshold])
+  }, [supabase, frequencyThreshold, deviceFilter, clientFilter])
 
   const fetchReviewData = async () => {
     setLoading(true)
@@ -75,7 +83,7 @@ export default function AdminReview() {
 
       if (error) throw error
 
-      const detections: Detection[] = (items || []).map(item => ({
+      const allDetections: Detection[] = (items || []).map(item => ({
         id: item.id,
         device_id: item.device_id,
         client_id: item.client_id,
@@ -88,37 +96,55 @@ export default function AdminReview() {
         reason: item.reason
       }))
 
+      // Extract unique devices and clients for filters
+      const devices = [...new Set(allDetections.map(d => d.device_id).filter(Boolean))].sort()
+      const clients = [...new Set(allDetections.map(d => d.client_id).filter(Boolean))].sort()
+      setAllDevices(devices)
+      setAllClients(clients)
+
+      // Apply filters
+      const detections = allDetections.filter(d => {
+        if (deviceFilter !== 'all' && d.device_id !== deviceFilter) return false
+        if (clientFilter !== 'all' && d.client_id !== clientFilter) return false
+        return true
+      })
+
       // 1. Find uncertain items (reason === 'uncertain')
-      const lowConf = detections.filter(
+      const uncertain = detections.filter(
         item => item.reason?.toLowerCase() === 'uncertain'
       )
-      setLowConfidenceItems(lowConf)
+      setUncertainItems(uncertain)
 
-      // 2. Find ambiguous items using category_scores if available
-      const ambiguous = detections
-        .filter(item => {
-          if (item.category_scores && item.category_scores.length > 1) {
-            // Sort scores descending
-            const sorted = [...item.category_scores].sort((a, b) => b.score - a.score)
-            const gap = sorted[0].score - sorted[1].score
-            return gap < 0.3 // Less than 30% gap between top two categories
-          }
-          return item.confidence !== null && item.confidence >= 0.4 && item.confidence <= 0.6
-        })
-        .map(item => {
-          let secondBest = { category: 'unknown', score: 0 }
-          if (item.category_scores && item.category_scores.length > 1) {
-            const sorted = [...item.category_scores].sort((a, b) => b.score - a.score)
-            secondBest = { category: sorted[1].category, score: sorted[1].score }
-          }
-          return {
-            ...item,
-            confidenceGap: item.confidence ? (0.6 - item.confidence) : 0,
-            secondBestCategory: secondBest.category,
-            secondBestConfidence: secondBest.score
-          }
-        })
-      setAmbiguousItems(ambiguous)
+      // 2. Group uncertain items by keyword for frequency analysis
+      const keywordMap: Record<string, {
+        count: number;
+        categories: Record<string, number>;
+        totalConfidence: number;
+        items: Detection[]
+      }> = {}
+
+      uncertain.forEach(item => {
+        const keyword = item.item || 'Unknown'
+        if (!keywordMap[keyword]) {
+          keywordMap[keyword] = { count: 0, categories: {}, totalConfidence: 0, items: [] }
+        }
+        keywordMap[keyword].count++
+        keywordMap[keyword].categories[item.category] = (keywordMap[keyword].categories[item.category] || 0) + 1
+        keywordMap[keyword].totalConfidence += item.confidence || 0
+        keywordMap[keyword].items.push(item)
+      })
+
+      const keywordGroups: UncertainKeywordGroup[] = Object.entries(keywordMap)
+        .map(([keyword, data]) => ({
+          keyword,
+          count: data.count,
+          categories: data.categories,
+          avgConfidence: data.count > 0 ? data.totalConfidence / data.count : 0,
+          items: data.items.sort((a, b) => new Date(b.created_at).getTime() - new Date(a.created_at).getTime())
+        }))
+        .sort((a, b) => b.count - a.count)
+
+      setUncertainKeywordGroups(keywordGroups)
 
       // 3. Find frequently detected items
       const itemCounts: Record<string, { count: number; category: string; totalConfidence: number; lastDetected: string }> = {}
@@ -174,29 +200,29 @@ export default function AdminReview() {
     let data: any[] = []
     let filename = ''
 
-    if (activeTab === 'low-confidence') {
-      data = lowConfidenceItems.map(item => ({
-        ID: item.id,
-        'Item': item.item || 'Unknown',
-        Category: item.category,
-        Confidence: item.confidence?.toFixed(4) || 'N/A',
-        'Device ID': item.device_id,
-        'Client ID': item.client_id,
-        'Detected At': new Date(item.created_at).toISOString()
-      }))
-      filename = `low-confidence-items-${new Date().toISOString().split('T')[0]}.csv`
-    } else if (activeTab === 'ambiguous') {
-      data = ambiguousItems.map(item => ({
-        ID: item.id,
-        'Item': item.item || 'Unknown',
-        Category: item.category,
-        Confidence: item.confidence?.toFixed(4) || 'N/A',
-        'Second Best Category': item.secondBestCategory,
-        'Second Best Confidence': item.secondBestConfidence?.toFixed(4) || 'N/A',
-        'Device ID': item.device_id,
-        'Detected At': new Date(item.created_at).toISOString()
-      }))
-      filename = `ambiguous-items-${new Date().toISOString().split('T')[0]}.csv`
+    if (activeTab === 'uncertain') {
+      if (viewMode === 'grouped') {
+        data = uncertainKeywordGroups.map(group => ({
+          'Keyword': group.keyword,
+          'Count': group.count,
+          'Avg Confidence': (group.avgConfidence * 100).toFixed(1) + '%',
+          'Recycle': group.categories['recycle'] || 0,
+          'Compost': group.categories['compost'] || 0,
+          'Trash': group.categories['trash'] || 0,
+        }))
+        filename = `uncertain-keywords-${new Date().toISOString().split('T')[0]}.csv`
+      } else {
+        data = uncertainItems.map(item => ({
+          ID: item.id,
+          'Item': item.item || 'Unknown',
+          Category: item.category,
+          Confidence: item.confidence?.toFixed(4) || 'N/A',
+          'Device ID': item.device_id,
+          'Client ID': item.client_id,
+          'Detected At': new Date(item.created_at).toISOString()
+        }))
+        filename = `uncertain-items-${new Date().toISOString().split('T')[0]}.csv`
+      }
     } else if (activeTab === 'frequent') {
       data = frequentItems.map(item => ({
         'Item': item.item,
@@ -265,8 +291,7 @@ export default function AdminReview() {
   }
 
   const tabs = [
-    { id: 'low-confidence' as ReviewTab, label: 'Uncertain', count: lowConfidenceItems.length },
-    { id: 'ambiguous' as ReviewTab, label: 'Ambiguous', count: ambiguousItems.length },
+    { id: 'uncertain' as ReviewTab, label: 'Uncertain', count: uncertainItems.length },
     { id: 'frequent' as ReviewTab, label: 'Over-Detection', count: frequentItems.length },
     { id: 'model-predictions' as ReviewTab, label: 'Model Predictions', count: recentDetections.length },
   ]
@@ -309,37 +334,48 @@ export default function AdminReview() {
         ) : (
           <>
             {/* Summary Cards */}
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
+            <div className="grid grid-cols-1 md:grid-cols-4 gap-3">
               <Card className="p-4 gradient-card shadow-sm border-0">
                 <div className="flex items-center justify-between mb-2">
                   <h4 className="text-xs text-muted-foreground">Uncertain Items</h4>
                   <AlertTriangle className="w-4 h-4 text-destructive" />
                 </div>
-                <p className="text-2xl font-bold">{lowConfidenceItems.length}</p>
+                <p className="text-2xl font-bold">{uncertainItems.length}</p>
                 <p className="text-xs text-muted-foreground mt-1">
-                  Flagged as uncertain by model
+                  Flagged as uncertain
                 </p>
               </Card>
 
               <Card className="p-4 gradient-card shadow-sm border-0">
                 <div className="flex items-center justify-between mb-2">
-                  <h4 className="text-xs text-muted-foreground">Ambiguous Items</h4>
+                  <h4 className="text-xs text-muted-foreground">Unique Keywords</h4>
                   <Target className="w-4 h-4 text-warning" />
                 </div>
-                <p className="text-2xl font-bold">{ambiguousItems.length}</p>
+                <p className="text-2xl font-bold">{uncertainKeywordGroups.length}</p>
                 <p className="text-xs text-muted-foreground mt-1">
-                  Close confidence scores
+                  Distinct uncertain items
                 </p>
               </Card>
 
               <Card className="p-4 gradient-card shadow-sm border-0">
                 <div className="flex items-center justify-between mb-2">
-                  <h4 className="text-xs text-muted-foreground">Over-Detected Items</h4>
+                  <h4 className="text-xs text-muted-foreground">Over-Detected</h4>
                   <TrendingUp className="w-4 h-4 text-accent" />
                 </div>
                 <p className="text-2xl font-bold">{frequentItems.length}</p>
                 <p className="text-xs text-muted-foreground mt-1">
                   Over {frequencyThreshold} detections
+                </p>
+              </Card>
+
+              <Card className="p-4 gradient-card shadow-sm border-0">
+                <div className="flex items-center justify-between mb-2">
+                  <h4 className="text-xs text-muted-foreground">Total Detections</h4>
+                  <RefreshCw className="w-4 h-4 text-primary" />
+                </div>
+                <p className="text-2xl font-bold">{recentDetections.length > 0 ? '1000+' : '0'}</p>
+                <p className="text-xs text-muted-foreground mt-1">
+                  Analyzed in this view
                 </p>
               </Card>
             </div>
@@ -350,23 +386,55 @@ export default function AdminReview() {
                 <Filter className="w-4 h-4 text-primary" />
                 <h3 className="text-sm font-semibold">Filters</h3>
               </div>
-              <div>
-                <label className="text-xs text-muted-foreground mb-2 block">
-                  Frequency Threshold (Over-Detection Tab)
-                </label>
-                <div className="flex items-center gap-3">
-                  <input
-                    type="range"
-                    min="10"
-                    max="200"
-                    step="10"
-                    value={frequencyThreshold}
-                    onChange={(e) => setFrequencyThreshold(parseInt(e.target.value))}
-                    className="flex-1 max-w-xs"
-                  />
-                  <span className="text-sm font-semibold w-12">
-                    {frequencyThreshold}+
-                  </span>
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                <div>
+                  <label className="text-xs text-muted-foreground mb-2 block">
+                    Device
+                  </label>
+                  <select
+                    value={deviceFilter}
+                    onChange={(e) => setDeviceFilter(e.target.value)}
+                    className="w-full h-9 px-3 rounded-md border border-border bg-background text-sm"
+                  >
+                    <option value="all">All Devices</option>
+                    {allDevices.map(device => (
+                      <option key={device} value={device}>{device}</option>
+                    ))}
+                  </select>
+                </div>
+                <div>
+                  <label className="text-xs text-muted-foreground mb-2 block">
+                    Client
+                  </label>
+                  <select
+                    value={clientFilter}
+                    onChange={(e) => setClientFilter(e.target.value)}
+                    className="w-full h-9 px-3 rounded-md border border-border bg-background text-sm"
+                  >
+                    <option value="all">All Clients</option>
+                    {allClients.map(client => (
+                      <option key={client} value={client}>{client}</option>
+                    ))}
+                  </select>
+                </div>
+                <div>
+                  <label className="text-xs text-muted-foreground mb-2 block">
+                    Frequency Threshold (Over-Detection Tab)
+                  </label>
+                  <div className="flex items-center gap-3">
+                    <input
+                      type="range"
+                      min="10"
+                      max="200"
+                      step="10"
+                      value={frequencyThreshold}
+                      onChange={(e) => setFrequencyThreshold(parseInt(e.target.value))}
+                      className="flex-1"
+                    />
+                    <span className="text-sm font-semibold w-12">
+                      {frequencyThreshold}+
+                    </span>
+                  </div>
                 </div>
               </div>
             </Card>
@@ -400,9 +468,9 @@ export default function AdminReview() {
             </div>
 
             {/* Tab Content */}
-            {activeTab === 'low-confidence' && (
+            {activeTab === 'uncertain' && (
               <div className="space-y-3">
-                {lowConfidenceItems.length === 0 ? (
+                {uncertainItems.length === 0 ? (
                   <Card className="p-8 gradient-card shadow-sm border-0">
                     <div className="text-center">
                       <CheckCircle className="w-12 h-12 text-success mx-auto mb-3" />
@@ -414,122 +482,194 @@ export default function AdminReview() {
                   </Card>
                 ) : (
                   <>
-                    <p className="text-xs text-muted-foreground">
-                      These items were flagged as "uncertain" by the model.
-                      Review these to identify patterns and improve model training.
-                    </p>
-                    <div className="grid grid-cols-1 gap-3">
-                      {lowConfidenceItems.map(item => (
-                        <Card key={item.id} className="p-4 gradient-card shadow-sm border-0">
-                          <div className="flex items-start justify-between">
-                            <div className="flex-1">
-                              <div className="flex items-center gap-2 mb-2">
-                                <h4 className="text-sm font-semibold">
-                                  {item.item || 'Unknown Item'}
-                                </h4>
-                                <Badge variant="outline" className={`text-xs ${getCategoryColor(item.category)}`}>
-                                  {item.category}
-                                </Badge>
-                              </div>
-                              <div className="grid grid-cols-2 md:grid-cols-4 gap-3 text-xs">
-                                <div>
-                                  <span className="text-muted-foreground">Confidence</span>
-                                  <p className={`font-semibold ${getConfidenceColor(item.confidence || 0)}`}>
-                                    {item.confidence ? (item.confidence * 100).toFixed(1) : 'N/A'}%
-                                  </p>
-                                </div>
-                                <div>
-                                  <span className="text-muted-foreground">Device</span>
-                                  <p className="font-semibold font-mono text-xs">{item.device_id}</p>
-                                </div>
-                                <div>
-                                  <span className="text-muted-foreground">Client</span>
-                                  <p className="font-semibold">{item.client_id}</p>
-                                </div>
-                                <div>
-                                  <span className="text-muted-foreground">Detected</span>
-                                  <p className="font-semibold">
-                                    {new Date(item.created_at).toLocaleDateString()}
-                                  </p>
-                                </div>
-                              </div>
-                            </div>
-                          </div>
-                        </Card>
-                      ))}
-                    </div>
-                  </>
-                )}
-              </div>
-            )}
-
-            {activeTab === 'ambiguous' && (
-              <div className="space-y-3">
-                {ambiguousItems.length === 0 ? (
-                  <Card className="p-8 gradient-card shadow-sm border-0">
-                    <div className="text-center">
-                      <CheckCircle className="w-12 h-12 text-success mx-auto mb-3" />
-                      <h3 className="text-lg font-semibold mb-1">Clear Classifications</h3>
-                      <p className="text-sm text-muted-foreground">
-                        No ambiguous items found. The model is making decisive predictions.
+                    {/* View Toggle */}
+                    <div className="flex items-center justify-between">
+                      <p className="text-xs text-muted-foreground">
+                        Items flagged as "uncertain" by the model. Group by keyword to see frequency patterns.
                       </p>
+                      <div className="flex gap-1 bg-muted/30 rounded-lg p-1">
+                        <button
+                          onClick={() => { setViewMode('grouped'); setSelectedKeywordGroup(null); }}
+                          className={`px-3 py-1.5 text-xs rounded-md transition-all ${
+                            viewMode === 'grouped'
+                              ? 'bg-primary text-primary-foreground'
+                              : 'text-muted-foreground hover:text-foreground'
+                          }`}
+                        >
+                          Grouped
+                        </button>
+                        <button
+                          onClick={() => { setViewMode('list'); setSelectedKeywordGroup(null); }}
+                          className={`px-3 py-1.5 text-xs rounded-md transition-all ${
+                            viewMode === 'list'
+                              ? 'bg-primary text-primary-foreground'
+                              : 'text-muted-foreground hover:text-foreground'
+                          }`}
+                        >
+                          List
+                        </button>
+                      </div>
                     </div>
-                  </Card>
-                ) : (
-                  <>
-                    <p className="text-xs text-muted-foreground">
-                      These items had similar confidence scores across multiple categories.
-                      These are good candidates for additional training data or feature engineering.
-                    </p>
-                    <div className="grid grid-cols-1 gap-3">
-                      {ambiguousItems.map(item => (
-                        <Card key={item.id} className="p-4 gradient-card shadow-sm border-0 border-l-4 border-l-warning">
-                          <div className="flex items-start justify-between">
-                            <div className="flex-1">
-                              <div className="flex items-center gap-2 mb-2">
-                                <h4 className="text-sm font-semibold">
-                                  {item.item || 'Unknown Item'}
-                                </h4>
-                                <Badge variant="outline" className={`text-xs ${getCategoryColor(item.category)}`}>
-                                  {item.category}
-                                </Badge>
-                                <Badge variant="outline" className="text-xs text-warning bg-warning/10 border-warning/20">
-                                  Ambiguous
-                                </Badge>
+
+                    {viewMode === 'grouped' && !selectedKeywordGroup ? (
+                      /* Grouped View - Keyword Frequency */
+                      <div className="space-y-3">
+                        <Card className="p-4 gradient-card shadow-sm border-0 border-l-4 border-l-primary">
+                          <h4 className="text-sm font-semibold mb-2">Uncertain Keywords by Frequency</h4>
+                          <p className="text-xs text-muted-foreground mb-3">
+                            Click on a keyword to see all detections for that item.
+                          </p>
+                          <div className="overflow-x-auto">
+                            <table className="w-full text-xs">
+                              <thead>
+                                <tr className="border-b border-border/50">
+                                  <th className="text-left py-2 px-2 font-semibold">Keyword</th>
+                                  <th className="text-center py-2 px-2 font-semibold">Count</th>
+                                  <th className="text-center py-2 px-2 font-semibold">Avg Conf</th>
+                                  <th className="text-center py-2 px-2 font-semibold text-success">Recycle</th>
+                                  <th className="text-center py-2 px-2 font-semibold text-warning">Compost</th>
+                                  <th className="text-center py-2 px-2 font-semibold text-destructive">Trash</th>
+                                </tr>
+                              </thead>
+                              <tbody>
+                                {uncertainKeywordGroups.map((group, idx) => (
+                                  <tr
+                                    key={idx}
+                                    onClick={() => setSelectedKeywordGroup(group.keyword)}
+                                    className="border-b border-border/30 hover:bg-muted/30 cursor-pointer transition-colors"
+                                  >
+                                    <td className="py-2 px-2 font-medium">{group.keyword}</td>
+                                    <td className="text-center py-2 px-2">
+                                      <span className="font-bold text-primary">{group.count}</span>
+                                    </td>
+                                    <td className="text-center py-2 px-2">
+                                      <span className={getConfidenceColor(group.avgConfidence)}>
+                                        {(group.avgConfidence * 100).toFixed(1)}%
+                                      </span>
+                                    </td>
+                                    <td className="text-center py-2 px-2">{group.categories['recycle'] || 0}</td>
+                                    <td className="text-center py-2 px-2">{group.categories['compost'] || 0}</td>
+                                    <td className="text-center py-2 px-2">{group.categories['trash'] || 0}</td>
+                                  </tr>
+                                ))}
+                              </tbody>
+                            </table>
+                          </div>
+                        </Card>
+
+                        {/* Category Distribution Summary */}
+                        <Card className="p-4 gradient-card shadow-sm border-0">
+                          <h4 className="text-sm font-semibold mb-3">Category Distribution of Uncertain Items</h4>
+                          <div className="grid grid-cols-3 gap-4">
+                            {['recycle', 'compost', 'trash'].map(cat => {
+                              const count = uncertainItems.filter(i => i.category === cat).length
+                              const pct = uncertainItems.length > 0 ? (count / uncertainItems.length * 100).toFixed(1) : '0'
+                              return (
+                                <div key={cat} className="text-center p-3 rounded-lg bg-muted/30">
+                                  <Badge variant="outline" className={`text-xs mb-2 ${getCategoryColor(cat)}`}>
+                                    {cat}
+                                  </Badge>
+                                  <p className="text-2xl font-bold">{count}</p>
+                                  <p className="text-xs text-muted-foreground">{pct}%</p>
+                                </div>
+                              )
+                            })}
+                          </div>
+                        </Card>
+                      </div>
+                    ) : viewMode === 'grouped' && selectedKeywordGroup ? (
+                      /* Drill-down view for selected keyword */
+                      <div className="space-y-3">
+                        <Button
+                          variant="ghost"
+                          size="sm"
+                          onClick={() => setSelectedKeywordGroup(null)}
+                          className="text-xs"
+                        >
+                          ← Back to all keywords
+                        </Button>
+                        <Card className="p-4 gradient-card shadow-sm border-0 border-l-4 border-l-warning">
+                          <h4 className="text-sm font-semibold mb-1">"{selectedKeywordGroup}"</h4>
+                          <p className="text-xs text-muted-foreground mb-3">
+                            {uncertainKeywordGroups.find(g => g.keyword === selectedKeywordGroup)?.count || 0} uncertain detections
+                          </p>
+                        </Card>
+                        <div className="grid grid-cols-1 gap-3">
+                          {uncertainKeywordGroups.find(g => g.keyword === selectedKeywordGroup)?.items.map(item => (
+                            <Card key={item.id} className="p-4 gradient-card shadow-sm border-0">
+                              <div className="flex items-start justify-between">
+                                <div className="flex-1">
+                                  <div className="flex items-center gap-2 mb-2">
+                                    <Badge variant="outline" className={`text-xs ${getCategoryColor(item.category)}`}>
+                                      {item.category}
+                                    </Badge>
+                                    <span className={`text-xs ${getConfidenceColor(item.confidence || 0)}`}>
+                                      {item.confidence ? (item.confidence * 100).toFixed(1) : 'N/A'}%
+                                    </span>
+                                  </div>
+                                  <div className="grid grid-cols-3 gap-3 text-xs">
+                                    <div>
+                                      <span className="text-muted-foreground">Device</span>
+                                      <p className="font-semibold font-mono text-xs">{item.device_id}</p>
+                                    </div>
+                                    <div>
+                                      <span className="text-muted-foreground">Client</span>
+                                      <p className="font-semibold">{item.client_id}</p>
+                                    </div>
+                                    <div>
+                                      <span className="text-muted-foreground">Detected</span>
+                                      <p className="font-semibold">{new Date(item.created_at).toLocaleString()}</p>
+                                    </div>
+                                  </div>
+                                </div>
                               </div>
-                              <div className="grid grid-cols-2 md:grid-cols-5 gap-3 text-xs">
-                                <div>
-                                  <span className="text-muted-foreground">Confidence</span>
-                                  <p className="font-semibold text-warning">
-                                    {item.confidence ? (item.confidence * 100).toFixed(1) : 'N/A'}%
-                                  </p>
+                            </Card>
+                          ))}
+                        </div>
+                      </div>
+                    ) : (
+                      /* List View - All Items */
+                      <div className="grid grid-cols-1 gap-3">
+                        {uncertainItems.map(item => (
+                          <Card key={item.id} className="p-4 gradient-card shadow-sm border-0">
+                            <div className="flex items-start justify-between">
+                              <div className="flex-1">
+                                <div className="flex items-center gap-2 mb-2">
+                                  <h4 className="text-sm font-semibold">
+                                    {item.item || 'Unknown Item'}
+                                  </h4>
+                                  <Badge variant="outline" className={`text-xs ${getCategoryColor(item.category)}`}>
+                                    {item.category}
+                                  </Badge>
                                 </div>
-                                <div>
-                                  <span className="text-muted-foreground">2nd Best</span>
-                                  <p className="font-semibold">
-                                    {item.secondBestCategory} ({item.secondBestConfidence ? (item.secondBestConfidence * 100).toFixed(1) : 'N/A'}%)
-                                  </p>
-                                </div>
-                                <div>
-                                  <span className="text-muted-foreground">Device</span>
-                                  <p className="font-semibold font-mono text-xs">{item.device_id}</p>
-                                </div>
-                                <div>
-                                  <span className="text-muted-foreground">Client</span>
-                                  <p className="font-semibold">{item.client_id}</p>
-                                </div>
-                                <div>
-                                  <span className="text-muted-foreground">Detected</span>
-                                  <p className="font-semibold">
-                                    {new Date(item.created_at).toLocaleDateString()}
-                                  </p>
+                                <div className="grid grid-cols-2 md:grid-cols-4 gap-3 text-xs">
+                                  <div>
+                                    <span className="text-muted-foreground">Confidence</span>
+                                    <p className={`font-semibold ${getConfidenceColor(item.confidence || 0)}`}>
+                                      {item.confidence ? (item.confidence * 100).toFixed(1) : 'N/A'}%
+                                    </p>
+                                  </div>
+                                  <div>
+                                    <span className="text-muted-foreground">Device</span>
+                                    <p className="font-semibold font-mono text-xs">{item.device_id}</p>
+                                  </div>
+                                  <div>
+                                    <span className="text-muted-foreground">Client</span>
+                                    <p className="font-semibold">{item.client_id}</p>
+                                  </div>
+                                  <div>
+                                    <span className="text-muted-foreground">Detected</span>
+                                    <p className="font-semibold">
+                                      {new Date(item.created_at).toLocaleDateString()}
+                                    </p>
+                                  </div>
                                 </div>
                               </div>
                             </div>
-                          </div>
-                        </Card>
-                      ))}
-                    </div>
+                          </Card>
+                        ))}
+                      </div>
+                    )}
                   </>
                 )}
               </div>
@@ -692,20 +832,16 @@ export default function AdminReview() {
               <h3 className="text-sm font-semibold mb-2">Using the Review Dashboard</h3>
               <div className="space-y-2 text-xs text-muted-foreground">
                 <p>
-                  <strong>Uncertain:</strong> Items flagged with reason "uncertain" by the model. Review these to identify edge cases
-                  or items that need better training data.
-                </p>
-                <p>
-                  <strong>Ambiguous:</strong> Items with similar scores across categories. These indicate classification
-                  boundaries that could benefit from additional features or training examples.
+                  <strong>Uncertain:</strong> Items flagged with reason "uncertain" by the model. Use the grouped view
+                  to see which keywords appear most frequently - these are good candidates for model retraining.
                 </p>
                 <p>
                   <strong>Over-Detection:</strong> Items detected very frequently. Check if this represents actual usage
                   patterns or potential sensor/model issues.
                 </p>
                 <p>
-                  <strong>Model Predictions:</strong> View detailed model output including alternative item predictions and
-                  category scores. Only visible to admins.
+                  <strong>Model Predictions:</strong> View detailed model output including alternative item predictions,
+                  category scores, and reasoning. Shows detections that have `top_item_results` stored.
                 </p>
                 <p className="pt-2">
                   Export any tab's data as CSV for deeper analysis or to create training datasets for model improvement.

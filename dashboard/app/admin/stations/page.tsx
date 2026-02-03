@@ -7,7 +7,7 @@ import { Badge } from '@/components/ui/badge'
 import { MetricsCard } from '@/components/MetricsCard'
 import { DashboardSidebar } from '@/components/DashboardSidebar'
 import { LiveTrackingChart } from '@/components/LiveTrackingChart'
-import { Trash2, MapPin, Clock, AlertCircle, TrendingUp, Package, Building2, ChevronDown, Wifi, WifiOff, Activity, AlertTriangle } from 'lucide-react'
+import { Trash2, MapPin, Clock, AlertCircle, TrendingUp, Package, Building2, ChevronDown, Wifi, WifiOff, Activity } from 'lucide-react'
 import { useEffect, useState, useRef } from 'react'
 import { useRouter } from 'next/navigation'
 
@@ -267,7 +267,7 @@ export default function AdminStations() {
             <h1 className="text-sm font-semibold">Station Management</h1>
           </div>
           {/* Organization Selector Dropdown */}
-          <div className="relative" ref={dropdownRef}>
+          <div className="relative z-[100]" ref={dropdownRef}>
             <Button
               variant="outline"
               size="sm"
@@ -279,10 +279,10 @@ export default function AdminStations() {
               <ChevronDown className={`w-3.5 h-3.5 transition-transform ${dropdownOpen ? 'rotate-180' : ''}`} />
             </Button>
             {dropdownOpen && (
-              <div className="absolute right-0 mt-1 w-56 bg-card border border-border rounded-lg shadow-lg z-50 py-1 max-h-64 overflow-y-auto">
+              <div className="absolute right-0 mt-1 w-56 bg-card border border-border rounded-lg shadow-lg z-[100] py-1 max-h-64 overflow-y-auto">
                 <button
                   onClick={() => handleOrgSelect(null, 'All Organizations')}
-                  className={`w-full px-3 py-2 text-left text-sm hover:bg-muted/50 transition-colors ${
+                  className={`w-full px-3 py-2 text-left text-sm hover:bg-green-500/10 hover:text-green-600 transition-colors ${
                     selectedOrganization === null ? 'bg-primary/10 text-primary font-medium' : ''
                   }`}
                 >
@@ -292,7 +292,7 @@ export default function AdminStations() {
                   <button
                     key={org.id}
                     onClick={() => handleOrgSelect(org.id, org.name)}
-                    className={`w-full px-3 py-2 text-left text-sm hover:bg-muted/50 transition-colors ${
+                    className={`w-full px-3 py-2 text-left text-sm hover:bg-green-500/10 hover:text-green-600 transition-colors ${
                       selectedOrganization === org.id ? 'bg-primary/10 text-primary font-medium' : ''
                     }`}
                   >
@@ -379,7 +379,7 @@ export default function AdminStations() {
                     className={`h-7 px-3 text-xs rounded-md transition-colors ${
                       statusFilter === 'maintenance'
                         ? 'bg-warning/20 text-warning'
-                        : 'text-muted-foreground hover:text-warning'
+                        : 'text-muted-foreground hover:text-green-600 hover:bg-green-500/10'
                     }`}
                     onClick={() => setStatusFilter('maintenance')}
                   >
@@ -390,33 +390,6 @@ export default function AdminStations() {
               </div>
             </div>
 
-            {/* Health Warning Banner - only show if there are issues */}
-            {(statusCounts.offline > 0 || inactiveStations.length > 0) && (
-              <div className="bg-warning/10 border border-warning/20 rounded-xl p-3">
-                <div className="flex items-start gap-2">
-                  <AlertTriangle className="w-4 h-4 text-warning flex-shrink-0 mt-0.5" />
-                  <div className="flex-1">
-                    <h4 className="text-sm font-semibold text-warning mb-1">Station Health Alerts</h4>
-                    <div className="space-y-1">
-                      {statusCounts.offline > 0 && (
-                        <p className="text-xs text-warning/80">
-                          {statusCounts.offline} station{statusCounts.offline !== 1 ? 's' : ''} currently offline
-                        </p>
-                      )}
-                      {inactiveStations.length > 0 && (
-                        <p className="text-xs text-warning/80">
-                          {inactiveStations.length} station{inactiveStations.length !== 1 ? 's' : ''} with no activity in {INACTIVE_THRESHOLD_DAYS}+ days: {' '}
-                          <span className="font-medium">
-                            {inactiveStations.slice(0, 3).map(s => s.name).join(', ')}
-                            {inactiveStations.length > 3 && ` +${inactiveStations.length - 3} more`}
-                          </span>
-                        </p>
-                      )}
-                    </div>
-                  </div>
-                </div>
-              </div>
-            )}
           </div>
         )}
 

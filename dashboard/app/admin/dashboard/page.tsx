@@ -340,7 +340,7 @@ export default function AdminDashboard() {
           </div>
           <div className="flex items-center gap-2">
             {/* Organization Selector Dropdown */}
-            <div className="relative" ref={dropdownRef}>
+            <div className="relative z-[100]" ref={dropdownRef}>
               <Button
                 variant="outline"
                 size="sm"
@@ -352,10 +352,10 @@ export default function AdminDashboard() {
                 <ChevronDown className={`w-3.5 h-3.5 transition-transform ${dropdownOpen ? 'rotate-180' : ''}`} />
               </Button>
               {dropdownOpen && (
-                <div className="absolute right-0 mt-1 w-56 bg-card border border-border rounded-lg shadow-lg z-50 py-1 max-h-64 overflow-y-auto">
+                <div className="absolute right-0 mt-1 w-56 bg-card border border-border rounded-lg shadow-lg z-[100] py-1 max-h-64 overflow-y-auto">
                   <button
                     onClick={() => handleOrgSelect(null, 'All Organizations')}
-                    className={`w-full px-3 py-2 text-left text-sm hover:bg-muted/50 transition-colors ${
+                    className={`w-full px-3 py-2 text-left text-sm hover:bg-green-500/10 hover:text-green-600 transition-colors ${
                       selectedOrganization === null ? 'bg-primary/10 text-primary font-medium' : ''
                     }`}
                   >
@@ -365,7 +365,7 @@ export default function AdminDashboard() {
                     <button
                       key={org.id}
                       onClick={() => handleOrgSelect(org.id, org.name)}
-                      className={`w-full px-3 py-2 text-left text-sm hover:bg-muted/50 transition-colors ${
+                      className={`w-full px-3 py-2 text-left text-sm hover:bg-green-500/10 hover:text-green-600 transition-colors ${
                         selectedOrganization === org.id ? 'bg-primary/10 text-primary font-medium' : ''
                       }`}
                     >
@@ -378,28 +378,6 @@ export default function AdminDashboard() {
             <AlertsDropdown organizationId={selectedOrganization} />
           </div>
         </div>
-
-        {/* Platform Health Banner - Only show when viewing all organizations */}
-        {!selectedOrganization && !healthLoading && (systemHealth.offlineStations.length > 0 || systemHealth.inactiveOrganizations.length > 0) && (
-          <div className="flex items-center gap-3 p-3 rounded-xl bg-amber-500/10 border border-amber-500/20">
-            <AlertTriangle className="w-4 h-4 text-amber-500 flex-shrink-0" />
-            <div className="flex items-center gap-4 text-xs">
-              {systemHealth.offlineStations.length > 0 && (
-                <span className="text-amber-600">
-                  <strong>{systemHealth.offlineStations.length}</strong> station{systemHealth.offlineStations.length !== 1 ? 's' : ''} offline 24h+
-                </span>
-              )}
-              {systemHealth.offlineStations.length > 0 && systemHealth.inactiveOrganizations.length > 0 && (
-                <span className="text-amber-500/50">•</span>
-              )}
-              {systemHealth.inactiveOrganizations.length > 0 && (
-                <span className="text-amber-600">
-                  <strong>{systemHealth.inactiveOrganizations.length}</strong> org{systemHealth.inactiveOrganizations.length !== 1 ? 's' : ''} inactive 7d+
-                </span>
-              )}
-            </div>
-          </div>
-        )}
 
         {/* Compact Metrics Row */}
         <div className="grid grid-cols-2 lg:grid-cols-4 gap-3">

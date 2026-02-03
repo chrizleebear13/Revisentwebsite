@@ -4,7 +4,7 @@ import { createClient } from '@/lib/supabase/client'
 import { Card } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
 import { DashboardSidebar } from '@/components/DashboardSidebar'
-import { Leaf, Award, Globe, Droplet, Zap, Trees, TrendingUp, Building2, ChevronDown } from 'lucide-react'
+import { Leaf, Globe, Droplet, Zap, Trees, TrendingUp, Building2, ChevronDown, Recycle, Car, Home, Bath } from 'lucide-react'
 import { useEffect, useState, useRef } from 'react'
 
 interface Organization {
@@ -14,7 +14,6 @@ interface Organization {
 
 interface ImpactMetrics {
   totalItems: number
-  totalWeightLbs: number
   co2SavedKg: number
   treesSaved: number
   waterSavedGallons: number
@@ -31,7 +30,6 @@ export default function AdminImpact() {
   const [dropdownOpen, setDropdownOpen] = useState(false)
   const [metrics, setMetrics] = useState<ImpactMetrics>({
     totalItems: 0,
-    totalWeightLbs: 0,
     co2SavedKg: 0,
     treesSaved: 0,
     waterSavedGallons: 0,
@@ -93,7 +91,6 @@ export default function AdminImpact() {
         if (deviceIds.length === 0) {
           setMetrics({
             totalItems: 0,
-            totalWeightLbs: 0,
             co2SavedKg: 0,
             treesSaved: 0,
             waterSavedGallons: 0,
@@ -114,7 +111,6 @@ export default function AdminImpact() {
         if (!detections || detections.length === 0) {
           setMetrics({
             totalItems: 0,
-            totalWeightLbs: 0,
             co2SavedKg: 0,
             treesSaved: 0,
             waterSavedGallons: 0,
@@ -144,7 +140,6 @@ export default function AdminImpact() {
         const diversionRate = totalItems > 0 ? (diverted / totalItems) * 100 : 0
 
         // Sum up actual impact values from the impact_factors table
-        let totalWeightLbs = 0
         let co2SavedKg = 0
         let waterSavedGallons = 0
         let energySavedKWh = 0
@@ -152,7 +147,6 @@ export default function AdminImpact() {
         detections.forEach(detection => {
           const impact = impactMap.get(detection.item)
           if (impact) {
-            totalWeightLbs += impact.weight_lb
             // Only count impact for diverted items (recycle/compost)
             if (detection.category === 'recycle' || detection.category === 'compost') {
               co2SavedKg += impact.co2_saved_kg
@@ -187,7 +181,6 @@ export default function AdminImpact() {
 
         setMetrics({
           totalItems,
-          totalWeightLbs,
           co2SavedKg,
           treesSaved,
           waterSavedGallons,
@@ -228,42 +221,15 @@ export default function AdminImpact() {
     setDropdownOpen(false)
   }
 
-  const achievements = [
-    {
-      icon: Leaf,
-      title: '10,000 Items Diverted',
-      unlocked: metrics.totalItems >= 10000,
-      progress: Math.min((metrics.totalItems / 10000) * 100, 100)
-    },
-    {
-      icon: Globe,
-      title: '1,000 kg CO2 Saved',
-      unlocked: metrics.co2SavedKg >= 1000,
-      progress: Math.min((metrics.co2SavedKg / 1000) * 100, 100)
-    },
-    {
-      icon: Trees,
-      title: '100 Trees Saved',
-      unlocked: metrics.treesSaved >= 100,
-      progress: Math.min((metrics.treesSaved / 100) * 100, 100)
-    },
-    {
-      icon: Award,
-      title: '80% Platform Diversion',
-      unlocked: metrics.diversionRate >= 80,
-      progress: Math.min((metrics.diversionRate / 80) * 100, 100)
-    }
-  ]
-
   return (
     <div className="h-screen overflow-hidden gradient-subtle touch-manipulation">
       <DashboardSidebar isAdmin={true} />
-      <div className="lg:ml-64 h-screen overflow-y-auto px-4 md:px-6 lg:px-8 py-3 md:py-4 space-y-3 md:space-y-4">
+      <div className="lg:ml-64 h-screen overflow-y-auto px-4 md:px-6 lg:px-8 py-3 md:py-4 space-y-4">
         {/* Header */}
         <div className="flex items-center justify-between bg-card/50 backdrop-blur-xl rounded-xl p-3 shadow-sm border border-border/50">
           <div className="flex items-center gap-3">
             <Leaf className="w-4 h-4 text-primary" />
-            <h1 className="text-sm font-semibold">Platform Impact</h1>
+            <h1 className="text-sm font-semibold">Environmental Impact</h1>
           </div>
           <div className="flex items-center gap-2">
             {!loading && metrics.totalItems > 0 && metrics.weeklyGrowth > 0 && (
@@ -273,7 +239,7 @@ export default function AdminImpact() {
               </div>
             )}
             {/* Organization Selector */}
-            <div className="relative" ref={dropdownRef}>
+            <div className="relative z-[100]" ref={dropdownRef}>
               <Button
                 variant="outline"
                 size="sm"
@@ -285,10 +251,10 @@ export default function AdminImpact() {
                 <ChevronDown className={`w-3.5 h-3.5 transition-transform ${dropdownOpen ? 'rotate-180' : ''}`} />
               </Button>
               {dropdownOpen && (
-                <div className="absolute right-0 mt-1 w-56 bg-card border border-border rounded-lg shadow-lg z-50 py-1 max-h-64 overflow-y-auto">
+                <div className="absolute right-0 mt-1 w-56 bg-card border border-border rounded-lg shadow-lg z-[100] py-1 max-h-64 overflow-y-auto">
                   <button
                     onClick={() => handleOrgSelect(null, 'All Organizations')}
-                    className={`w-full px-3 py-2 text-left text-sm hover:bg-muted/50 transition-colors ${
+                    className={`w-full px-3 py-2 text-left text-sm hover:bg-green-500/10 hover:text-green-600 transition-colors ${
                       selectedOrganization === null ? 'bg-primary/10 text-primary font-medium' : ''
                     }`}
                   >
@@ -298,7 +264,7 @@ export default function AdminImpact() {
                     <button
                       key={org.id}
                       onClick={() => handleOrgSelect(org.id, org.name)}
-                      className={`w-full px-3 py-2 text-left text-sm hover:bg-muted/50 transition-colors ${
+                      className={`w-full px-3 py-2 text-left text-sm hover:bg-green-500/10 hover:text-green-600 transition-colors ${
                         selectedOrganization === org.id ? 'bg-primary/10 text-primary font-medium' : ''
                       }`}
                     >
@@ -329,188 +295,172 @@ export default function AdminImpact() {
           </Card>
         ) : (
           <>
-            {/* Main Impact Metrics */}
-            <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 animate-fade-in-up">
-              <Card className="p-4 gradient-card shadow-sm border-0">
-                <div className="flex items-center justify-between">
-                  <div className="space-y-1">
-                    <p className="text-xs font-medium text-muted-foreground">CO2 Saved</p>
-                    <p className="text-2xl font-bold bg-gradient-to-r from-green-600 to-green-500 bg-clip-text text-transparent">
-                      {metrics.co2SavedKg.toFixed(1)} kg
+            {/* Hero Section - Total CO2 */}
+            <Card className="relative overflow-hidden gradient-card shadow-sm border-0 animate-fade-in-up">
+              <div className="absolute inset-0 bg-gradient-to-br from-green-500/5 via-transparent to-emerald-500/5" />
+              <div className="relative p-6 md:p-8">
+                <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-6">
+                  <div className="space-y-2">
+                    <div className="flex items-center gap-2">
+                      <div className="p-2 rounded-lg bg-green-500/10">
+                        <Globe className="w-5 h-5 text-green-600" />
+                      </div>
+                      <span className="text-sm font-medium text-muted-foreground">Total CO₂ Prevented</span>
+                    </div>
+                    <div className="flex items-baseline gap-2">
+                      <span className="text-5xl md:text-6xl font-bold bg-gradient-to-r from-green-600 to-emerald-500 bg-clip-text text-transparent">
+                        {metrics.co2SavedKg.toFixed(1)}
+                      </span>
+                      <span className="text-2xl font-semibold text-muted-foreground">kg</span>
+                    </div>
+                    <p className="text-sm text-muted-foreground">
+                      from {metrics.totalItems.toLocaleString()} items sorted • {metrics.diversionRate.toFixed(0)}% diversion rate
                     </p>
-                    <p className="text-xs text-muted-foreground">~{(metrics.co2SavedKg * 2.2).toFixed(0)} lbs</p>
                   </div>
-                  <div className="p-2 rounded-lg bg-green-500/10 text-green-600">
-                    <Globe className="w-5 h-5" />
+
+                  {/* Quick Stats */}
+                  <div className="flex gap-6 md:gap-8">
+                    <div className="text-center">
+                      <div className="flex items-center justify-center gap-1 mb-1">
+                        <Trees className="w-4 h-4 text-green-600" />
+                      </div>
+                      <p className="text-2xl font-bold text-green-600">{metrics.treesSaved.toFixed(1)}</p>
+                      <p className="text-xs text-muted-foreground">trees equivalent</p>
+                    </div>
+                    <div className="text-center">
+                      <div className="flex items-center justify-center gap-1 mb-1">
+                        <Droplet className="w-4 h-4 text-blue-500" />
+                      </div>
+                      <p className="text-2xl font-bold text-blue-500">{metrics.waterSavedGallons.toLocaleString()}</p>
+                      <p className="text-xs text-muted-foreground">gallons saved</p>
+                    </div>
+                    <div className="text-center">
+                      <div className="flex items-center justify-center gap-1 mb-1">
+                        <Zap className="w-4 h-4 text-amber-500" />
+                      </div>
+                      <p className="text-2xl font-bold text-amber-500">{metrics.energySavedKWh.toLocaleString()}</p>
+                      <p className="text-xs text-muted-foreground">kWh saved</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </Card>
+
+            {/* Real-world Equivalents - Visual Cards */}
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-3 animate-fade-in-up-delay-1">
+              {/* Cars off road */}
+              <Card className="relative overflow-hidden gradient-card shadow-sm border-0 group hover:shadow-md transition-all">
+                <div className="absolute inset-0 bg-gradient-to-br from-green-500/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
+                <div className="relative p-5">
+                  <div className="flex items-start justify-between mb-4">
+                    <div className="p-2.5 rounded-xl bg-green-500/10">
+                      <Car className="w-5 h-5 text-green-600" />
+                    </div>
+                    <span className="text-xs font-medium text-muted-foreground px-2 py-1 rounded-full bg-muted/50">CO₂ Impact</span>
+                  </div>
+                  <p className="text-3xl font-bold mb-1">{(metrics.co2SavedKg / 411).toFixed(2)}</p>
+                  <p className="text-sm text-muted-foreground">cars off the road for a day</p>
+                  <div className="mt-4 pt-4 border-t border-border/50">
+                    <p className="text-xs text-muted-foreground">
+                      Based on avg. daily car emissions of 411kg CO₂
+                    </p>
                   </div>
                 </div>
               </Card>
 
-              <Card className="p-4 gradient-card shadow-sm border-0">
-                <div className="flex items-center justify-between">
-                  <div className="space-y-1">
-                    <p className="text-xs font-medium text-muted-foreground">Trees Saved</p>
-                    <p className="text-2xl font-bold bg-gradient-to-r from-green-600 to-green-500 bg-clip-text text-transparent">
-                      {metrics.treesSaved.toFixed(1)}
-                    </p>
-                    <p className="text-xs text-muted-foreground">CO2 equivalent</p>
+              {/* Bathtubs */}
+              <Card className="relative overflow-hidden gradient-card shadow-sm border-0 group hover:shadow-md transition-all">
+                <div className="absolute inset-0 bg-gradient-to-br from-blue-500/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
+                <div className="relative p-5">
+                  <div className="flex items-start justify-between mb-4">
+                    <div className="p-2.5 rounded-xl bg-blue-500/10">
+                      <Bath className="w-5 h-5 text-blue-500" />
+                    </div>
+                    <span className="text-xs font-medium text-muted-foreground px-2 py-1 rounded-full bg-muted/50">Water Impact</span>
                   </div>
-                  <div className="p-2 rounded-lg bg-green-500/10 text-green-600">
-                    <Trees className="w-5 h-5" />
+                  <p className="text-3xl font-bold mb-1">{Math.round(metrics.waterSavedGallons / 50)}</p>
+                  <p className="text-sm text-muted-foreground">bathtubs of water saved</p>
+                  <div className="mt-4 pt-4 border-t border-border/50">
+                    <p className="text-xs text-muted-foreground">
+                      Average bathtub holds ~50 gallons
+                    </p>
                   </div>
                 </div>
               </Card>
 
-              <Card className="p-4 gradient-card shadow-sm border-0">
-                <div className="flex items-center justify-between">
-                  <div className="space-y-1">
-                    <p className="text-xs font-medium text-muted-foreground">Water Saved</p>
-                    <p className="text-2xl font-bold bg-gradient-to-r from-blue-600 to-blue-500 bg-clip-text text-transparent">
-                      {metrics.waterSavedGallons.toLocaleString()}
+              {/* Home powered */}
+              <Card className="relative overflow-hidden gradient-card shadow-sm border-0 group hover:shadow-md transition-all">
+                <div className="absolute inset-0 bg-gradient-to-br from-amber-500/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
+                <div className="relative p-5">
+                  <div className="flex items-start justify-between mb-4">
+                    <div className="p-2.5 rounded-xl bg-amber-500/10">
+                      <Home className="w-5 h-5 text-amber-500" />
+                    </div>
+                    <span className="text-xs font-medium text-muted-foreground px-2 py-1 rounded-full bg-muted/50">Energy Impact</span>
+                  </div>
+                  <p className="text-3xl font-bold mb-1">{(metrics.energySavedKWh / 30).toFixed(1)}</p>
+                  <p className="text-sm text-muted-foreground">days of home energy saved</p>
+                  <div className="mt-4 pt-4 border-t border-border/50">
+                    <p className="text-xs text-muted-foreground">
+                      Avg. US home uses ~30 kWh/day
                     </p>
-                    <p className="text-xs text-muted-foreground">Gallons</p>
-                  </div>
-                  <div className="p-2 rounded-lg bg-blue-500/10 text-blue-500">
-                    <Droplet className="w-5 h-5" />
-                  </div>
-                </div>
-              </Card>
-
-              <Card className="p-4 gradient-card shadow-sm border-0">
-                <div className="flex items-center justify-between">
-                  <div className="space-y-1">
-                    <p className="text-xs font-medium text-muted-foreground">Energy Saved</p>
-                    <p className="text-2xl font-bold bg-gradient-to-r from-amber-600 to-amber-500 bg-clip-text text-transparent">
-                      {metrics.energySavedKWh.toLocaleString()}
-                    </p>
-                    <p className="text-xs text-muted-foreground">kWh</p>
-                  </div>
-                  <div className="p-2 rounded-lg bg-amber-500/10 text-amber-500">
-                    <Zap className="w-5 h-5" />
                   </div>
                 </div>
               </Card>
             </div>
 
-            {/* Detailed Impact Breakdown */}
-            <Card className="p-5 gradient-card shadow-sm border-0 animate-fade-in-up-delay-1">
-              <div className="flex items-center gap-2 mb-4">
-                <Leaf className="w-4 h-4 text-primary" />
-                <h3 className="text-sm font-semibold">Platform Summary</h3>
-              </div>
-              <div className="grid grid-cols-2 gap-4">
-                <div className="p-3 rounded-lg bg-primary/5 border border-primary/10">
-                  <p className="text-xs text-muted-foreground mb-1">Total Waste Processed</p>
-                  <p className="text-xl font-bold bg-gradient-to-r from-primary to-primary/80 bg-clip-text text-transparent">
-                    {metrics.totalWeightLbs.toFixed(1)} lbs
-                  </p>
-                  <p className="text-xs text-muted-foreground mt-1">
-                    {metrics.totalItems.toLocaleString()} items sorted
-                  </p>
-                </div>
-                <div className="p-3 rounded-lg bg-green-500/5 border border-green-500/10">
-                  <p className="text-xs text-muted-foreground mb-1">Platform Diversion Rate</p>
-                  <p className="text-xl font-bold bg-gradient-to-r from-green-600 to-green-500 bg-clip-text text-transparent">
-                    {metrics.diversionRate.toFixed(1)}%
-                  </p>
-                  <div className="flex items-center gap-1 text-xs mt-1">
-                    {metrics.weeklyGrowth > 0 ? (
-                      <>
-                        <TrendingUp className="w-3 h-3 text-green-600" />
-                        <span className="text-green-600">+{metrics.weeklyGrowth.toFixed(1)}%</span>
-                      </>
-                    ) : (
-                      <span className="text-muted-foreground">Week-over-week</span>
-                    )}
-                  </div>
-                </div>
-              </div>
-            </Card>
+            {/* Diversion Progress - Gamified */}
+            {(() => {
+              const divertedItems = Math.round(metrics.totalItems * metrics.diversionRate / 100)
+              const currentLevel = Math.floor(divertedItems / 1000) + 1
+              const itemsInCurrentLevel = divertedItems % 1000
+              const progressPercent = (itemsInCurrentLevel / 1000) * 100
+              const nextMilestone = currentLevel * 1000
 
-            {/* Real-world Equivalents */}
-            <Card className="p-5 gradient-card shadow-sm border-0 animate-fade-in-up-delay-2">
-              <div className="flex items-center gap-2 mb-4">
-                <Globe className="w-4 h-4 text-primary" />
-                <h3 className="text-sm font-semibold">Real-World Equivalents</h3>
-              </div>
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
-                <div className="flex items-center gap-3 p-3 rounded-xl bg-muted/30 hover:bg-muted/40 transition-colors">
-                  <div className="p-2 rounded-lg bg-green-500/10 text-green-600">
-                    <Globe className="w-4 h-4" />
-                  </div>
-                  <div>
-                    <p className="text-lg font-bold">{(metrics.co2SavedKg / 411).toFixed(2)}</p>
-                    <p className="text-xs text-muted-foreground">cars off road/day</p>
-                  </div>
-                </div>
-                <div className="flex items-center gap-3 p-3 rounded-xl bg-muted/30 hover:bg-muted/40 transition-colors">
-                  <div className="p-2 rounded-lg bg-blue-500/10 text-blue-500">
-                    <Droplet className="w-4 h-4" />
-                  </div>
-                  <div>
-                    <p className="text-lg font-bold">{(metrics.waterSavedGallons / 50).toFixed(0)}</p>
-                    <p className="text-xs text-muted-foreground">bathtubs filled</p>
-                  </div>
-                </div>
-                <div className="flex items-center gap-3 p-3 rounded-xl bg-muted/30 hover:bg-muted/40 transition-colors">
-                  <div className="p-2 rounded-lg bg-amber-500/10 text-amber-500">
-                    <Zap className="w-4 h-4" />
-                  </div>
-                  <div>
-                    <p className="text-lg font-bold">{(metrics.energySavedKWh / 30).toFixed(1)}</p>
-                    <p className="text-xs text-muted-foreground">days home powered</p>
-                  </div>
-                </div>
-              </div>
-            </Card>
-
-            {/* Platform Achievements */}
-            <Card className="p-5 gradient-card shadow-sm border-0 animate-fade-in-up-delay-3">
-              <div className="flex items-center gap-2 mb-4">
-                <Award className="w-4 h-4 text-primary" />
-                <h3 className="text-sm font-semibold">Platform Milestones</h3>
-              </div>
-              <div className="grid grid-cols-2 lg:grid-cols-4 gap-3">
-                {achievements.map((achievement, index) => {
-                  const Icon = achievement.icon
-                  return (
-                    <div
-                      key={index}
-                      className={`p-3 rounded-xl transition-all ${
-                        achievement.unlocked
-                          ? 'bg-green-500/10 border border-green-500/20'
-                          : 'bg-muted/30 hover:bg-muted/40'
-                      }`}
-                    >
-                      <div className="flex items-center gap-2 mb-3">
-                        <div className={`p-1.5 rounded-lg ${
-                          achievement.unlocked
-                            ? 'bg-green-500/20 text-green-600'
-                            : 'bg-muted/50 text-muted-foreground'
-                        }`}>
-                          <Icon className="w-4 h-4" />
-                        </div>
-                        {achievement.unlocked && (
-                          <span className="text-xs font-medium text-green-600">Unlocked</span>
-                        )}
+              return (
+                <Card className="gradient-card shadow-sm border-0 animate-fade-in-up-delay-2">
+                  <div className="p-5">
+                    <div className="flex items-center justify-between mb-4">
+                      <div className="flex items-center gap-2">
+                        <Recycle className="w-4 h-4 text-primary" />
+                        <h3 className="text-sm font-semibold">Diversion Progress</h3>
                       </div>
-                      <h4 className="text-xs font-semibold mb-2">{achievement.title}</h4>
-                      <div className="w-full bg-muted/50 rounded-full h-1.5 mb-1">
-                        <div
-                          className={`h-1.5 rounded-full transition-all ${
-                            achievement.unlocked ? 'bg-green-500' : 'bg-primary'
-                          }`}
-                          style={{ width: `${achievement.progress}%` }}
-                        />
+                      <div className="flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-primary/10">
+                        <span className="text-xs font-semibold text-primary">Level {currentLevel}</span>
                       </div>
-                      <p className="text-xs text-muted-foreground">
-                        {achievement.progress.toFixed(0)}%
-                      </p>
                     </div>
-                  )
-                })}
-              </div>
-            </Card>
+
+                    <div className="space-y-4">
+                      {/* Main stat */}
+                      <div className="flex items-baseline gap-2">
+                        <span className="text-4xl font-bold text-green-600">{divertedItems.toLocaleString()}</span>
+                        <span className="text-sm text-muted-foreground">items diverted</span>
+                      </div>
+
+                      {/* Progress bar to next level */}
+                      <div>
+                        <div className="flex items-center justify-between mb-2">
+                          <span className="text-xs text-muted-foreground">
+                            {itemsInCurrentLevel.toLocaleString()} / 1,000 to Level {currentLevel + 1}
+                          </span>
+                          <span className="text-xs font-medium text-primary">{progressPercent.toFixed(0)}%</span>
+                        </div>
+                        <div className="h-3 bg-muted/50 rounded-full overflow-hidden">
+                          <div
+                            className="h-full rounded-full bg-gradient-to-r from-green-500 to-emerald-400 transition-all duration-500"
+                            style={{ width: `${progressPercent}%` }}
+                          />
+                        </div>
+                        <p className="text-xs text-muted-foreground mt-2">
+                          {(1000 - itemsInCurrentLevel).toLocaleString()} more items to reach {nextMilestone.toLocaleString()}
+                        </p>
+                      </div>
+
+                    </div>
+                  </div>
+                </Card>
+              )
+            })()}
           </>
         )}
       </div>

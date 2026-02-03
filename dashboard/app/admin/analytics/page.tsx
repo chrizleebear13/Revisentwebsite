@@ -672,7 +672,7 @@ export default function AdminAnalytics() {
                 Compare
               </Button>
               {/* Organization Selector Dropdown */}
-              <div className="relative" ref={dropdownRef}>
+              <div className="relative z-[100]" ref={dropdownRef}>
                 <Button
                   variant="outline"
                   size="sm"
@@ -684,10 +684,10 @@ export default function AdminAnalytics() {
                   <ChevronDown className={`w-3.5 h-3.5 transition-transform ${dropdownOpen ? 'rotate-180' : ''}`} />
                 </Button>
                 {dropdownOpen && (
-                  <div className="absolute right-0 mt-1 w-56 bg-card border border-border rounded-lg shadow-lg z-50 py-1 max-h-64 overflow-y-auto">
+                  <div className="absolute right-0 mt-1 w-56 bg-card border border-border rounded-lg shadow-lg z-[100] py-1 max-h-64 overflow-y-auto">
                     <button
                       onClick={() => handleOrgSelect(null, 'All Organizations')}
-                      className={`w-full px-3 py-2 text-left text-sm hover:bg-muted/50 transition-colors ${
+                      className={`w-full px-3 py-2 text-left text-sm hover:bg-green-500/10 hover:text-green-600 transition-colors ${
                         selectedOrganization === null ? 'bg-primary/10 text-primary font-medium' : ''
                       }`}
                     >
@@ -697,7 +697,7 @@ export default function AdminAnalytics() {
                       <button
                         key={org.id}
                         onClick={() => handleOrgSelect(org.id, org.name)}
-                        className={`w-full px-3 py-2 text-left text-sm hover:bg-muted/50 transition-colors ${
+                        className={`w-full px-3 py-2 text-left text-sm hover:bg-green-500/10 hover:text-green-600 transition-colors ${
                           selectedOrganization === org.id ? 'bg-primary/10 text-primary font-medium' : ''
                         }`}
                       >
