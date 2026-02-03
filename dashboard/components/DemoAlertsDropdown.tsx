@@ -86,7 +86,8 @@ export function DemoAlertsDropdown() {
     }
   }
 
-  const hasWarningsOrErrors = visibleAlerts.some(a => a.type === 'warning' || a.type === 'error')
+  // Demo alerts are all positive (success/info), no warnings or errors
+  const hasWarningsOrErrors = false
 
   return (
     <div className="relative" ref={dropdownRef}>
