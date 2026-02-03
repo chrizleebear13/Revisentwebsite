@@ -9,6 +9,7 @@ import { createClient } from '@/lib/supabase/client'
 type TimeFrame = 'D' | 'W' | 'M' | 'Y' | 'C'
 
 interface ChartDataPoint {
+  index: number // Numeric index for proper Recharts positioning
   label: string
   displayLabel: string // Full label for tooltip display
   total: number
@@ -346,6 +347,7 @@ export function LiveTrackingChart({ organizationId, deviceId }: LiveTrackingChar
           }
 
           return {
+            index,
             label,
             displayLabel,
             ...counts
@@ -584,12 +586,18 @@ export function LiveTrackingChart({ organizationId, deviceId }: LiveTrackingChar
                         </linearGradient>
                       </defs>
                       <XAxis
-                        dataKey="label"
+                        dataKey="index"
+                        type="number"
+                        domain={[0, chartData.length - 1]}
                         axisLine={false}
                         tickLine={false}
                         tick={{ fill: '#9ca3af', fontSize: 10 }}
                         interval={0}
                         dy={10}
+                        tickFormatter={(value) => {
+                          const dataPoint = chartData[value]
+                          return dataPoint?.label || ''
+                        }}
                       />
                       <YAxis
                         axisLine={false}
