@@ -116,10 +116,10 @@
         </div>
         <a href="./case-studies.html" class="nav-link">Case Studies</a>
         <a href="./about.html" class="nav-link">About</a>
+        <a href="./contact.html" class="nav-link">Contact</a>
       </div>
-      
+
       <div class="nav-actions">
-        <a href="./contact.html" class="btn btn-ghost btn-sm">Contact</a>
         <a href="https://dashboard.revisent.com/login" class="btn btn-ghost btn-sm">Login</a>
         <a href="#" onclick="openCalendly(); return false;" class="btn btn-primary btn-sm">Book a Call</a>
       </div>
@@ -304,16 +304,30 @@
       <h2 class="section-title">Waste Intelligence Dashboard</h2>
       <p class="section-subtitle" style="max-width: 52rem;">Real-time analytics, contamination alerts, and operational insights—all in one place.</p>
     </div>
-    <div style="max-width: 1200px; margin: 0 auto; padding: 0 1rem;">
-      <div id="home-demo-container" class="demo-container" style="position: relative; background: #f5f7fa; border-radius: 1rem; overflow: hidden; box-shadow: 0 4px 24px rgba(0,0,0,0.1); height: 600px;">
-        <iframe id="home-demo-iframe" data-src="https://dashboard.revisent.com/demo" style="width: 142.86%; height: 142.86%; border: none; display: block; transform: scale(0.7); transform-origin: top left;" title="Revisent Waste Intelligence Dashboard Demo"></iframe>
-        <!-- Blur overlay with start button -->
-        <div id="home-demo-overlay" style="position: absolute; inset: 0; background: rgba(255,255,255,0.3); backdrop-filter: blur(8px); display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 1rem; cursor: pointer; transition: opacity 0.3s ease;" onclick="startHomeDemo()">
-          <div style="background: var(--primary, #10b981); color: white; padding: 1rem 2rem; border-radius: 0.75rem; font-weight: 600; font-size: 1.125rem; display: flex; align-items: center; gap: 0.5rem; box-shadow: 0 4px 16px rgba(16,185,129,0.3); transition: transform 0.2s ease, box-shadow 0.2s ease;" onmouseover="this.style.transform='scale(1.05)'; this.style.boxShadow='0 6px 20px rgba(16,185,129,0.4)';" onmouseout="this.style.transform='scale(1)'; this.style.boxShadow='0 4px 16px rgba(16,185,129,0.3)';">
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>
-            Start Interactive Demo
+    <div style="max-width: 1100px; margin: 0 auto; padding: 0 1rem;">
+      <div id="home-demo-container" class="demo-container" style="position: relative; background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%); border-radius: 1.25rem; overflow: hidden; box-shadow: 0 25px 50px -12px rgba(0,0,0,0.25); padding: 12px 12px 0 12px;">
+        <!-- Browser chrome -->
+        <div style="background: #2d2d44; border-radius: 0.75rem 0.75rem 0 0; padding: 10px 16px; display: flex; align-items: center; gap: 8px;">
+          <div style="display: flex; gap: 6px;">
+            <div style="width: 12px; height: 12px; border-radius: 50%; background: #ff5f57;"></div>
+            <div style="width: 12px; height: 12px; border-radius: 50%; background: #febc2e;"></div>
+            <div style="width: 12px; height: 12px; border-radius: 50%; background: #28c840;"></div>
           </div>
-          <p style="color: #64748b; font-size: 0.875rem;">Click to explore the dashboard</p>
+          <div style="flex: 1; background: #1a1a2e; border-radius: 6px; padding: 6px 12px; margin-left: 12px;">
+            <span style="color: #64748b; font-size: 12px; font-family: monospace;">dashboard.revisent.com/demo</span>
+          </div>
+        </div>
+        <!-- Iframe container with aspect ratio -->
+        <div style="position: relative; width: 100%; aspect-ratio: 16/10; background: #f5f7fa; border-radius: 0 0 0.5rem 0.5rem; overflow: hidden;">
+          <iframe id="home-demo-iframe" data-src="https://dashboard.revisent.com/demo" style="width: 100%; height: 100%; border: none; display: block;" title="Revisent Waste Intelligence Dashboard Demo"></iframe>
+          <!-- Blur overlay with start button -->
+          <div id="home-demo-overlay" style="position: absolute; inset: 0; background: rgba(255,255,255,0.4); backdrop-filter: blur(8px); display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 1rem; cursor: pointer; transition: opacity 0.3s ease;" onclick="startHomeDemo()">
+            <div style="background: var(--primary, #10b981); color: white; padding: 1rem 2rem; border-radius: 0.75rem; font-weight: 600; font-size: 1.125rem; display: flex; align-items: center; gap: 0.5rem; box-shadow: 0 4px 16px rgba(16,185,129,0.3); transition: transform 0.2s ease, box-shadow 0.2s ease;" onmouseover="this.style.transform='scale(1.05)'; this.style.boxShadow='0 6px 20px rgba(16,185,129,0.4)';" onmouseout="this.style.transform='scale(1)'; this.style.boxShadow='0 4px 16px rgba(16,185,129,0.3)';">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>
+              Start Interactive Demo
+            </div>
+            <p style="color: #64748b; font-size: 0.875rem;">Click to explore the dashboard</p>
+          </div>
         </div>
       </div>
       <!-- Mobile fallback for dashboard (static, no link) -->
