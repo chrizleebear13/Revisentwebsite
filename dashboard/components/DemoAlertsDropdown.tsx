@@ -74,7 +74,7 @@ export function DemoAlertsDropdown() {
   const hasWarningsOrErrors = false
 
   return (
-    <div className="relative" ref={dropdownRef}>
+    <div className="relative z-50" ref={dropdownRef}>
       <button
         onClick={() => setIsOpen(!isOpen)}
         className="relative p-2 rounded-lg hover:bg-muted/50 transition-colors"
@@ -92,7 +92,7 @@ export function DemoAlertsDropdown() {
       </button>
 
       {isOpen && (
-        <div className="absolute right-0 mt-2 w-80 bg-card/95 backdrop-blur-xl border border-border/50 rounded-xl shadow-lg z-[100]">
+        <div className="absolute right-0 mt-2 w-80 bg-card/95 backdrop-blur-xl border border-border/50 rounded-xl shadow-lg z-[9999]">
           <div className="p-3 border-b border-border/50">
             <h3 className="text-sm font-semibold flex items-center gap-2">
               <Bell className="w-4 h-4" />
