@@ -226,31 +226,39 @@ export function LiveTrackingChart({ organizationId, deviceId }: LiveTrackingChar
             return `${date.getFullYear()}-${date.getMonth()}-${date.getDate()}-${hours}`
           } else if (timeFrame === 'Y' || (timeFrame === 'C' && timeSlots.length > 0 && timeSlots.length < 15)) {
             // Weekly grouping for YTD or long custom ranges
-            // Find the week this date belongs to by comparing normalized dates
+            // Find the week this date belongs to using timestamp comparisons
             const normalizedDate = normalizeToLocalDay(date)
+            const dateTime = normalizedDate.getTime()
 
             for (let idx = 0; idx < timeSlots.length; idx++) {
               const slotStart = normalizeToLocalDay(timeSlots[idx])
+              const slotStartTime = slotStart.getTime()
               const nextSlot = timeSlots[idx + 1]
 
               if (!nextSlot) {
-                // Last slot - check if date is on or after this slot start
-                if (normalizedDate >= slotStart) {
+                // Last slot - any date on or after this slot start goes here
+                if (dateTime >= slotStartTime) {
                   return `${slotStart.getFullYear()}-${slotStart.getMonth()}-${slotStart.getDate()}`
                 }
               } else {
                 const nextSlotStart = normalizeToLocalDay(nextSlot)
-                if (normalizedDate >= slotStart && normalizedDate < nextSlotStart) {
+                const nextSlotTime = nextSlotStart.getTime()
+                if (dateTime >= slotStartTime && dateTime < nextSlotTime) {
                   return `${slotStart.getFullYear()}-${slotStart.getMonth()}-${slotStart.getDate()}`
                 }
               }
             }
 
-            // If no slot found (shouldn't happen), return first slot key for detections
-            // to avoid orphaned data, or daily key for initial setup
-            if (isFromDetection && timeSlots.length > 0) {
-              const firstSlot = timeSlots[0]
-              return `${firstSlot.getFullYear()}-${firstSlot.getMonth()}-${firstSlot.getDate()}`
+            // Fallback: find the closest slot by checking if date is before first slot
+            if (timeSlots.length > 0) {
+              const firstSlot = normalizeToLocalDay(timeSlots[0])
+              if (dateTime < firstSlot.getTime()) {
+                // Date is before the year started - put in first slot
+                return `${firstSlot.getFullYear()}-${firstSlot.getMonth()}-${firstSlot.getDate()}`
+              }
+              // Otherwise use last slot
+              const lastSlot = normalizeToLocalDay(timeSlots[timeSlots.length - 1])
+              return `${lastSlot.getFullYear()}-${lastSlot.getMonth()}-${lastSlot.getDate()}`
             }
             return `${date.getFullYear()}-${date.getMonth()}-${date.getDate()}`
           } else {
@@ -460,52 +468,6 @@ export function LiveTrackingChart({ organizationId, deviceId }: LiveTrackingChar
       .replace(/\b\w/g, (char) => char.toUpperCase())
   }
 
-  // Custom tooltip component for better display
-  const CustomTooltip = ({ active, payload, label }: {
-    active?: boolean
-    payload?: Array<{ value?: number; name?: string; color?: string; payload?: ChartDataPoint }>
-    label?: string
-  }) => {
-    if (active && payload && payload.length > 0) {
-      // Get the display label from the first payload item's data
-      const dataPoint = payload[0]?.payload
-      const displayLabel = dataPoint?.displayLabel || label
-      const total = dataPoint?.total || 0
-
-      return (
-        <div className="bg-white/95 dark:bg-gray-900/95 border-none rounded-xl shadow-lg p-3 min-w-[140px]">
-          <p className="font-semibold text-sm mb-2 text-gray-900 dark:text-gray-100">{displayLabel}</p>
-          <div className="space-y-1.5">
-            {payload.map((entry) => {
-              const value = entry.value || 0
-              const name = entry.name || ''
-              const color = entry.color || '#666'
-              return (
-                <div key={name} className="flex items-center justify-between gap-4">
-                  <div className="flex items-center gap-2">
-                    <div
-                      className="w-2 h-2 rounded-full"
-                      style={{ backgroundColor: color }}
-                    />
-                    <span className="text-xs text-gray-600 dark:text-gray-400">{name}</span>
-                  </div>
-                  <span className="text-xs font-semibold text-gray-900 dark:text-gray-100">{value}</span>
-                </div>
-              )
-            })}
-            <div className="border-t border-gray-200 dark:border-gray-700 pt-1.5 mt-1.5">
-              <div className="flex items-center justify-between gap-4">
-                <span className="text-xs font-medium text-gray-700 dark:text-gray-300">Total</span>
-                <span className="text-xs font-bold text-primary">{total}</span>
-              </div>
-            </div>
-          </div>
-        </div>
-      )
-    }
-    return null
-  }
-
   return (
     <Card className="p-5 gradient-card shadow-sm border-0">
       {loading ? (
@@ -634,7 +596,16 @@ export function LiveTrackingChart({ organizationId, deviceId }: LiveTrackingChar
                         tickFormatter={(value) => value >= 1000 ? `${(value / 1000).toFixed(value >= 10000 ? 0 : 1)}k` : value}
                       />
                       <Tooltip
-                        content={<CustomTooltip />}
+                        contentStyle={{
+                          backgroundColor: 'white',
+                          border: 'none',
+                          borderRadius: '12px',
+                          boxShadow: '0 4px 20px rgba(0, 0, 0, 0.1)',
+                          padding: '12px 16px',
+                          fontSize: '12px'
+                        }}
+                        labelStyle={{ fontWeight: 600, marginBottom: '8px', color: '#111827' }}
+                        itemStyle={{ padding: '2px 0' }}
                         cursor={{ stroke: '#e5e7eb', strokeWidth: 1 }}
                       />
                       <Area
