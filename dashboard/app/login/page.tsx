@@ -8,7 +8,7 @@ import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import { Card } from '@/components/ui/card'
-import { Leaf, Mail, Loader2 } from 'lucide-react'
+import { Leaf, Mail, Loader2, Eye, EyeOff } from 'lucide-react'
 
 export default function LoginPage() {
   const [identifier, setIdentifier] = useState('') // Can be email or username
@@ -16,6 +16,7 @@ export default function LoginPage() {
   const [error, setError] = useState<string | null>(null)
   const [loading, setLoading] = useState(false)
   const [oauthLoading, setOauthLoading] = useState<string | null>(null)
+  const [showPassword, setShowPassword] = useState(false)
   const [processingToken, setProcessingToken] = useState(false)
   const router = useRouter()
   const supabase = createClient()
@@ -243,18 +244,35 @@ export default function LoginPage() {
             </div>
 
             <div className="space-y-1.5">
-              <Label htmlFor="password" className="text-sm">Password</Label>
-              <Input
-                id="password"
-                name="password"
-                type="password"
-                autoComplete="current-password"
-                required
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                className="h-10"
-                placeholder="••••••••"
-              />
+              <div className="flex items-center justify-between">
+                <Label htmlFor="password" className="text-sm">Password</Label>
+                <Link
+                  href="/auth/forgot-password"
+                  className="text-xs text-primary hover:text-primary/80 transition-colors"
+                >
+                  Forgot password?
+                </Link>
+              </div>
+              <div className="relative">
+                <Input
+                  id="password"
+                  name="password"
+                  type={showPassword ? 'text' : 'password'}
+                  autoComplete="current-password"
+                  required
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                  className="h-10 pr-10"
+                  placeholder="••••••••"
+                />
+                <button
+                  type="button"
+                  onClick={() => setShowPassword(!showPassword)}
+                  className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground transition-colors"
+                >
+                  {showPassword ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
+                </button>
+              </div>
             </div>
 
             <Button
