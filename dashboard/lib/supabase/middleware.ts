@@ -62,6 +62,11 @@ export async function updateSession(request: NextRequest) {
     userRole = profile?.role || null
   }
 
+  // Skip auth for demo routes
+  if (request.nextUrl.pathname.startsWith('/demo')) {
+    return supabaseResponse
+  }
+
   // Protect admin routes from non-admin users
   if (request.nextUrl.pathname.startsWith('/admin')) {
     if (!user) {
