@@ -205,19 +205,6 @@ export function LiveTrackingChart({ organizationId, deviceId }: LiveTrackingChar
 
         if (error) throw error
 
-        // Helper to parse a date from ISO string ensuring local timezone
-        const parseLocalDate = (isoString: string): Date => {
-          const date = new Date(isoString)
-          return date
-        }
-
-        // Helper to normalize a date to start of day in local time
-        const normalizeToLocalDay = (date: Date): Date => {
-          const normalized = new Date(date)
-          normalized.setHours(0, 0, 0, 0)
-          return normalized
-        }
-
         // Initialize all time slots with zero counts using array (index-based)
         const grouped: Array<{ total: number; compost: number; recycle: number; trash: number }> =
           timeSlots.map(() => ({ total: 0, compost: 0, recycle: 0, trash: 0 }))
@@ -294,36 +281,19 @@ export function LiveTrackingChart({ organizationId, deviceId }: LiveTrackingChar
 
         // Group detections into time slots
         if (detections && detections.length > 0) {
-          let matchedCount = 0
-          let unmatchedCount = 0
-
           detections.forEach((item) => {
-            const detectedDate = parseLocalDate(item.created_at)
+            const detectedDate = new Date(item.created_at)
             const slotIdx = getSlotIndex(detectedDate)
 
             if (slotIdx >= 0 && slotIdx < grouped.length) {
-              matchedCount++
               const group = grouped[slotIdx]
               group.total++
               const category = item.category?.toLowerCase()?.trim() as 'compost' | 'recycle' | 'trash'
               if (category === 'compost' || category === 'recycle' || category === 'trash') {
                 group[category]++
               }
-            } else {
-              unmatchedCount++
             }
           })
-
-          // Debug logging
-          console.log(`[LiveTrackingChart] TimeFrame: ${timeFrame}, Slots: ${timeSlots.length}, Detections: ${detections.length}, Matched: ${matchedCount}, Unmatched: ${unmatchedCount}`)
-          if (timeSlots.length > 0) {
-            console.log(`[LiveTrackingChart] First slot: ${timeSlots[0].toISOString()}, Last slot: ${timeSlots[timeSlots.length - 1].toISOString()}`)
-          }
-          if (detections.length > 0) {
-            console.log(`[LiveTrackingChart] First detection: ${detections[0].created_at}, Last detection: ${detections[detections.length - 1].created_at}`)
-          }
-          const totalGrouped = grouped.reduce((sum, g) => sum + g.total, 0)
-          console.log(`[LiveTrackingChart] Total in grouped: ${totalGrouped}`)
         }
 
         // Convert to array with formatted labels
