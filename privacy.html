@@ -71,7 +71,7 @@
   <section class="page-header bg-white">
     <div class="container text-center">
       <h1 class="page-title">Privacy Policy</h1>
-      <p class="page-subtitle">Last updated: March 9, 2026</p>
+      <p class="page-subtitle">Last updated: March 16, 2026</p>
     </div>
   </section>
 
@@ -79,7 +79,7 @@
     <div class="container" style="max-width: 800px;">
       <div class="legal-content" style="line-height: 1.8; color: var(--muted-foreground);">
 
-        <p style="margin-bottom: 1.5rem;">Revisent ("we," "our," or "us") provides a browser extension and dashboard that helps organizations understand and improve how their teams use AI tools. This Privacy Policy explains what data we collect, how we use it, and your rights.</p>
+        <p style="margin-bottom: 1.5rem;">Revisent ("we," "our," or "us") provides a browser extension and dashboard that helps organizations understand and improve how their teams use AI tools. This Privacy Policy explains what data we collect, how we use it, who we share it with, and your rights.</p>
 
         <h2 style="font-size: 1.25rem; font-weight: 700; color: var(--foreground); margin-bottom: 1rem;">1. Data We Collect</h2>
         <h3 style="font-size: 1.1rem; font-weight: 600; color: var(--foreground); margin-bottom: 0.75rem;">Through the Browser Extension:</h3>
@@ -88,11 +88,12 @@
           <li style="margin-bottom: 0.5rem;"><strong style="color: var(--foreground);">Conversation context:</strong> Recent messages in your current AI chat session, used solely to improve prompt refinement quality.</li>
           <li style="margin-bottom: 0.5rem;"><strong style="color: var(--foreground);">File references:</strong> Names of files mentioned or attached in your AI conversations, used for data leakage detection. We do not collect file contents.</li>
           <li style="margin-bottom: 0.5rem;"><strong style="color: var(--foreground);">Usage metadata:</strong> The AI platform used, timestamps, whether a prompt was refined, and intent classification (research or clarification).</li>
+          <li style="margin-bottom: 0.5rem;"><strong style="color: var(--foreground);">Local storage:</strong> The extension stores authentication tokens, user preferences (such as auto-refine settings), and usage statistics (prompt count, streak) locally on your device using Chrome's storage API. This data never leaves your device unless explicitly synced.</li>
         </ul>
         <h3 style="font-size: 1.1rem; font-weight: 600; color: var(--foreground); margin-bottom: 0.75rem;">Through the Dashboard:</h3>
         <ul style="margin-bottom: 1.5rem; padding-left: 1.5rem;">
-          <li style="margin-bottom: 0.5rem;"><strong style="color: var(--foreground);">Account information:</strong> Email address and authentication credentials managed through our authentication provider.</li>
-          <li style="margin-bottom: 0.5rem;"><strong style="color: var(--foreground);">Organization data:</strong> Organization name, member roles, and department assignments.</li>
+          <li style="margin-bottom: 0.5rem;"><strong style="color: var(--foreground);">Account information:</strong> Email address, first name, last name, and authentication credentials managed through our authentication provider.</li>
+          <li style="margin-bottom: 0.5rem;"><strong style="color: var(--foreground);">Organization data:</strong> Organization name, member roles, department assignments, and invite codes.</li>
         </ul>
 
         <h2 style="font-size: 1.25rem; font-weight: 700; color: var(--foreground); margin-bottom: 1rem;">2. How We Use Your Data</h2>
@@ -100,19 +101,18 @@
           <li style="margin-bottom: 0.5rem;"><strong style="color: var(--foreground);">Prompt refinement:</strong> Your prompts are sent to the Anthropic API (Claude) to generate improved versions before you send them to an AI platform.</li>
           <li style="margin-bottom: 0.5rem;"><strong style="color: var(--foreground);">Usage analytics:</strong> Aggregated usage data is displayed to organization admins through the dashboard, including message counts, platform breakdowns, and activity trends.</li>
           <li style="margin-bottom: 0.5rem;"><strong style="color: var(--foreground);">Topic insights:</strong> AI-generated summaries of research topics and knowledge gaps across your organization, powered by the Anthropic API.</li>
-          <li style="margin-bottom: 0.5rem;"><strong style="color: var(--foreground);">Data leakage detection:</strong> File names are analyzed to alert users and admins when potentially sensitive files are referenced in AI conversations.</li>
+          <li style="margin-bottom: 0.5rem;"><strong style="color: var(--foreground);">Data leakage detection:</strong> File names and message content are analyzed to alert users and admins when potentially sensitive information (API keys, credentials, personal data) is referenced in AI conversations.</li>
+          <li style="margin-bottom: 0.5rem;"><strong style="color: var(--foreground);">Authentication:</strong> Email and password are used to create and manage your account.</li>
         </ul>
-        <p style="margin-bottom: 1.5rem; font-weight: 500; color: var(--foreground);">We do not sell your data. We do not use your data to train AI models.</p>
+        <p style="margin-bottom: 1.5rem; font-weight: 500; color: var(--foreground);">We do not sell your data. We do not use your data to train AI models. We do not use your data for advertising.</p>
 
-        <h2 style="font-size: 1.25rem; font-weight: 700; color: var(--foreground); margin-bottom: 1rem;">3. Data Storage and Security</h2>
-        <p style="margin-bottom: 1.5rem;">Your data is stored securely using Supabase, a hosted PostgreSQL platform with row-level security policies. Data is encrypted in transit (TLS) and at rest. Access to organization data is restricted to authenticated members of that organization, with admin-only access to analytics and sensitive settings.</p>
-
-        <h2 style="font-size: 1.25rem; font-weight: 700; color: var(--foreground); margin-bottom: 1rem;">4. Third-Party Services</h2>
-        <p style="margin-bottom: 1rem;">We use the following third-party services to operate Revisent:</p>
+        <h2 style="font-size: 1.25rem; font-weight: 700; color: var(--foreground); margin-bottom: 1rem;">3. Data Sharing</h2>
+        <p style="margin-bottom: 1rem;">We share user data only with the following third-party service providers, solely for the purposes described in this policy:</p>
         <table style="width: 100%; border-collapse: collapse; margin-bottom: 1rem; font-size: 0.95rem;">
           <thead>
             <tr style="border-bottom: 2px solid var(--border);">
               <th style="text-align: left; padding: 0.5rem 1rem 0.5rem 0; color: var(--foreground);">Service</th>
+              <th style="text-align: left; padding: 0.5rem 1rem 0.5rem 0; color: var(--foreground);">Data Shared</th>
               <th style="text-align: left; padding: 0.5rem 1rem 0.5rem 0; color: var(--foreground);">Purpose</th>
               <th style="text-align: left; padding: 0.5rem 0; color: var(--foreground);">Privacy Policy</th>
             </tr>
@@ -120,23 +120,31 @@
           <tbody>
             <tr style="border-bottom: 1px solid var(--border);">
               <td style="padding: 0.5rem 1rem 0.5rem 0;">Supabase</td>
-              <td style="padding: 0.5rem 1rem 0.5rem 0;">Authentication, database, and serverless functions</td>
+              <td style="padding: 0.5rem 1rem 0.5rem 0;">Account info, prompts, usage metadata</td>
+              <td style="padding: 0.5rem 1rem 0.5rem 0;">Authentication, database storage, serverless functions</td>
               <td style="padding: 0.5rem 0;"><a href="https://supabase.com/privacy" target="_blank" rel="noopener noreferrer" style="color: var(--primary);">supabase.com/privacy</a></td>
             </tr>
             <tr>
               <td style="padding: 0.5rem 1rem 0.5rem 0;">Anthropic</td>
+              <td style="padding: 0.5rem 1rem 0.5rem 0;">Prompt text, conversation context</td>
               <td style="padding: 0.5rem 1rem 0.5rem 0;">Prompt refinement and topic summarization via API</td>
               <td style="padding: 0.5rem 0;"><a href="https://www.anthropic.com/privacy" target="_blank" rel="noopener noreferrer" style="color: var(--primary);">anthropic.com/privacy</a></td>
             </tr>
           </tbody>
         </table>
-        <p style="margin-bottom: 1.5rem;">When your prompts are sent to Anthropic's API for refinement or summarization, they are processed according to Anthropic's API data usage policy, which does not use API inputs to train models.</p>
+        <p style="margin-bottom: 1rem;">When your prompts are sent to Anthropic's API for refinement or summarization, they are processed according to Anthropic's API data usage policy, which does not use API inputs to train models.</p>
+        <p style="margin-bottom: 1.5rem;">We do not share, sell, or transfer your data to any other third parties. No data is shared with data brokers, advertising networks, or analytics providers.</p>
+
+        <h2 style="font-size: 1.25rem; font-weight: 700; color: var(--foreground); margin-bottom: 1rem;">4. Data Storage, Security, and Transfer</h2>
+        <p style="margin-bottom: 1rem;">Your data is stored securely using Supabase, a hosted PostgreSQL platform with row-level security policies. Data is encrypted in transit (TLS) and at rest. Access to organization data is restricted to authenticated members of that organization, with admin-only access to analytics and sensitive settings.</p>
+        <p style="margin-bottom: 1.5rem;">Data is processed and stored on servers located in the United States. By using Revisent, you consent to the transfer and processing of your data in the United States.</p>
 
         <h2 style="font-size: 1.25rem; font-weight: 700; color: var(--foreground); margin-bottom: 1rem;">5. Data Retention</h2>
         <ul style="margin-bottom: 1.5rem; padding-left: 1.5rem;">
           <li style="margin-bottom: 0.5rem;"><strong style="color: var(--foreground);">Prompts and messages:</strong> Retained for as long as your organization's account is active. Admins can request deletion at any time.</li>
           <li style="margin-bottom: 0.5rem;"><strong style="color: var(--foreground);">Summary cache:</strong> AI-generated summaries are cached for up to 24 hours and automatically refreshed.</li>
-          <li style="margin-bottom: 0.5rem;"><strong style="color: var(--foreground);">Account data:</strong> Retained until account deletion is requested.</li>
+          <li style="margin-bottom: 0.5rem;"><strong style="color: var(--foreground);">Account data:</strong> Retained until account deletion is requested. Upon deletion, all associated data is permanently removed within 30 days.</li>
+          <li style="margin-bottom: 0.5rem;"><strong style="color: var(--foreground);">Local storage:</strong> Data stored locally on your device persists until you uninstall the extension or clear browser data.</li>
         </ul>
 
         <h2 style="font-size: 1.25rem; font-weight: 700; color: var(--foreground); margin-bottom: 1rem;">6. Your Rights</h2>
@@ -147,18 +155,26 @@
           <li style="margin-bottom: 0.5rem;">Export your data in a standard format.</li>
           <li style="margin-bottom: 0.5rem;">Opt out of prompt collection by disabling the extension.</li>
         </ul>
-        <p style="margin-bottom: 1.5rem;">To exercise any of these rights, contact us at the email below.</p>
+        <p style="margin-bottom: 1.5rem;">To exercise any of these rights, contact us at the email below. We will respond to requests within 30 days.</p>
 
         <h2 style="font-size: 1.25rem; font-weight: 700; color: var(--foreground); margin-bottom: 1rem;">7. Organization Admin Access</h2>
-        <p style="margin-bottom: 1.5rem;">If you use Revisent through an organization, your organization's admins can view aggregated usage analytics, topic summaries, and data leakage alerts. Admins cannot see the full text of individual prompts in the analytics dashboard — only truncated excerpts used for topic classification.</p>
+        <p style="margin-bottom: 1.5rem;">If you use Revisent through an organization, your organization's admins can view aggregated usage analytics, topic summaries, and data leakage alerts. Admins cannot see the full text of individual prompts in the analytics dashboard — only truncated excerpts used for leakage detection.</p>
 
-        <h2 style="font-size: 1.25rem; font-weight: 700; color: var(--foreground); margin-bottom: 1rem;">8. Children's Privacy</h2>
+        <h2 style="font-size: 1.25rem; font-weight: 700; color: var(--foreground); margin-bottom: 1rem;">8. Legal Basis for Processing</h2>
+        <p style="margin-bottom: 0.5rem;">We process your data based on:</p>
+        <ul style="margin-bottom: 1.5rem; padding-left: 1.5rem;">
+          <li style="margin-bottom: 0.5rem;"><strong style="color: var(--foreground);">Consent:</strong> By installing the extension and creating an account, you consent to the collection and processing described in this policy.</li>
+          <li style="margin-bottom: 0.5rem;"><strong style="color: var(--foreground);">Legitimate interest:</strong> Usage analytics and data leakage detection serve the legitimate business interests of your organization in managing AI usage responsibly.</li>
+          <li style="margin-bottom: 0.5rem;"><strong style="color: var(--foreground);">Contractual necessity:</strong> Account and organization data is necessary to provide the Revisent service.</li>
+        </ul>
+
+        <h2 style="font-size: 1.25rem; font-weight: 700; color: var(--foreground); margin-bottom: 1rem;">9. Children's Privacy</h2>
         <p style="margin-bottom: 1.5rem;">Revisent is not intended for use by individuals under the age of 13. We do not knowingly collect data from children.</p>
 
-        <h2 style="font-size: 1.25rem; font-weight: 700; color: var(--foreground); margin-bottom: 1rem;">9. Changes to This Policy</h2>
-        <p style="margin-bottom: 1.5rem;">We may update this Privacy Policy from time to time. We will notify users of material changes through the extension or dashboard.</p>
+        <h2 style="font-size: 1.25rem; font-weight: 700; color: var(--foreground); margin-bottom: 1rem;">10. Changes to This Policy</h2>
+        <p style="margin-bottom: 1.5rem;">We may update this Privacy Policy from time to time. We will notify users of material changes through the extension or dashboard. Continued use after changes constitutes acceptance of the updated policy.</p>
 
-        <h2 style="font-size: 1.25rem; font-weight: 700; color: var(--foreground); margin-bottom: 1rem;">10. Contact Us</h2>
+        <h2 style="font-size: 1.25rem; font-weight: 700; color: var(--foreground); margin-bottom: 1rem;">11. Contact Us</h2>
         <p style="margin-bottom: 0.5rem;">If you have questions about this Privacy Policy, contact us at:</p>
         <p>Email: <a href="mailto:chris@revisent.com" style="color: var(--primary);">chris@revisent.com</a></p>
 
